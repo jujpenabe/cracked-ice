@@ -1,0 +1,130 @@
+[gd_scene load_steps=17 format=3 uid="uid://kcth468nwv1c"]
+
+[ext_resource type="Material" uid="uid://ick3wtnkw0j" path="res://materials/snow.tres" id="1_1188u"]
+[ext_resource type="PackedScene" uid="uid://ci52bv1m15cbs" path="res://cars/Doge.tscn" id="1_b40jr"]
+[ext_resource type="PackedScene" uid="uid://shj2ppkd1m8o" path="res://models/pedestrian.glb" id="2_2am55"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4p50l"]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0rnwe"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ixf5q"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_inxj6"]
+height = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qe4q1"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0aam0"]
+
+[sub_resource type="Gradient" id="Gradient_sue5r"]
+offsets = PackedFloat32Array(0, 0.290503)
+colors = PackedColorArray(0, 0, 0, 1, 0.566749, 0.566749, 0.566749, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hgr2f"]
+noise_type = 4
+frequency = 0.0515
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jk1v7"]
+color_ramp = SubResource("Gradient_sue5r")
+noise = SubResource("FastNoiseLite_hgr2f")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sdarf"]
+albedo_color = Color(0.348505, 0.588553, 0.518641, 1)
+metallic = 1.0
+metallic_specular = 0.51
+metallic_texture = SubResource("NoiseTexture2D_jk1v7")
+roughness = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kta6p"]
+albedo_color = Color(0.76, 0.95, 0.95, 1)
+roughness = 0.1
+
+[sub_resource type="TextMesh" id="TextMesh_ueus2"]
+material = SubResource("StandardMaterial3D_kta6p")
+text = "CRACKED ICE TEST
+"
+font_size = 64
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8rrnv"]
+
+[node name="Main" type="Node3D"]
+
+[node name="CharacterBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(0.238737, 0, -0.971084, 0, 1, 0, 0.971084, 0, 0.238737, 6.9225, 3.14043, -15.0294)
+disable_mode = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_4p50l")
+
+[node name="pedestrian" parent="CharacterBody3D" instance=ExtResource("2_2am55")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.19209e-07, 0)
+
+[node name="MeshInstance" type="MeshInstance3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+gi_mode = 2
+mesh = SubResource("PlaneMesh_0rnwe")
+surface_material_override/0 = ExtResource("1_1188u")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance/StaticBody3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_ixf5q")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.98159, 1.87565, -23.939)
+light_color = Color(0.995733, 0.729142, 0.441916, 1)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="OmniLight3D"]
+transform = Transform3D(0.725938, -0.00986046, -0.68769, 0.00728998, 0.999951, -0.0066424, 0.687722, -0.000191268, 0.725974, 0, 0, 0)
+light_color = Color(0.89, 0.821915, 0.7387, 1)
+light_energy = 5.059
+spot_range = 44.1262
+spot_angle = 46.1985
+
+[node name="car" parent="." instance=ExtResource("1_b40jr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.462129, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 8.59359, 14.2894, 0)
+light_color = Color(0.8, 0.8, 0.8, 1)
+light_energy = 0.8
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.05836, -34)
+mesh = SubResource("CylinderMesh_inxj6")
+surface_material_override/0 = SubResource("StandardMaterial3D_qe4q1")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3.79117, 0.373814, -23.5021)
+mesh = SubResource("PlaneMesh_0aam0")
+surface_material_override/0 = SubResource("StandardMaterial3D_sdarf")
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.884, 1.87565, -23.939)
+light_color = Color(0.995733, 0.729142, 0.441916, 1)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="OmniLight3D2"]
+transform = Transform3D(0.729958, -0.000781379, 0.683491, 0.00728998, 0.999951, -0.00664241, -0.683453, 0.0098313, 0.729928, 0, 0, 0)
+light_color = Color(0.89, 0.821915, 0.7387, 1)
+light_energy = 5.059
+spot_range = 44.1262
+spot_angle = 46.1985
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 26.0744, 0.373814, -23.5021)
+mesh = SubResource("PlaneMesh_0aam0")
+surface_material_override/0 = SubResource("StandardMaterial3D_sdarf")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.955, 0, 0, 0, 3.955, 0, 0, 0, 3.955, 12.0089, 5.48974, -34)
+mesh = SubResource("TextMesh_ueus2")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-5, 7.54979e-07, 0, -7.54979e-07, -5, 0, 0, 0, 5, 0, 10.5576, -32.6297)
+mesh = SubResource("PlaneMesh_8rrnv")
