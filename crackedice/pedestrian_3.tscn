@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcyahuvyfdund"]
+
+[ext_resource type="PackedScene" uid="uid://db4sqe6t8p0lb" path="res://models/pedestrian3.glb" id="1_533mh"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4p50l"]
+radius = 0.25
+height = 1.0
+
+[node name="Pedestrian3" type="RigidBody3D"]
+disable_mode = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_4p50l")
+
+[node name="pedestrian3" parent="CollisionShape3D" instance=ExtResource("1_533mh")]
