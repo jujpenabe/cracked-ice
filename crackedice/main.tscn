@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bs4xdyx3mglt2"]
+[gd_scene load_steps=9 format=3 uid="uid://c2erolxcm4ewu"]
 
 [ext_resource type="PackedScene" uid="uid://ci52bv1m15cbs" path="res://cars/Doge.tscn" id="1_mdet3"]
 [ext_resource type="Texture2D" uid="uid://cpwiyoo7664vj" path="res://cars/Models/texture_10.png" id="2_4uho4"]

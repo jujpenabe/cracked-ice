@@ -11,9 +11,17 @@ config_version=5
 [application]
 
 config/name="CrackedIce"
-run/main_scene="res://scripts/Main.tscn"
+run/main_scene="res://intro.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icons/CrackedIceCover1.jpg"
+
+[audio]
+
+buses/default_bus_layout="res://addons/EasyMenus/default_bus_layout.tres"
+
+[autoload]
+
+MenuTemplateManager="*res://addons/EasyMenus/Nodes/menu_template_manager.tscn"
 
 [file_customization]
 
