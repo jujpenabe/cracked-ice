@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="CrackedIce"
-run/main_scene="res://intro.tscn"
+run/main_scene="res://CrackedIce/Maps/Intro/intro.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icons/CrackedIceCover1.jpg"
 
@@ -26,7 +26,13 @@ MenuTemplateManager="*res://addons/EasyMenus/Nodes/menu_template_manager.tscn"
 [file_customization]
 
 folder_colors={
-"res://models/": "orange"
+"res://CrackedIce/Art/": "yellow",
+"res://CrackedIce/Entities/": "blue",
+"res://CrackedIce/Globals/": "red",
+"res://CrackedIce/Maps/": "gray",
+"res://CrackedIce/MaterialLibrary/": "pink",
+"res://CrackedIce/Menus/": "green",
+"res://CrackedIce/UI/": "purple"
 }
 
 [rendering]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://unhfalbl18a2"]
+
+[ext_resource type="PackedScene" uid="uid://ylxt3brl7mal" path="res://CrackedIce/Entities/NPC/Pedestrians/pedestrian6.glb" id="1_785dh"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4p50l"]
+radius = 0.25
+height = 1.0
+
+[node name="Pedestrian6" type="RigidBody3D"]
+disable_mode = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_4p50l")
+
+[node name="pedestrian6" parent="CollisionShape3D" instance=ExtResource("1_785dh")]

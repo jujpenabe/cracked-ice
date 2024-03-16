@@ -26,7 +26,7 @@ func _on_start_game_button_pressed():
 	emit_signal("start_game_pressed")
 	# TODO: Add option to skip intro
 	# Fade out and go to next scene
-	get_tree().change_scene_to_file("res://scripts/Main.tscn")
+	get_tree().change_scene_to_file("res://CrackedIce/Maps/Main/main.tscn")
 	
 	
 	
