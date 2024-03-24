@@ -16,7 +16,11 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09154, 0)
 vehicle_node = NodePath("VehicleRigidBody")
 
-[node name="VehicleRigidBody" parent="VehicleController" instance=ExtResource("2_aswcu")]
+[node name="VehicleRigidBody" parent="VehicleController" node_paths=PackedStringArray("front_left_wheel", "front_right_wheel", "rear_left_wheel", "rear_right_wheel") instance=ExtResource("2_aswcu")]
+front_left_wheel = NodePath("WheelFrontLeft")
+front_right_wheel = NodePath("WheelFrontRight")
+rear_left_wheel = NodePath("WheelRearLeft")
+rear_right_wheel = NodePath("WheelRearRight")
 front_camber = 0.136
 rear_camber = 0.136
 
@@ -24,6 +28,7 @@ rear_camber = 0.136
 vehicle = NodePath("..")
 
 [node name="Smoke" parent="VehicleController/VehicleRigidBody" node_paths=PackedStringArray("vehicle") instance=ExtResource("4_6x1xv")]
+emitting = false
 vehicle = NodePath("..")
 
 [node name="GUI" type="Control" parent="." node_paths=PackedStringArray("vehicle")]

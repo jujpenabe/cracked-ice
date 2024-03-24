@@ -14,8 +14,8 @@ size = Vector3(0.542114, 1.7092, 1.53265)
 radius = 0.363529
 
 [node name="car" instance=ExtResource("1_cfkas")]
-STEER_LIMIT = 0.4
-engine_force_value = 50
+STEER_LIMIT = 0.6
+engine_force_value = 40
 
 [node name="wheal0" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.997421, 0.340338, -1.50006)

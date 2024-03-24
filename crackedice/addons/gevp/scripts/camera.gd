@@ -19,5 +19,5 @@ func _process(delta):
 		delta_v = delta_v.normalized() * follow_distance
 		delta_v.y = follow_height
 		global_position = follow_this.global_transform.origin + delta_v
-	
+
 	look_at(follow_this.global_transform.origin, Vector3.UP)

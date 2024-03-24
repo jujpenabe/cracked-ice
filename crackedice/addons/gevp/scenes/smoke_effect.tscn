@@ -41,7 +41,6 @@ radial_segments = 8
 rings = 4
 
 [node name="Smoke" type="GPUParticles3D"]
-emitting = false
 amount = 100
 lifetime = 2.0
 process_material = SubResource("ParticleProcessMaterial_my0g6")

@@ -15,7 +15,11 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.246496, 0)
 vehicle_node = NodePath("VehicleRigidBody")
 
-[node name="VehicleRigidBody" parent="VehicleController" instance=ExtResource("2_ifc22")]
+[node name="VehicleRigidBody" parent="VehicleController" node_paths=PackedStringArray("front_left_wheel", "front_right_wheel", "rear_left_wheel", "rear_right_wheel") instance=ExtResource("2_ifc22")]
+front_left_wheel = NodePath("WheelFrontLeft")
+front_right_wheel = NodePath("WheelFrontRight")
+rear_left_wheel = NodePath("WheelRearLeft")
+rear_right_wheel = NodePath("WheelRearRight")
 rear_steering_ratio = -1.0
 wheel_to_body_torque_multiplier = 0.5
 coefficient_of_friction = {

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://40fh8ikhnbq4"]
+
+[ext_resource type="AudioStream" uid="uid://dio25xn4f7s6f" path="res://addons/gevp/sounds/4000.wav" id="1_auvb4"]
+[ext_resource type="Script" path="res://CrackedIce/Entities/NPC/Cars/base/engine_sound_base.gd" id="2_0mcuw"]
+
+[node name="EngineSound" type="AudioStreamPlayer3D"]
+stream = ExtResource("1_auvb4")
+autoplay = true
+script = ExtResource("2_0mcuw")
