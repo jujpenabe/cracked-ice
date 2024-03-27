@@ -59,7 +59,7 @@ func initialize():
 func _physics_process(delta):
 	speed = linear_velocity.length()*Engine.get_frames_per_second()*3.6*delta
 	traction(speed)
-	$Hud/speed.text=str(round(speed * 3))+"  KMPH"
+	$Hud/speed.text=str(round(speed))+"  KMPH"
 
 	delta_time += delta
 	local_velocity = lerp(((global_transform.origin - previous_global_position) / delta) * global_transform.basis, local_velocity, 0.5)

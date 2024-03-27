@@ -20,5 +20,8 @@ color_ramp = SubResource("Gradient_y6vpo")
 noise = SubResource("FastNoiseLite_4auk3")
 
 [resource]
+shading_mode = 2
+diffuse_mode = 2
 albedo_color = Color(0.891, 0.99, 0.97185, 1)
 albedo_texture = SubResource("NoiseTexture2D_3d1gk")
+texture_filter = 2
