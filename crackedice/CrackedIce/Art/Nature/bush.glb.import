@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://x3635vg0bns5"
-path="res://.godot/imported/test_cube.glb-09441d048c1847fd0e9d5a8f8bfaf78c.scn"
+uid="uid://cdi5gc0cfgfnl"
+path="res://.godot/imported/bush.glb-9528bf1c9044fe1ab0583d471c09ed01.scn"
 
 [deps]
 
-source_file="res://CrackedIce/Art/Buildings/test_cube.glb"
-dest_files=["res://.godot/imported/test_cube.glb-09441d048c1847fd0e9d5a8f8bfaf78c.scn"]
+source_file="res://CrackedIce/Art/Nature/bush.glb"
+dest_files=["res://.godot/imported/bush.glb-9528bf1c9044fe1ab0583d471c09ed01.scn"]
 
 [params]
 
@@ -31,22 +31,9 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={
-"materials": {
-"Test": {
-"use_external/enabled": true,
-"use_external/path": ""
-}
-},
-"nodes": {
-"PATH:TestCube": {
-"generate/physics": true,
-"physics/shape_type": 1
-}
-}
-}
+_subresources={}
 fbx/importer=0
 fbx/allow_geometry_helper_nodes=false
 fbx/embedded_image_handling=1
 gltf/naming_version=1
-gltf/embedded_image_handling=2
+gltf/embedded_image_handling=1

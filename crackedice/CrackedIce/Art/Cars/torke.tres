@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dscbqekdidcfj"]
+
+[ext_resource type="Texture2D" uid="uid://bwmtkyg21xg" path="res://CrackedIce/Art/Cars/torke.jpg" id="1_ja5sr"]
+[ext_resource type="Texture2D" uid="uid://eyh1n024hhot" path="res://CrackedIce/Art/Cars/torke_emit.jpg" id="2_v2gat"]
+
+[resource]
+shading_mode = 2
+albedo_color = Color(0.8, 0.8, 0.8, 1)
+albedo_texture = ExtResource("1_ja5sr")
+metallic = 0.8
+roughness = 0.8
+emission_enabled = true
+emission_energy_multiplier = 2.0
+emission_texture = ExtResource("2_v2gat")

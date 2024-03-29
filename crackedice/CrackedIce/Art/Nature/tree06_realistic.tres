@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dndpc4nb613p0"]
+
+[ext_resource type="Texture2D" uid="uid://bt7efrurk3r5k" path="res://CrackedIce/Art/Nature/tree06_realistic.png" id="1_um1xu"]
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 2
+albedo_texture = ExtResource("1_um1xu")
+metallic_specular = 0.0
+texture_filter = 2
+grow_amount = 0.258

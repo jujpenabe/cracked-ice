@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cuji6x0jvndxg"]
+
+[ext_resource type="Texture2D" uid="uid://bdnislwjfbodv" path="res://CrackedIce/Art/Nature/bush01_snowed.png" id="1_3balg"]
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 2
+albedo_color = Color(0.8, 0.8, 0.8, 1)
+albedo_texture = ExtResource("1_3balg")
+metallic_specular = 0.0
+texture_filter = 2
+grow_amount = 0.258
