@@ -1,0 +1,26 @@
+[remap]
+
+importer="3d_texture"
+type="CompressedTexture3D"
+uid="uid://bodg40e3bv2rl"
+path="res://.godot/imported/Main.GPUParticlesCollisionSDF3D_data.exr-83ea01c968a66b58df7ff0da17973be0.ctex3d"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://CrackedIce/Maps/Main/Main.GPUParticlesCollisionSDF3D_data.exr"
+dest_files=["res://.godot/imported/Main.GPUParticlesCollisionSDF3D_data.exr-83ea01c968a66b58df7ff0da17973be0.ctex3d"]
+
+[params]
+
+compress/mode=3
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=1
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=1
+slices/vertical=16
