@@ -1,0 +1,8 @@
+{
+    "godotTools.editorPath.godot4": "/home/jjpb/bin/repos/godot/bin/godot.linuxbsd.editor.x86_64.llvm",
+    "vim.enableNeovim": true,
+    "vim.neovimUseConfigFile": true,
+    "vim.sneak": true,
+    "files.autoSave": "onFocusChange",
+    "editor.wordWrap": "on"
+}

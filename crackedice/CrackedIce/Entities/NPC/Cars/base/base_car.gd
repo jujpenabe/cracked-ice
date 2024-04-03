@@ -106,7 +106,7 @@ func _physics_process(delta):
 	else:
 		$WheelRearRight.wheel_friction_slip=3
 		$WheelRearLeft.wheel_friction_slip=3
-	steering = move_toward(steering, steer_target, STEER_SPEED * delta)
+	steering = move_toward(steering, steer_target, STEER_SPEED)
 
 
 
@@ -191,15 +191,15 @@ func process_transmission(delta : float):
 
 		if current_gear < gear_ratios.size():
 			if current_gear > 0:
-				print ("Current ideal gear rpm: " + str(current_ideal_gear_rpm))
+				print ("Current ideal gear rpm: " + str(current_ideal_gear_rpm)+ "")
 				print("Current gear: " + str(current_gear))
-				if current_ideal_gear_rpm > (max_rpm * 0.8):
+				if current_ideal_gear_rpm > (max_rpm * 0.69):
 					if delta_time - last_shift_delta_time > shift_time:
 						shift(1)
 			elif current_gear == 0 and motor_rpm > clutch_out_rpm:
 				shift(1)
 		if current_gear - 1 > 0:
-			if current_gear > 1 and previous_gear_rpm < 0.75 * max_rpm:
+			if current_gear > 1 and previous_gear_rpm < 0.45 * max_rpm:
 				if delta_time - last_shift_delta_time > shift_time:
 					shift(-1)
 

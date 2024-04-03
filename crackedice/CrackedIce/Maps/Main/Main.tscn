@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://kcth468nwv1c"]
+[gd_scene load_steps=41 format=3 uid="uid://kcth468nwv1c"]
 
 [ext_resource type="Material" uid="uid://ick3wtnkw0j" path="res://CrackedIce/MaterialLibrary/Nature/Elements/snow.tres" id="1_1188u"]
 [ext_resource type="Texture2D" uid="uid://fm2gght7ay6h" path="res://CrackedIce/Art/Nature/Fading_Sky-Blue_01-1024x512.png" id="1_ecnpv"]
@@ -16,10 +16,15 @@
 [ext_resource type="PackedScene" uid="uid://8sl5gmdd6o6w" path="res://cars/camera/camera_3d.tscn" id="12_44cak"]
 [ext_resource type="Material" uid="uid://dscbqekdidcfj" path="res://CrackedIce/Art/Cars/torke.tres" id="12_qp3ru"]
 [ext_resource type="PackedScene" uid="uid://c0yx74fp34lya" path="res://CrackedIce/Art/Cars/torke_wheel.tscn" id="13_remcm"]
+[ext_resource type="Script" path="res://addons/debug_menu/debug_menu.gd" id="15_0agjk"]
+[ext_resource type="Texture2D" uid="uid://cal58ce7q8fy4" path="res://addons/kenney_particle_pack/smoke_03.png" id="17_6jgfr"]
 [ext_resource type="PackedScene" uid="uid://m4w2pyr3h1uq" path="res://CrackedIce/Art/Buildings/TheGenerator.tscn" id="18_psvjm"]
 [ext_resource type="PackedScene" uid="uid://cea5tf0r67n3c" path="res://CrackedIce/Art/Buildings/LightStoneRamp.tscn" id="19_m22ry"]
 [ext_resource type="PackedScene" uid="uid://vbdm3e28au67" path="res://CrackedIce/Art/Buildings/House1.tscn" id="19_vdak4"]
 [ext_resource type="PackedScene" uid="uid://cn4p108lpn45s" path="res://CrackedIce/Art/Nature/Tree06Realistic.tscn" id="20_13r56"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ki0n8"]
+bg_color = Color(0, 0, 0, 0.25098)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dcypn"]
 sky_top_color = Color(0.81, 0.8475, 0.9, 1)
@@ -157,7 +162,439 @@ shadow_mesh = SubResource("ArrayMesh_bt7bg")
 [sub_resource type="LabelSettings" id="LabelSettings_yc8e5"]
 font_size = 32
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vlu4j"]
+emission_shape_offset = Vector3(0, 0, -75)
+emission_shape = 3
+emission_box_extents = Vector3(75, 5, 100)
+angle_min = 1.07288e-05
+angle_max = 360.0
+direction = Vector3(1, -1, 0)
+spread = 60.0
+flatness = 0.25
+initial_velocity_min = 1.0
+initial_velocity_max = 10.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 9.99998
+linear_accel_min = 0.499998
+linear_accel_max = 4.0
+scale_min = 0.4
+scale_max = 0.6
+collision_mode = 1
+collision_friction = 0.8
+collision_bounce = 0.0
+collision_use_scale = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1t4st"]
+transparency = 1
+blend_mode = 1
+shading_mode = 2
+diffuse_mode = 3
+specular_mode = 2
+albedo_texture = ExtResource("17_6jgfr")
+texture_filter = 2
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_yc7t8"]
+material = SubResource("StandardMaterial3D_1t4st")
+
 [node name="Main" type="Node3D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("fps", "frame_time", "frame_number", "frame_history_total_avg", "frame_history_total_min", "frame_history_total_max", "frame_history_total_last", "frame_history_cpu_avg", "frame_history_cpu_min", "frame_history_cpu_max", "frame_history_cpu_last", "frame_history_gpu_avg", "frame_history_gpu_min", "frame_history_gpu_max", "frame_history_gpu_last", "fps_graph", "total_graph", "cpu_graph", "gpu_graph", "information", "settings")]
+layer = 128
+script = ExtResource("15_0agjk")
+fps = NodePath("DebugMenu/VBoxContainer/FPS")
+frame_time = NodePath("DebugMenu/VBoxContainer/FrameTime")
+frame_number = NodePath("DebugMenu/VBoxContainer/FrameNumber")
+frame_history_total_avg = NodePath("DebugMenu/VBoxContainer/FrameTimeHistory/TotalAvg")
+frame_history_total_min = NodePath("DebugMenu/VBoxContainer/FrameTimeHistory/TotalMin")
+frame_history_total_max = NodePath("DebugMenu/VBoxContainer/FrameTimeHistory/TotalMax")
+frame_history_total_last = NodePath("DebugMenu/VBoxContainer/FrameTimeHistory/TotalLast")
+frame_history_cpu_avg = NodePath("DebugMenu/VBoxContainer/FrameTimeHistory/CPUAvg")
+frame_history_cpu_min = NodePath("DebugMenu/VBoxContainer/FrameTimeHistory/CPUMin")
+frame_history_cpu_max = NodePath("DebugMenu/VBoxContainer/FrameTimeHistory/CPUMax")
+frame_history_cpu_last = NodePath("DebugMenu/VBoxContainer/FrameTimeHistory/CPULast")
+frame_history_gpu_avg = NodePath("DebugMenu/VBoxContainer/FrameTimeHistory/GPUAvg")
+frame_history_gpu_min = NodePath("DebugMenu/VBoxContainer/FrameTimeHistory/GPUMin")
+frame_history_gpu_max = NodePath("DebugMenu/VBoxContainer/FrameTimeHistory/GPUMax")
+frame_history_gpu_last = NodePath("DebugMenu/VBoxContainer/FrameTimeHistory/GPULast")
+fps_graph = NodePath("DebugMenu/VBoxContainer/FPSGraph/Graph")
+total_graph = NodePath("DebugMenu/VBoxContainer/TotalGraph/Graph")
+cpu_graph = NodePath("DebugMenu/VBoxContainer/CPUGraph/Graph")
+gpu_graph = NodePath("DebugMenu/VBoxContainer/GPUGraph/Graph")
+information = NodePath("DebugMenu/VBoxContainer/Information")
+settings = NodePath("DebugMenu/VBoxContainer/Settings")
+
+[node name="DebugMenu" type="Control" parent="CanvasLayer"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -416.0
+offset_top = 8.0
+offset_right = -16.0
+offset_bottom = 408.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DebugMenu"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_bottom = 374.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="FPS" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer"]
+modulate = Color(0, 1, 0, 1)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 18
+text = "60 FPS"
+horizontal_alignment = 2
+
+[node name="FrameTime" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer"]
+modulate = Color(0, 1, 0, 1)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "16.67 mspf (cap: 123 FPS + Adaptive V-Sync)"
+horizontal_alignment = 2
+
+[node name="FrameNumber" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Frame: 1234"
+horizontal_alignment = 2
+
+[node name="FrameTimeHistory" type="GridContainer" parent="CanvasLayer/DebugMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 5
+
+[node name="Spacer" type="Control" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="AvgHeader" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Average"
+horizontal_alignment = 2
+
+[node name="MinHeader" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Best"
+horizontal_alignment = 2
+
+[node name="MaxHeader" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Worst"
+horizontal_alignment = 2
+
+[node name="LastHeader" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Last"
+horizontal_alignment = 2
+
+[node name="TotalHeader" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Total:"
+horizontal_alignment = 2
+
+[node name="TotalAvg" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "123.45"
+horizontal_alignment = 2
+
+[node name="TotalMin" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "123.45"
+horizontal_alignment = 2
+
+[node name="TotalMax" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "123.45"
+horizontal_alignment = 2
+
+[node name="TotalLast" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "123.45"
+horizontal_alignment = 2
+
+[node name="CPUHeader" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "CPU:"
+horizontal_alignment = 2
+
+[node name="CPUAvg" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "123.45"
+horizontal_alignment = 2
+
+[node name="CPUMin" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "12.34"
+horizontal_alignment = 2
+
+[node name="CPUMax" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "123.45"
+horizontal_alignment = 2
+
+[node name="CPULast" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "123.45"
+horizontal_alignment = 2
+
+[node name="GPUHeader" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "GPU:"
+horizontal_alignment = 2
+
+[node name="GPUAvg" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "123.45"
+horizontal_alignment = 2
+
+[node name="GPUMin" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "1.23"
+horizontal_alignment = 2
+
+[node name="GPUMax" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "123.45"
+horizontal_alignment = 2
+
+[node name="GPULast" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FrameTimeHistory"]
+modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "123.45"
+horizontal_alignment = 2
+
+[node name="FPSGraph" type="HBoxContainer" parent="CanvasLayer/DebugMenu/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/FPSGraph"]
+custom_minimum_size = Vector2(0, 27)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "FPS: ↑"
+vertical_alignment = 1
+
+[node name="Graph" type="Panel" parent="CanvasLayer/DebugMenu/VBoxContainer/FPSGraph"]
+custom_minimum_size = Vector2(150, 25)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ki0n8")
+
+[node name="TotalGraph" type="HBoxContainer" parent="CanvasLayer/DebugMenu/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/TotalGraph"]
+custom_minimum_size = Vector2(0, 27)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Total: ↓"
+vertical_alignment = 1
+
+[node name="Graph" type="Panel" parent="CanvasLayer/DebugMenu/VBoxContainer/TotalGraph"]
+custom_minimum_size = Vector2(150, 25)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ki0n8")
+
+[node name="CPUGraph" type="HBoxContainer" parent="CanvasLayer/DebugMenu/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/CPUGraph"]
+custom_minimum_size = Vector2(0, 27)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "CPU: ↓"
+vertical_alignment = 1
+
+[node name="Graph" type="Panel" parent="CanvasLayer/DebugMenu/VBoxContainer/CPUGraph"]
+custom_minimum_size = Vector2(150, 25)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ki0n8")
+
+[node name="GPUGraph" type="HBoxContainer" parent="CanvasLayer/DebugMenu/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer/GPUGraph"]
+custom_minimum_size = Vector2(0, 27)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "GPU: ↓"
+vertical_alignment = 1
+
+[node name="Graph" type="Panel" parent="CanvasLayer/DebugMenu/VBoxContainer/GPUGraph"]
+custom_minimum_size = Vector2(150, 25)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ki0n8")
+
+[node name="Information" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer"]
+modulate = Color(1, 1, 1, 0.752941)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "12th Gen Intel(R) Core(TM) i0-1234K
+Windows 12 64-bit (double precision), Vulkan 1.2.34
+NVIDIA GeForce RTX 1234, 123.45.67"
+horizontal_alignment = 2
+
+[node name="Settings" type="Label" parent="CanvasLayer/DebugMenu/VBoxContainer"]
+modulate = Color(0.8, 0.84, 1, 0.752941)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Project Version: 1.2.3
+Rendering Method: Forward+
+Window: 1234×567, Viewport: 1234×567
+3D Scale (FSR 1.0): 100% = 1234×567
+3D Antialiasing: TAA + 2× MSAA + FXAA
+SSR: 123 Steps
+SSAO: On
+SSIL: On
+SDFGI: 1 Cascades
+Glow: On
+Volumetric Fog: On
+2D Antialiasing: 2× MSAA"
+horizontal_alignment = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_mbsf6")
@@ -173,6 +610,11 @@ surface_material_override/0 = ExtResource("1_1188u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_1nr6l")
+
+[node name="GPUParticlesCollisionHeightField3D" type="GPUParticlesCollisionHeightField3D" parent="Floor/StaticBody3D/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+size = Vector3(2, 0.1, 2)
+resolution = 5
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.9816, 1.87565, 303.061)
@@ -236,17 +678,15 @@ center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.1, 0)
 script = ExtResource("9_hjhih")
 STEER_LIMIT = 0.8
-engine_force_value = 100
+engine_force_value = 80
 motor_drag = 0.05
 max_rpm = 6000.0
 torque_curve = ExtResource("10_pppds")
 max_torque = 500.0
-motor_moment = 0.6
-clutch_out_rpm = 2000.0
-gear_ratios = Array[float]([3.4, 2.5, 1.5, 1.0, 0.6, 0.4])
-final_drive = 3.0
+clutch_out_rpm = 1500.0
+gear_ratios = Array[float]([4.7, 3.13, 2.1, 1.67, 1.28, 1.0])
+final_drive = 2.0
 reverse_ratio = 4.0
-shift_time = 0.4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="car"]
 transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0.75, 0.25)
@@ -356,6 +796,21 @@ label_settings = SubResource("LabelSettings_yc8e5")
 
 [node name="EngineSound" parent="car" node_paths=PackedStringArray("vehicle") instance=ExtResource("10_1nayr")]
 vehicle = NodePath("..")
+
+[node name="BlizzardGPUParticles" type="GPUParticles3D" parent="car"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+amount = 50000
+lifetime = 4.0
+preprocess = 2.0
+speed_scale = 0.75
+explosiveness = 0.1
+randomness = 0.2
+fixed_fps = 10
+fract_delta = false
+visibility_aabb = AABB(-4, -20, -4, 8, 16, 8)
+transform_align = 3
+process_material = SubResource("ParticleProcessMaterial_vlu4j")
+draw_pass_1 = SubResource("QuadMesh_yc7t8")
 
 [node name="mountain_range" parent="." instance=ExtResource("2_ql8ob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -574,3 +1029,5 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 
 [node name="tree60" parent="Trees" instance=ExtResource("20_13r56")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 51.3371, -1, 130.759)
+
+[connection signal="visibility_changed" from="CanvasLayer" to="CanvasLayer" method="_on_visibility_changed"]

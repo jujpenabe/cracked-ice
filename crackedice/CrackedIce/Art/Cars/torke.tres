@@ -5,10 +5,14 @@
 
 [resource]
 shading_mode = 2
-albedo_color = Color(0.8, 0.8, 0.8, 1)
+albedo_color = Color(0.522, 0.6, 0.5922, 1)
 albedo_texture = ExtResource("1_ja5sr")
-metallic = 0.8
-roughness = 0.8
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.75
 emission_enabled = true
-emission_energy_multiplier = 2.0
+emission = Color(0.04, 0, 0.0106667, 1)
 emission_texture = ExtResource("2_v2gat")
+rim_enabled = true
+rim_tint = 1.0
+texture_filter = 2
