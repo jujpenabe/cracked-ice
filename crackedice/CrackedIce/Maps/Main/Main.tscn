@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://kcth468nwv1c"]
+[gd_scene load_steps=42 format=3 uid="uid://kcth468nwv1c"]
 
 [ext_resource type="Material" uid="uid://ick3wtnkw0j" path="res://CrackedIce/MaterialLibrary/Nature/Elements/snow.tres" id="1_1188u"]
 [ext_resource type="Texture2D" uid="uid://fm2gght7ay6h" path="res://CrackedIce/Art/Nature/Fading_Sky-Blue_01-1024x512.png" id="1_ecnpv"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://cea5tf0r67n3c" path="res://CrackedIce/Art/Buildings/LightStoneRamp.tscn" id="19_m22ry"]
 [ext_resource type="PackedScene" uid="uid://vbdm3e28au67" path="res://CrackedIce/Art/Buildings/House1.tscn" id="19_vdak4"]
 [ext_resource type="PackedScene" uid="uid://cn4p108lpn45s" path="res://CrackedIce/Art/Nature/Tree06Realistic.tscn" id="20_13r56"]
+[ext_resource type="AudioStream" uid="uid://bqklem51td48q" path="res://Audio/AMB/AMB_JailOutside_01.wav" id="23_aymmw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ki0n8"]
 bg_color = Color(0, 0, 0, 0.25098)
@@ -36,7 +37,6 @@ ground_bottom_color = Color(0.6, 0.6775, 0.75, 1)
 ground_horizon_color = Color(0.34, 0.377, 0.4, 1)
 ground_energy_multiplier = 2.0
 use_debanding = false
-energy_multiplier = 0.8
 
 [sub_resource type="Sky" id="Sky_3htn3"]
 sky_material = SubResource("ProceduralSkyMaterial_dcypn")
@@ -258,8 +258,8 @@ theme_override_constants/separation = 0
 modulate = Color(0, 1, 0, 1)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/line_spacing = 0
 theme_override_constants/outline_size = 5
+theme_override_constants/line_spacing = 0
 theme_override_font_sizes/font_size = 18
 text = "60 FPS"
 horizontal_alignment = 2
@@ -1029,5 +1029,9 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 
 [node name="tree60" parent="Trees" instance=ExtResource("20_13r56")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 51.3371, -1, 130.759)
+
+[node name="AMbiente" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("23_aymmw")
+autoplay = true
 
 [connection signal="visibility_changed" from="CanvasLayer" to="CanvasLayer" method="_on_visibility_changed"]
