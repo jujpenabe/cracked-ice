@@ -22,7 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://cea5tf0r67n3c" path="res://CrackedIce/Art/Buildings/LightStoneRamp.tscn" id="19_m22ry"]
 [ext_resource type="PackedScene" uid="uid://vbdm3e28au67" path="res://CrackedIce/Art/Buildings/House1.tscn" id="19_vdak4"]
 [ext_resource type="PackedScene" uid="uid://cn4p108lpn45s" path="res://CrackedIce/Art/Nature/Tree06Realistic.tscn" id="20_13r56"]
-[ext_resource type="AudioStream" uid="uid://bqklem51td48q" path="res://Audio/AMB/AMB_JailOutside_01.wav" id="23_aymmw"]
+[ext_resource type="AudioStream" uid="uid://bf2gw5y0nslln" path="res://Audio/AMB/Test/AX_GeneralAMB_Test1.ogg" id="23_n3p8h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ki0n8"]
 bg_color = Color(0, 0, 0, 0.25098)
@@ -794,7 +794,7 @@ Space to drift and break
 "
 label_settings = SubResource("LabelSettings_yc8e5")
 
-[node name="EngineSound" parent="car" node_paths=PackedStringArray("vehicle") instance=ExtResource("10_1nayr")]
+[node name="s_EngineSound" parent="car" node_paths=PackedStringArray("vehicle") instance=ExtResource("10_1nayr")]
 vehicle = NodePath("..")
 
 [node name="BlizzardGPUParticles" type="GPUParticles3D" parent="car"]
@@ -846,6 +846,10 @@ light_specular = 1.0
 omni_range = 8.0
 omni_attenuation = 0.0
 omni_shadow_mode = 0
+
+[node name="s_GeneralAMB" type="AudioStreamPlayer" parent="TheGenerator"]
+stream = ExtResource("23_n3p8h")
+autoplay = true
 
 [node name="Trees" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 243)
@@ -1030,8 +1034,8 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 [node name="tree60" parent="Trees" instance=ExtResource("20_13r56")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 51.3371, -1, 130.759)
 
-[node name="AMbiente" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("23_aymmw")
+[node name="s_GeneralAMB" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("23_n3p8h")
 autoplay = true
 
 [connection signal="visibility_changed" from="CanvasLayer" to="CanvasLayer" method="_on_visibility_changed"]
