@@ -1,4 +1,4 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://d0vkhfshg3a2o"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=4 uid="uid://d0vkhfshg3a2o"]
 
 [ext_resource type="Texture2D" uid="uid://0poi8miiw0mu" path="res://CrackedIce/Art/Buildings/House1.jpg" id="1_vyg0l"]
 
