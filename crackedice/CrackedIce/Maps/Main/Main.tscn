@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=4 uid="uid://kcth468nwv1c"]
+[gd_scene load_steps=42 format=4 uid="uid://kcth468nwv1c"]
 
 [ext_resource type="Material" uid="uid://ick3wtnkw0j" path="res://CrackedIce/MaterialLibrary/Nature/Elements/snow.tres" id="1_1188u"]
 [ext_resource type="Texture2D" uid="uid://fm2gght7ay6h" path="res://CrackedIce/Art/Nature/Fading_Sky-Blue_01-1024x512.png" id="1_ecnpv"]
@@ -20,9 +20,10 @@
 [ext_resource type="Texture2D" uid="uid://cal58ce7q8fy4" path="res://addons/kenney_particle_pack/smoke_03.png" id="17_6jgfr"]
 [ext_resource type="PackedScene" uid="uid://m4w2pyr3h1uq" path="res://CrackedIce/Art/Buildings/TheGenerator.tscn" id="18_psvjm"]
 [ext_resource type="PackedScene" uid="uid://cea5tf0r67n3c" path="res://CrackedIce/Art/Buildings/LightStoneRamp.tscn" id="19_m22ry"]
-[ext_resource type="PackedScene" uid="uid://vbdm3e28au67" path="res://CrackedIce/Art/Buildings/House1.tscn" id="19_vdak4"]
+[ext_resource type="PackedScene" uid="uid://biqh8nsdxkfcu" path="res://CrackedIce/Art/Buildings/House1.tscn" id="19_vdak4"]
 [ext_resource type="PackedScene" uid="uid://cn4p108lpn45s" path="res://CrackedIce/Art/Nature/Tree06Realistic.tscn" id="20_13r56"]
 [ext_resource type="AudioStream" uid="uid://bf2gw5y0nslln" path="res://Audio/AMB/Test/AX_GeneralAMB_Test1.ogg" id="23_n3p8h"]
+[ext_resource type="PackedScene" uid="uid://wknrc88xdtih" path="res://CrackedIce/Art/Buildings/IronStick.tscn" id="24_n7t6e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ki0n8"]
 bg_color = Color(0, 0, 0, 0.25098)
@@ -658,14 +659,14 @@ center_of_mass = Vector3(0, 0, 0.1)
 script = ExtResource("9_hjhih")
 STEER_SPEED = 0.01
 STEER_LIMIT = 0.8
-engine_force_value = 1000
+engine_force_value = 750
+throttle_speed = 4.0
 motor_drag = 0.05
 torque_curve = ExtResource("10_pppds")
 max_torque = 500.0
 clutch_out_rpm = 1500.0
 gear_ratios = Array[float]([4.7, 3.13, 2.1, 1.67, 1.28, 1.0])
-final_drive = 2.0
-reverse_ratio = 4.0
+reverse_ratio = 1.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="car"]
 transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0.75, 0.25)
@@ -814,15 +815,6 @@ transform = Transform3D(2.4, 0, 0, 0, 1, 0, 0, 0, 1.5, -15.5, 0, 314)
 
 [node name="LightStoneRamp4" parent="." instance=ExtResource("19_m22ry")]
 transform = Transform3D(2.4, 0, 0, 0, 0.965926, -0.388229, 0, 0.258819, 1.44889, -15.5, 3.43774, 307.203)
-
-[node name="House12" parent="." instance=ExtResource("19_vdak4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 262)
-
-[node name="House13" parent="." instance=ExtResource("19_vdak4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 277)
-
-[node name="House14" parent="." instance=ExtResource("19_vdak4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 292)
 
 [node name="TheGenerator" parent="." instance=ExtResource("18_psvjm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 243)
@@ -1028,5 +1020,29 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 [node name="s_GeneralAMB" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("23_n3p8h")
 autoplay = true
+
+[node name="House12" parent="." instance=ExtResource("19_vdak4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0, 289)
+
+[node name="House13" parent="." instance=ExtResource("19_vdak4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0, 276.4)
+
+[node name="IronStick" parent="." instance=ExtResource("24_n7t6e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 285)
+
+[node name="IronStick2" parent="." instance=ExtResource("24_n7t6e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 284)
+
+[node name="IronStick3" parent="." instance=ExtResource("24_n7t6e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 280)
+
+[node name="IronStick4" parent="." instance=ExtResource("24_n7t6e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 281)
+
+[node name="IronStick5" parent="." instance=ExtResource("24_n7t6e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 282)
+
+[node name="IronStick6" parent="." instance=ExtResource("24_n7t6e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 283)
 
 [connection signal="visibility_changed" from="DebugCanvasLayer (H)" to="DebugCanvasLayer (H)" method="_on_visibility_changed"]

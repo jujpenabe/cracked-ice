@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=4 uid="uid://wknrc88xdtih"]
+
+[ext_resource type="Material" uid="uid://y3b8qntijjo2" path="res://CrackedIce/MaterialLibrary/Nature/MetalTiny/industrial_metal_small.tres" id="1_new5x"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_gutmx"]
+_surfaces = [{
+"aabb": AABB(-0.0999999, 0, -0.0859375, 0.20001, 3, 0.171875),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AgAGAAEAAgAHAAYAAwAAAAQAAwAFAAAABAAHAAIABAAAAAcAAQAFAAMAAQAGAAUABAABAAMABAACAAEAAAAGAAcAAAAFAAYA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("+/8AAAAAAAAAAP////8AAPv//////wAAAAD//wAAAAD7////AAAAAAAAAAAAAAAAAAAAAP//AAD7/wAA//8AAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_pmcrh"]
+resource_name = "IronStick_IronStick"
+_surfaces = [{
+"aabb": AABB(-0.0999999, 0, -0.0859375, 0.20001, 3, 0.171875),
+"attribute_data": PackedByteArray("1W8AAP//3d3VbwAA6jf///HP7u7jn///AAD///HP///jn///6jf/////7u7xz///1W/////////Vb///6jcAAP//7u7xzwAA6jcAAPHP7u7jnwAAAAAAAPHP3d3jnwAA"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("BgASAAMABgAVABIACQAAAAwACQAPAAAADgAXAAgADgACABcABQARAAsABQAUABEADQAEAAoADQAHAAQAAQATABYAAQAQABMA"),
+"material": ExtResource("1_new5x"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("+/8AAAAA///7/wAAAABU1fv/AAAAAP//AAD///////8AAP////9U1QAA////////+//////////7//////9U1fv/////////AAD//wAA//8AAP//AABU1QAA//8AAP//+////wAA///7////AABU1fv///8AAP//AAAAAAAA//8AAAAAAABU1QAAAAAAAP//AAAAAP////8AAAAA//9U1QAAAAD/////+/8AAP/////7/wAA//9U1fv/AAD/////////f1RVVFX/v/9//3//f1TVqir/P/9//3//f1TVqir/v/9/////f1TVqir/P/9/////f1TVqir/v/9/////f1RVVFX/P/9//3//f1RVVFX/P/9//3//f1RVVFX/v/9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_gutmx")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5frxp"]
+points = PackedVector3Array(-0.0999999, 0, -0.0859375, -0.0999999, 0, 0.0859375, -0.0999999, 3, -0.0859375, 0.0999999, 0, -0.0859375, 0.0999999, 0, 0.0859375, -0.0999999, 3, 0.0859375, 0.0999999, 3, -0.0859375, 0.0999999, 3, 0.0859375)
+
+[node name="IronStick" type="Node3D"]
+
+[node name="IronStick-rigid" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0179687)
+disable_mode = 2
+collision_layer = 4
+collision_mask = 7
+mass = 50.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, 1.5, 0)
+sleeping = true
+
+[node name="IronStick-rigid_001" type="MeshInstance3D" parent="IronStick-rigid"]
+mesh = SubResource("ArrayMesh_pmcrh")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="IronStick-rigid"]
+shape = SubResource("ConvexPolygonShape3D_5frxp")
