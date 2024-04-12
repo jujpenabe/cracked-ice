@@ -1,4 +1,4 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=4 uid="uid://bkyub603sddm3"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bkyub603sddm3"]
 
 [ext_resource type="Texture2D" uid="uid://khs0o326kqib" path="res://CrackedIce/MaterialLibrary/Nature/Metal2/Metal_06-512x512.png" id="1_74qng"]
 

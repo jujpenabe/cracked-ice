@@ -1,4 +1,4 @@
-[gd_resource type="StandardMaterial3D" load_steps=3 format=4 uid="uid://dscbqekdidcfj"]
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dscbqekdidcfj"]
 
 [ext_resource type="Texture2D" uid="uid://bwmtkyg21xg" path="res://CrackedIce/Art/Cars/torke.jpg" id="1_ja5sr"]
 [ext_resource type="Texture2D" uid="uid://eyh1n024hhot" path="res://CrackedIce/Art/Cars/torke_emit.jpg" id="2_v2gat"]

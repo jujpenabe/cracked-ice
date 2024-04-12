@@ -1,4 +1,4 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=4 uid="uid://dvmwd7sf7xuwk"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dvmwd7sf7xuwk"]
 
 [ext_resource type="Texture2D" uid="uid://bei13cljat6q2" path="res://CrackedIce/MaterialLibrary/Nature/Elements/Elements_09-512x512.png" id="1_1iq3t"]
 

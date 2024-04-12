@@ -1,13 +1,26 @@
-[gd_scene load_steps=9 format=4 uid="uid://4r4xxfycclky"]
+[gd_scene load_steps=7 format=3 uid="uid://4r4xxfycclky"]
 
 [ext_resource type="Script" path="res://addons/EasyMenus/Scripts/main_menu_controller.gd" id="1_guaw7"]
 [ext_resource type="StyleBox" uid="uid://601u3myr0ivf" path="res://CrackedIce/UI/themes/style_box_flat/ice_style_box_flat.tres" id="2_2j16u"]
-[ext_resource type="FontFile" uid="uid://bebxukysellll" path="res://CrackedIce/UI/fonts/Blackcraft.woff2" id="2_x1ulo"]
 [ext_resource type="PackedScene" uid="uid://qlskttl1wjr7" path="res://addons/EasyMenus/Scenes/options_menu.tscn" id="3_cje22"]
-[ext_resource type="StyleBox" uid="uid://b7yx5j3fix7pm" path="res://CrackedIce/UI/themes/style_box_flat/blue_light_focus.tres" id="3_pw4v4"]
+
+[sub_resource type="FontFile" id="FontFile_wec8s"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/64/0/ascent = 0.0
+cache/0/64/0/descent = 0.0
+cache/0/64/0/underline_position = 0.0
+cache/0/64/0/underline_thickness = 0.0
+cache/0/64/0/scale = 1.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_6nah5"]
-font = ExtResource("2_x1ulo")
+font = SubResource("FontFile_wec8s")
 font_size = 64
 outline_size = 1
 outline_color = Color(0, 0.8, 0.733333, 1)
@@ -16,9 +29,6 @@ shadow_color = Color(1, 1, 1, 0.0784314)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_y87dd"]
 color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwqsq"]
-bg_color = Color(0.6, 0.06, 0.06, 1)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -65,7 +75,6 @@ focus_neighbor_bottom = NodePath("../OptionsButton")
 focus_next = NodePath("../OptionsButton")
 focus_previous = NodePath("../QuitButton")
 theme_override_font_sizes/font_size = 30
-theme_override_styles/focus = ExtResource("3_pw4v4")
 theme_override_styles/normal = ExtResource("2_2j16u")
 text = "Start"
 
@@ -78,7 +87,6 @@ focus_neighbor_bottom = NodePath("../QuitButton")
 focus_next = NodePath("../QuitButton")
 focus_previous = NodePath("../StartGameButton")
 theme_override_font_sizes/font_size = 30
-theme_override_styles/focus = ExtResource("3_pw4v4")
 theme_override_styles/normal = ExtResource("2_2j16u")
 text = "Options"
 
@@ -91,7 +99,6 @@ focus_neighbor_bottom = NodePath("../StartGameButton")
 focus_next = NodePath("../StartGameButton")
 focus_previous = NodePath("../OptionsButton")
 theme_override_font_sizes/font_size = 30
-theme_override_styles/focus = SubResource("StyleBoxFlat_kwqsq")
 theme_override_styles/normal = ExtResource("2_2j16u")
 text = "Quit"
 
