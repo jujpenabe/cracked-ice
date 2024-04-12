@@ -234,13 +234,13 @@ func process_transmission(delta : float):
 				print("RPM: " + str(motor_rpm).pad_decimals(0) + " Ideal RPM: " + str(current_ideal_gear_rpm).pad_decimals(0) + " Speed: " + str(speed).pad_decimals(0))
 				print("Current gear: " + str(current_gear))
 				# calculate the shift rpm based on current gear: more gear means higher rpm to shift
-				if (current_ideal_gear_rpm + motor_rpm) * 0.5  > (max_rpm * (1 - (full_throttle_amount / (1 + current_gear)))):
+				if (current_ideal_gear_rpm + motor_rpm) * 0.5 > (max_rpm * (1 - (full_throttle_amount / (1 + current_gear)))):
 					if delta_time - last_shift_delta_time > shift_time:
 						shift(1)
 			elif current_gear == 0 and motor_rpm > clutch_out_rpm:
 				shift(1)
 		if current_gear - 1 > 0:
-			if current_gear > 1 and previous_gear_rpm < 0.25 * max_rpm:
+			if current_gear > 1 and previous_gear_rpm < 0.2 * max_rpm:
 				if delta_time - last_shift_delta_time > shift_time:
 					shift(-1)
 
