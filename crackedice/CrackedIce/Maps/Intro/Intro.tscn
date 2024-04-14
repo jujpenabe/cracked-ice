@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cwsbs6e3l8lg8"]
+[gd_scene load_steps=6 format=3 uid="uid://cwsbs6e3l8lg8"]
 
 [ext_resource type="Script" path="res://CrackedIce/Maps/Intro/intro.gd" id="1_ug7px"]
 
@@ -18,8 +18,6 @@ fog_enabled = true
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_w620k"]
 
-[sub_resource type="Compositor" id="Compositor_f7jh3"]
-
 [node name="Intro" type="Node3D"]
 script = ExtResource("1_ug7px")
 
@@ -29,4 +27,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Camera3D"]
 environment = SubResource("Environment_qtkns")
 camera_attributes = SubResource("CameraAttributesPractical_w620k")
-compositor = SubResource("Compositor_f7jh3")

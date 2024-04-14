@@ -614,7 +614,7 @@ shape = SubResource("ConcavePolygonShape3D_1nr6l")
 [node name="GPUParticlesCollisionHeightField3D" type="GPUParticlesCollisionHeightField3D" parent="Floor/StaticBody3D/CollisionShape3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 size = Vector3(2, 0.1, 2)
-resolution = 5
+resolution = 3
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.9816, 1.87565, 303.061)
@@ -674,19 +674,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -7)
 [node name="car" type="VehicleBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 348)
 collision_mask = 7
+mass = 500.0
 center_of_mass_mode = 1
-center_of_mass = Vector3(0, -0.1, 0)
+center_of_mass = Vector3(0, -0.2, 0.1)
 script = ExtResource("9_hjhih")
-STEER_LIMIT = 0.8
-engine_force_value = 80
-motor_drag = 0.05
-max_rpm = 6000.0
+steer_speed = 0.05
+steer_limit = 0.8
+engine_force_value = 500
+throttle_speed = 1.0
+motor_drag = 0.025
 torque_curve = ExtResource("10_pppds")
-max_torque = 500.0
-clutch_out_rpm = 1500.0
-gear_ratios = Array[float]([4.7, 3.13, 2.1, 1.67, 1.28, 1.0])
-final_drive = 2.0
-reverse_ratio = 4.0
+final_drive = 1.2
+reverse_ratio = 0.6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="car"]
 transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0.75, 0.25)
@@ -801,11 +800,11 @@ vehicle = NodePath("..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
 amount = 50000
 lifetime = 4.0
-preprocess = 2.0
-speed_scale = 0.75
+preprocess = 4.0
+speed_scale = 0.44
 explosiveness = 0.1
 randomness = 0.2
-fixed_fps = 10
+fixed_fps = 15
 fract_delta = false
 visibility_aabb = AABB(-4, -20, -4, 8, 16, 8)
 transform_align = 3

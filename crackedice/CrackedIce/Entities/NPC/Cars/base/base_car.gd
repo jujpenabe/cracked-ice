@@ -1,10 +1,10 @@
 class_name BaseCar
 extends VehicleBody3D
 
-@export var STEER_SPEED = 1.5
-@export var STEER_LIMIT = 0.6
-@export var engine_force_value = 40
-@export var throttle_speed := 20.0
+@export var steer_speed = 0.1
+@export var steer_limit = 0.5
+@export var engine_force_value = 100
+@export var throttle_speed := 10.0
 @export var motor_drag := 0.005
 @export var max_rpm := 7000.0
 @export var torque_curve : Curve
@@ -31,6 +31,7 @@ var brake_input := 0.0
 var local_velocity := Vector3.ZERO
 var previous_global_position := Vector3.ZERO
 var throttle_amount := 0.0
+var full_throttle_amount := 1.0
 var motor_rpm := 0.0
 var torque_output := 0.0
 var motor_is_redline := false
@@ -47,6 +48,7 @@ var last_shift_delta_time := 0.0
 var delta_time := 0.0
 var is_up_shifting := false
 var complete_shift_delta_time := 0.0
+var throttle_factor := 1.0
 
 func _ready():
 	initialize()
@@ -69,44 +71,83 @@ func _physics_process(delta):
 	process_motor(delta)
 	process_transmission(delta)
 
-	var fwd_mps = transform.basis.x.x
+	# var fwd_mps = transform.basis.x.x
 	steer_target = Input.get_action_strength("Steer Left") - Input.get_action_strength("Steer Right")
-	steer_target *= STEER_LIMIT
+	steer_target *= steer_limit
+
+	throttle_input = max(pow(Input.get_action_strength("Throttle"), 2.0), pow(Input.get_action_strength("Full Throttle"), 2.0))
+
+	if Input.is_action_pressed("Full Throttle"):
+		# Increase engine force at cost of wheel slip
+		if speed < 20 and speed != 0:
+			engine_force = -clamp(engine_force_value * 2, 0, 3000)
+		else:
+			engine_force = -clamp(engine_force_value * 1.2 * get_gear_ratio(current_gear), 0, 7500)
+		full_throttle_amount = 0.1
+		throttle_factor = 2.0
+		# Slip penalty
+		$WheelFrontLeft.wheel_friction_slip=2
+		$WheelFrontRight.wheel_friction_slip=2
+		$WheelRearRight.wheel_friction_slip=0.2
+		$WheelRearLeft.wheel_friction_slip=0.2
+
+		# Roll influence penalty
+		$WheelFrontLeft.wheel_roll_influence= 1
+		$WheelFrontRight.wheel_roll_influence= 1
+		$WheelRearRight.wheel_roll_influence= 0
+		$WheelRearLeft.wheel_roll_influence = 0
+
+	else:
+
+		full_throttle_amount = 1.0
+		throttle_factor = 1.0
+		$WheelFrontLeft.wheel_friction_slip=2
+		$WheelFrontRight.wheel_friction_slip=2
+		$WheelRearRight.wheel_friction_slip=2
+		$WheelRearLeft.wheel_friction_slip=2
+
+		$WheelFrontLeft.wheel_roll_influence=0.5
+		$WheelFrontRight.wheel_roll_influence=0.5
+		$WheelRearRight.wheel_roll_influence=0.5
+		$WheelRearLeft.wheel_roll_influence=0.5
+		engine_force = 0
+
+
+	if Input.is_action_pressed("Throttle"):
+		# Increase engine force at low speeds to make the initial acceleration faster.
+		if speed < 20 and speed != 0:
+			engine_force = -clamp(engine_force_value * 1.5, 0, 3000)
+		else:
+			engine_force = -clamp(engine_force_value * get_gear_ratio(current_gear), 0, 7500)
+			print("engine force: ", str(engine_force))
+
 
 	brake_input = Input.get_action_strength("Brakes")
 
 	if Input.get_action_strength("Brakes"):
 	# Increase engine force at low speeds to make the initial acceleration faster.
-
-		if speed < 20 and speed != 0:
-			engine_force = clamp(engine_force_value * 3 / speed, 0, 300)
+		# print("forwad velocity: ", str(global_transform.basis.z.dot(body.velocity)))
+		if local_velocity.z < -0.5:
+			brake = 20
 		else:
-			engine_force = engine_force_value
+			engine_force = -engine_force_value * get_gear_ratio(-1)
 	else:
-		engine_force = 0
-
-	throttle_input = pow(Input.get_action_strength("Throttle"), 2.0)
-
-	if Input.is_action_pressed("Throttle"):
-		# Increase engine force at low speeds to make the initial acceleration faster.
-		if fwd_mps >= -1:
-			if speed < 30 and speed != 0:
-				engine_force = -clamp(engine_force_value * 10 / speed, 0, 300)
-			else:
-				engine_force = -engine_force_value / gear_ratios[current_gear-1]
-		else:
-			brake = 1
-	else:
-		brake = 0.0
+		brake = 0
 
 	if Input.is_action_pressed("Handbrake"):
-		brake=3
-		$WheelRearRight.wheel_friction_slip=0.4
-		$WheelRearLeft.wheel_friction_slip=0.4
+		# brake front wheels
+		$WheelFrontLeft.brake = 30
+		$WheelFrontRight.brake = 30
+
+		$WheelFrontLeft.wheel_friction_slip=0.9
+		$WheelFrontRight.wheel_friction_slip=0.9
+		$WheelRearRight.wheel_friction_slip=0.1
+		$WheelRearLeft.wheel_friction_slip=0.1
 	else:
-		$WheelRearRight.wheel_friction_slip=3
-		$WheelRearLeft.wheel_friction_slip=3
-	steering = move_toward(steering, steer_target, STEER_SPEED)
+		$WheelRearRight.wheel_friction_slip=2
+		$WheelRearLeft.wheel_friction_slip=2
+
+	steering = move_toward(steering, steer_target, steer_speed)
 
 
 
@@ -114,7 +155,7 @@ func traction(speed):
 	apply_central_force(Vector3.DOWN*speed)
 
 func process_throttle(delta : float):
-	var throttle_delta := throttle_speed * delta
+	var throttle_delta := throttle_speed * delta * throttle_factor
 
 	if (throttle_input < throttle_amount):
 		throttle_amount -= throttle_delta
@@ -161,7 +202,6 @@ func process_motor(delta : float):
 
 	motor_rpm = maxf(motor_rpm, idle_rpm)
 
-
 func process_transmission(delta : float):
 	if is_shifting:
 		if delta_time > complete_shift_delta_time:
@@ -191,15 +231,17 @@ func process_transmission(delta : float):
 
 		if current_gear < gear_ratios.size():
 			if current_gear > 0:
-				print ("Current ideal gear rpm: " + str(current_ideal_gear_rpm)+ "")
+				# print with 0 precision decimals place
+				print("RPM: " + str(motor_rpm).pad_decimals(0) + " Ideal RPM: " + str(current_ideal_gear_rpm).pad_decimals(0) + " Speed: " + str(speed).pad_decimals(0))
 				print("Current gear: " + str(current_gear))
-				if current_ideal_gear_rpm > (max_rpm * 0.69):
+				# calculate the shift rpm based on current gear: more gear means higher rpm to shift
+				if (current_ideal_gear_rpm + motor_rpm) * 0.5 > (max_rpm * 0.8 * (1 - (full_throttle_amount / (1 + current_gear)))):
 					if delta_time - last_shift_delta_time > shift_time:
 						shift(1)
 			elif current_gear == 0 and motor_rpm > clutch_out_rpm:
 				shift(1)
 		if current_gear - 1 > 0:
-			if current_gear > 1 and previous_gear_rpm < 0.45 * max_rpm:
+			if current_gear > 1 and previous_gear_rpm < 0.3 * max_rpm * (1 - (full_throttle_amount / (1 + current_gear - 1))):
 				if delta_time - last_shift_delta_time > shift_time:
 					shift(-1)
 
@@ -235,7 +277,6 @@ func shift(count : int):
 			if count > 0:
 				is_up_shifting = true
 
-
 func complete_shift():
 	## Called when it is time to complete a shift in progress
 	if current_gear == -1:
@@ -256,4 +297,3 @@ func get_gear_ratio(gear : int) -> float:
 		return -reverse_ratio * final_drive
 	else:
 		return 0.0
-
