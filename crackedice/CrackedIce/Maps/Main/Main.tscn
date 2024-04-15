@@ -20,7 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://cal58ce7q8fy4" path="res://addons/kenney_particle_pack/smoke_03.png" id="17_6jgfr"]
 [ext_resource type="PackedScene" uid="uid://m4w2pyr3h1uq" path="res://CrackedIce/Art/Buildings/TheGenerator.tscn" id="18_psvjm"]
 [ext_resource type="PackedScene" uid="uid://cea5tf0r67n3c" path="res://CrackedIce/Art/Buildings/LightStoneRamp.tscn" id="19_m22ry"]
-[ext_resource type="PackedScene" uid="uid://vbdm3e28au67" path="res://CrackedIce/Art/Buildings/House1.tscn" id="19_vdak4"]
+[ext_resource type="PackedScene" uid="uid://b6lnwxn4mf8gn" path="res://CrackedIce/Art/Buildings/House1.tscn" id="19_vdak4"]
 [ext_resource type="PackedScene" uid="uid://cn4p108lpn45s" path="res://CrackedIce/Art/Nature/Tree06Realistic.tscn" id="20_13r56"]
 [ext_resource type="AudioStream" uid="uid://bf2gw5y0nslln" path="res://Audio/AMB/Test/AX_GeneralAMB_Test1.ogg" id="23_n3p8h"]
 
@@ -823,15 +823,6 @@ transform = Transform3D(2.4, 0, 0, 0, 1, 0, 0, 0, 1.5, -15.5, 0, 314)
 [node name="LightStoneRamp4" parent="." instance=ExtResource("19_m22ry")]
 transform = Transform3D(2.4, 0, 0, 0, 0.965926, -0.388229, 0, 0.258819, 1.44889, -15.5, 3.43774, 307.203)
 
-[node name="House12" parent="." instance=ExtResource("19_vdak4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 262)
-
-[node name="House13" parent="." instance=ExtResource("19_vdak4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 277)
-
-[node name="House14" parent="." instance=ExtResource("19_vdak4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 292)
-
 [node name="TheGenerator" parent="." instance=ExtResource("18_psvjm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 243)
 
@@ -1036,5 +1027,14 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 [node name="s_GeneralAMB" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("23_n3p8h")
 autoplay = true
+
+[node name="House12" parent="." instance=ExtResource("19_vdak4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 291)
+
+[node name="House13" parent="." instance=ExtResource("19_vdak4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 274.5)
+
+[node name="House14" parent="." instance=ExtResource("19_vdak4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 258.5)
 
 [connection signal="visibility_changed" from="CanvasLayer" to="CanvasLayer" method="_on_visibility_changed"]
