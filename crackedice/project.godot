@@ -26,6 +26,14 @@ buses/default_bus_layout="res://addons/EasyMenus/default_bus_layout.tres"
 
 MenuTemplateManager="*res://addons/EasyMenus/Nodes/menu_template_manager.tscn"
 
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=480
+window/size/window_width_override=1280
+window/size/window_height_override=960
+window/stretch/mode="viewport"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://kcth468nwv1c"]
+[gd_scene load_steps=37 format=3 uid="uid://kcth468nwv1c"]
 
 [ext_resource type="Material" uid="uid://ick3wtnkw0j" path="res://CrackedIce/MaterialLibrary/Nature/Elements/snow.tres" id="1_1188u"]
 [ext_resource type="Texture2D" uid="uid://fm2gght7ay6h" path="res://CrackedIce/Art/Nature/Fading_Sky-Blue_01-1024x512.png" id="1_ecnpv"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c0yx74fp34lya" path="res://CrackedIce/Art/Cars/torke_wheel.tscn" id="13_remcm"]
 [ext_resource type="Script" path="res://addons/debug_menu/debug_menu.gd" id="15_0agjk"]
 [ext_resource type="Texture2D" uid="uid://cal58ce7q8fy4" path="res://addons/kenney_particle_pack/smoke_03.png" id="17_6jgfr"]
+[ext_resource type="PackedScene" uid="uid://cs7qwpojmfiqc" path="res://CrackedIce/Art/Buildings/Workshop1.tscn" id="18_g27no"]
 [ext_resource type="PackedScene" uid="uid://m4w2pyr3h1uq" path="res://CrackedIce/Art/Buildings/TheGenerator.tscn" id="18_psvjm"]
 [ext_resource type="PackedScene" uid="uid://cea5tf0r67n3c" path="res://CrackedIce/Art/Buildings/LightStoneRamp.tscn" id="19_m22ry"]
 [ext_resource type="PackedScene" uid="uid://b6lnwxn4mf8gn" path="res://CrackedIce/Art/Buildings/House1.tscn" id="19_vdak4"]
@@ -83,7 +84,7 @@ text = "CRACKED ICE
 font_size = 64
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5ykjq"]
-size = Vector3(1.75, 0.75, 2)
+size = Vector3(1.75, 0.75, 3)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jmxwd"]
 radius = 0.55
@@ -608,7 +609,7 @@ shape = SubResource("ConcavePolygonShape3D_1nr6l")
 [node name="GPUParticlesCollisionHeightField3D" type="GPUParticlesCollisionHeightField3D" parent="Floor/StaticBody3D/CollisionShape3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 size = Vector3(2, 0.1, 2)
-resolution = 0
+resolution = 5
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.9816, 1.87565, 303.061)
@@ -651,7 +652,7 @@ mass = 500.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.2, 0.1)
 script = ExtResource("9_hjhih")
-steer_speed = 0.05
+steer_speed = 0.04
 steer_limit = 0.8
 engine_force_value = 500
 throttle_speed = 1.0
@@ -661,7 +662,7 @@ final_drive = 1.2
 reverse_ratio = 0.6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="car"]
-transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0.75, 0.25)
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0.85, 0.711914)
 shape = SubResource("BoxShape3D_5ykjq")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="car"]
@@ -1011,5 +1012,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 258.5)
 
 [node name="Church12" parent="." instance=ExtResource("24_nlncl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0.4, 278)
+
+[node name="Workshop12" parent="." instance=ExtResource("18_g27no")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 37, 0, 362)
 
 [connection signal="visibility_changed" from="CanvasLayer" to="CanvasLayer" method="_on_visibility_changed"]
