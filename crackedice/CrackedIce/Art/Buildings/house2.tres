@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://brkgys0h3kc7l"]
+
+[ext_resource type="Texture2D" uid="uid://u4c7g83l6dsd" path="res://CrackedIce/Art/Buildings/House2.jpg" id="1_m5kwl"]
+
+[resource]
+shading_mode = 2
+albedo_color = Color(0.8, 0.8, 0.8, 1)
+albedo_texture = ExtResource("1_m5kwl")
+metallic = 0.5
+roughness = 0.8
+texture_filter = 2
