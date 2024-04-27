@@ -5,14 +5,14 @@
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hj1wa"]
 ground_bottom_color = Color(0.105542, 0.0858706, 0.063019, 1)
 
-[sub_resource type="Sky" id="Sky_ixab4"]
+[sub_resource type="Sky" id="Sky_mbwoo"]
 sky_material = SubResource("ProceduralSkyMaterial_hj1wa")
 process_mode = 3
 
 [sub_resource type="Environment" id="Environment_qtkns"]
 background_mode = 1
 background_color = Color(0.72, 0.8, 0.793333, 1)
-sky = SubResource("Sky_ixab4")
+sky = SubResource("Sky_mbwoo")
 sky_custom_fov = 19.5
 fog_enabled = true
 

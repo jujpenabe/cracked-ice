@@ -1,0 +1,207 @@
+[gd_scene load_steps=17 format=3 uid="uid://b76fcyiisui0w"]
+
+[ext_resource type="PackedScene" uid="uid://c6k5nnpbypshi" path="res://addons/maaacks_game_template/base/scenes/Menus/MainMenu/MainMenu.tscn" id="1_7v3db"]
+[ext_resource type="Texture2D" uid="uid://dm4tsxvi4r24j" path="res://addons/kenney_particle_pack/smoke_01.png" id="2_0iiet"]
+[ext_resource type="AudioStream" uid="uid://dgxemelrejynd" path="res://Audio/Music/CrackediceMainMenu.ogg" id="2_cc2lm"]
+[ext_resource type="FontFile" uid="uid://di7vjsrko4o42" path="res://CrackedIce/UI/fonts/Smashed.ttf" id="3_6eg0m"]
+[ext_resource type="StyleBox" uid="uid://601u3myr0ivf" path="res://CrackedIce/UI/themes/style_box_flat/ice_style_box_flat.tres" id="4_5guu3"]
+[ext_resource type="FontFile" uid="uid://inairxsjwdy6" path="res://CrackedIce/UI/fonts/Blackcraft_fixed.woff2" id="4_wp7fe"]
+[ext_resource type="StyleBox" uid="uid://drht6vhvde5m6" path="res://CrackedIce/UI/themes/style_box_flat/industrial_style_box_flat_hover.tres" id="5_fykug"]
+[ext_resource type="StyleBox" uid="uid://7y5usy5bln1o" path="res://CrackedIce/UI/themes/style_box_texture/industrial_metal_panel.tres" id="7_jjoq1"]
+
+[sub_resource type="Curve" id="Curve_ehnst"]
+_data = [Vector2(0, 0.253985), 0.0, 0.0, 0, 0, Vector2(1, 0.751328), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_1od4l"]
+_data = [Vector2(0, 0.523379), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_baqu3"]
+interpolation_mode = 2
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2cor4"]
+gradient = SubResource("Gradient_baqu3")
+width = 8
+height = 8
+fill_to = Vector2(0, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7k8t5"]
+sky_top_color = Color(0.2464, 0.388373, 0.44, 1)
+sky_horizon_color = Color(0.8, 0.8, 0.8, 1)
+sky_curve = 0.046168
+sky_cover = SubResource("GradientTexture2D_2cor4")
+sky_cover_modulate = Color(0.44, 0.44, 0.44, 1)
+ground_bottom_color = Color(0.129, 0.2601, 0.3, 1)
+ground_horizon_color = Color(0.576471, 0.584314, 0.6, 1)
+ground_curve = 0.0527805
+ground_energy_multiplier = 2.0
+sun_angle_max = 60.0
+
+[sub_resource type="Sky" id="Sky_ixab4"]
+sky_material = SubResource("ProceduralSkyMaterial_7k8t5")
+radiance_size = 0
+
+[sub_resource type="Environment" id="Environment_bi3a4"]
+background_mode = 2
+background_color = Color(0.721569, 0.8, 0.792157, 1)
+sky = SubResource("Sky_ixab4")
+sky_custom_fov = 30.0
+sky_rotation = Vector3(-0.349066, 0, 0)
+fog_enabled = true
+fog_light_energy = 1.27
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_dy3wh"]
+
+[node name="MainMenu" instance=ExtResource("1_7v3db")]
+game_scene_path = "res://CrackedIce/Maps/Main/Main.tscn"
+version_name = "0.0.1"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." index="0"]
+position = Vector2(682, 0)
+amount = 100
+lifetime = 10.0
+preprocess = 10.0
+explosiveness = 0.1
+randomness = 1.0
+lifetime_randomness = 0.2
+fixed_fps = 30
+texture = ExtResource("2_0iiet")
+emission_shape = 1
+emission_sphere_radius = 128.0
+direction = Vector2(-1, 0)
+gravity = Vector2(-16, 16)
+initial_velocity_min = 8.0
+initial_velocity_max = 32.0
+angular_velocity_min = -360.0
+angular_velocity_max = 360.0
+orbit_velocity_max = 0.01
+linear_accel_min = 0.1
+linear_accel_max = 0.1
+radial_accel_min = 0.1
+radial_accel_max = 0.1
+tangential_accel_max = 17.05
+angle_max = 45.0
+scale_amount_min = 0.01
+scale_amount_max = 0.03
+split_scale = true
+scale_curve_x = SubResource("Curve_ehnst")
+scale_curve_y = SubResource("Curve_1od4l")
+
+[node name="Camera3D" type="Camera3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Camera3D" index="0"]
+environment = SubResource("Environment_bi3a4")
+camera_attributes = SubResource("CameraAttributesPractical_dy3wh")
+
+[node name="BackgroundMusicPlayer" parent="." index="2"]
+stream = ExtResource("2_cc2lm")
+
+[node name="VBoxContainer" parent="MenuContainer" index="0"]
+size_flags_vertical = 0
+
+[node name="TitlesMargin" parent="MenuContainer/VBoxContainer" index="0"]
+size_flags_horizontal = 5
+size_flags_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 0
+
+[node name="Title" parent="MenuContainer/VBoxContainer/TitlesMargin/TitlesContainer" index="0"]
+theme_override_colors/font_color = Color(0.8075, 0.85, 0.832292, 1)
+theme_override_colors/font_shadow_color = Color(0.721569, 0.8, 0.772549, 1)
+theme_override_colors/font_outline_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 10
+theme_override_constants/line_spacing = -25
+theme_override_fonts/font = ExtResource("3_6eg0m")
+theme_override_font_sizes/font_size = 102
+text = "CRACKED
+ICE
+"
+horizontal_alignment = 0
+uppercase = true
+
+[node name="SubTitle" parent="MenuContainer/VBoxContainer/TitlesMargin/TitlesContainer" index="1"]
+visible = false
+theme_override_fonts/font = ExtResource("4_wp7fe")
+text = "I"
+horizontal_alignment = 0
+
+[node name="MenuMargin" parent="MenuContainer/VBoxContainer" index="1"]
+size_flags_vertical = 0
+theme_override_constants/margin_top = 90
+theme_override_constants/margin_bottom = 0
+
+[node name="MenuButtons" parent="MenuContainer/VBoxContainer/MenuMargin" index="0"]
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="PlayButton" parent="MenuContainer/VBoxContainer/MenuMargin/MenuButtons" index="0"]
+tooltip_text = "COMING SOON!"
+focus_neighbor_left = NodePath("../ExitButton")
+focus_neighbor_top = NodePath("../ExitButton")
+focus_neighbor_right = NodePath("../OptionsButton")
+focus_neighbor_bottom = NodePath("../OptionsButton")
+focus_next = NodePath("../OptionsButton")
+focus_previous = NodePath("../ExitButton")
+theme_override_colors/font_color = Color(0.639216, 0.85098, 0.823529, 1)
+theme_override_fonts/font = ExtResource("3_6eg0m")
+theme_override_font_sizes/font_size = 65
+theme_override_styles/hover = ExtResource("4_5guu3")
+theme_override_styles/focus = ExtResource("7_jjoq1")
+text = "PLAY"
+flat = true
+alignment = 0
+
+[node name="OptionsButton" parent="MenuContainer/VBoxContainer/MenuMargin/MenuButtons" index="1"]
+focus_neighbor_left = NodePath("../PlayButton")
+focus_neighbor_top = NodePath("../PlayButton")
+focus_neighbor_right = NodePath("../CreditsButton")
+focus_neighbor_bottom = NodePath("../CreditsButton")
+focus_next = NodePath("../CreditsButton")
+focus_previous = NodePath("../PlayButton")
+theme_override_colors/font_color = Color(0.560784, 0.8, 0.772549, 1)
+theme_override_fonts/font = ExtResource("3_6eg0m")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/focus = ExtResource("7_jjoq1")
+text = "OPTIONS
+"
+flat = true
+alignment = 0
+
+[node name="CreditsButton" parent="MenuContainer/VBoxContainer/MenuMargin/MenuButtons" index="2"]
+focus_neighbor_left = NodePath("../OptionsButton")
+focus_neighbor_top = NodePath("../OptionsButton")
+focus_neighbor_right = NodePath("../ExitButton")
+focus_neighbor_bottom = NodePath("../ExitButton")
+focus_next = NodePath("../ExitButton")
+focus_previous = NodePath("../OptionsButton")
+theme_override_colors/font_color = Color(0.486275, 0.74902, 0.717647, 1)
+theme_override_fonts/font = ExtResource("3_6eg0m")
+theme_override_font_sizes/font_size = 39
+theme_override_styles/focus = ExtResource("7_jjoq1")
+text = "CREDITS"
+flat = true
+alignment = 0
+
+[node name="ExitButton" parent="MenuContainer/VBoxContainer/MenuMargin/MenuButtons" index="3"]
+clip_contents = true
+focus_neighbor_left = NodePath("../CreditsButton")
+focus_neighbor_top = NodePath("../CreditsButton")
+focus_neighbor_right = NodePath("../PlayButton")
+focus_neighbor_bottom = NodePath("../PlayButton")
+focus_next = NodePath("../PlayButton")
+focus_previous = NodePath("../CreditsButton")
+theme_override_colors/font_color = Color(0.34902, 0.701961, 0.658824, 1)
+theme_override_fonts/font = ExtResource("3_6eg0m")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/hover = ExtResource("5_fykug")
+theme_override_styles/pressed = ExtResource("7_jjoq1")
+theme_override_styles/focus = ExtResource("7_jjoq1")
+text = "EXIT	 GAME"
+flat = true
+alignment = 0

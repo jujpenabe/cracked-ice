@@ -1,0 +1,9 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://7y5usy5bln1o"]
+
+[ext_resource type="Texture2D" uid="uid://bekftvfxtnk8b" path="res://CrackedIce/Menus/MainMenu/main_menu_selector_alpha1.png" id="1_042ai"]
+
+[resource]
+texture = ExtResource("1_042ai")
+texture_margin_top = 15.0
+texture_margin_bottom = 15.0
+modulate_color = Color(0.44, 0.44, 0.44, 1)
