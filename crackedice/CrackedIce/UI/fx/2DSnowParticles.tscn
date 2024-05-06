@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://cv2f614m7kh0v"]
+
+[ext_resource type="Texture2D" uid="uid://dm4tsxvi4r24j" path="res://addons/kenney_particle_pack/smoke_01.png" id="1_lqai6"]
+
+[sub_resource type="Curve" id="Curve_ehnst"]
+_data = [Vector2(0, 0.253985), 0.0, 0.0, 0, 0, Vector2(1, 0.751328), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_1od4l"]
+_data = [Vector2(0, 0.523379), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="CPUParticles2D" type="CPUParticles2D"]
+position = Vector2(682, 0)
+amount = 100
+lifetime = 10.0
+preprocess = 10.0
+explosiveness = 0.1
+randomness = 1.0
+lifetime_randomness = 0.2
+fixed_fps = 30
+texture = ExtResource("1_lqai6")
+emission_shape = 1
+emission_sphere_radius = 128.0
+direction = Vector2(-1, 0)
+gravity = Vector2(-16, 16)
+initial_velocity_min = 8.0
+initial_velocity_max = 32.0
+angular_velocity_min = -360.0
+angular_velocity_max = 360.0
+orbit_velocity_max = 0.01
+linear_accel_min = 0.1
+linear_accel_max = 0.1
+radial_accel_min = 0.1
+radial_accel_max = 0.1
+tangential_accel_max = 17.05
+angle_max = 45.0
+scale_amount_min = 0.02
+scale_amount_max = 0.04
+split_scale = true
+scale_curve_x = SubResource("Curve_ehnst")
+scale_curve_y = SubResource("Curve_1od4l")

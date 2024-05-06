@@ -15,19 +15,24 @@ dest_files=["res://.godot/imported/Scratched Letters.otf-63b7b76bd42e4977a69eeea
 Rendering=null
 antialiasing=0
 generate_mipmaps=false
-multichannel_signed_distance_field=true
+multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
 hinting=2
-subpixel_positioning=0
-oversampling=0.0
+subpixel_positioning=3
+oversampling=5.0
 Fallbacks=null
 fallbacks=[]
 Compress=null
 compress=true
-preload=[]
+preload=[{
+"chars": [],
+"glyphs": [],
+"name": "New Configuration",
+"size": Vector2i(16, 0)
+}]
 language_support={}
 script_support={}
 opentype_features={}

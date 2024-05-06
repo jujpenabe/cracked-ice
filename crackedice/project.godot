@@ -244,6 +244,7 @@ global_illumination/sdfgi/frames_to_converge=3
 global_illumination/sdfgi/frames_to_update_lights=3
 environment/volumetric_fog/volume_size=32
 environment/volumetric_fog/volume_depth=32
+environment/defaults/default_clear_color=Color(0, 0.024, 0.04, 1)
 lightmapping/bake_quality/low_quality_ray_count=16
 lightmapping/bake_quality/medium_quality_ray_count=64
 lightmapping/bake_quality/high_quality_ray_count=256

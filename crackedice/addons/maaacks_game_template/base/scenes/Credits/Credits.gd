@@ -90,8 +90,13 @@ func _process(_delta):
 		return
 	var input_axis = Input.get_axis("ui_up", "ui_down")
 	if input_axis != 0:
-		_scroll_container(10 * input_axis)
+		_scroll_container(8 * input_axis)
 	else:
+		# if spacebar is pressed, pause scrolling
+		if Input.is_action_just_pressed("ui_accept"):
+			scroll_paused = true
+		if Input.is_action_just_released("ui_accept"):
+			_start_scroll_timer()
 		_scroll_container(current_speed)
 
 func _on_RichTextLabel_gui_input(event):
@@ -100,7 +105,7 @@ func _on_RichTextLabel_gui_input(event):
 		_start_scroll_timer()
 
 func _start_scroll_timer():
-	var timer = get_tree().create_timer(1.5)
+	var timer = get_tree().create_timer(0.2)
 	await timer.timeout
 	set_header_and_footer()
 	scroll_paused = false

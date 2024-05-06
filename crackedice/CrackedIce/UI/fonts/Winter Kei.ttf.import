@@ -15,19 +15,25 @@ dest_files=["res://.godot/imported/Winter Kei.ttf-9957f2c957e0e9ccd52b644456dcde
 Rendering=null
 antialiasing=0
 generate_mipmaps=false
-multichannel_signed_distance_field=true
+multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
 hinting=2
-subpixel_positioning=0
-oversampling=0.0
+subpixel_positioning=3
+oversampling=10.0
 Fallbacks=null
 fallbacks=[]
 Compress=null
 compress=true
-preload=[]
+preload=[{
+"chars": [],
+"glyphs": [],
+"name": "New Configuration",
+"size": Vector2i(16, 0),
+"variation_embolden": 0.0
+}]
 language_support={}
 script_support={}
 opentype_features={}
