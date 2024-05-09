@@ -18,13 +18,8 @@ run/max_fps=60
 boot_splash/bg_color=Color(0.02, 0.14, 0.2, 1)
 config/icon="res://Icons/CrackedIceCover1.jpg"
 
-[audio]
-
-buses/default_bus_layout="res://addons/EasyMenus/default_bus_layout.tres"
-
 [autoload]
 
-MenuTemplateManager="*res://addons/EasyMenus/Nodes/menu_template_manager.tscn"
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 AppConfig="*res://addons/maaacks_game_template/base/scenes/Autoloads/AppConfig.tscn"
 SceneLoader="*res://addons/maaacks_game_template/base/scenes/Autoloads/SceneLoader.tscn"
@@ -43,7 +38,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/cyclops_level_builder/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/discord-rpc-gd/plugin.cfg", "res://addons/freecam_3D/plugin.cfg", "res://addons/godot_conventions_cheat_sheet/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/maaacks_game_template/plugin.cfg")
+enabled=PackedStringArray("res://addons/cyclops_level_builder/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/discord-rpc-gd/plugin.cfg", "res://addons/freecam_3D/plugin.cfg", "res://addons/godot_conventions_cheat_sheet/plugin.cfg", "res://addons/maaacks_game_template/plugin.cfg")
 
 [file_customization]
 

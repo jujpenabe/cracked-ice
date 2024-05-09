@@ -9,3 +9,6 @@ next_scene = "res://CrackedIce/Menus/MainMenu/MainMenu.tscn"
 images = Array[Texture2D]([ExtResource("2_8qisk"), ExtResource("3_plo7x")])
 start_delay = 0.2
 end_delay = 0.2
+
+[node name="BackgroundMusicPlayer" parent="." index="0"]
+bus = &"Master"
