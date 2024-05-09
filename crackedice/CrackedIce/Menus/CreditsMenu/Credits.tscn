@@ -44,47 +44,53 @@ theme_override_fonts/normal_font = ExtResource("2_kb8pw")
 theme_override_fonts/bold_font = ExtResource("2_rviue")
 bbcode_enabled = true
 text = "[center]
-[font_size=48][b]Collaborators[/b][/font_size]
+[b]
+[font_size=48]Collaborators[/font_size]
 
-[font_size=32]Lead Programmer[/font_size]
-Juan José Peña \"catblue44\"
-[url=https://catblue44.itch.io]Itch: [/url]
+[font_size=32]Development[/font_size]
+[/b]
+[url=https://catblue44.itch.io]Juan José Peña \"catblue44\"[/url]
 
+[b]
 [font_size=32]Music & SFX[/font_size]
-Daniel Bazurto
-[url=https://dbg1209.itch.io]Itch: [/url]
-
-[font_size=32]3D Modeler[/font_size]
+[/b]
+[url=https://dbg1209.itch.io]Daniel Bazurto[/url]
+[b]
+[font_size=32]2D/3D Artist[/font_size]
+[/b]
 Juan José Peña
 Julian
+[b]
+[font_size=32]Design[/font_size]
+[/b]
+Juan José Peña
 
-[font_size=48]Sourced / Unaffiliated[/font_size]
-[font_size=32]Asset Type[/font_size]
-[font_size=24]Use Case[/font_size]
-Author: [url=]Name[/url]
-Source: [url=]Domain : webpage.html[/url]
-License: [url=]License[/url]
-
-
+[b]
 [font_size=48]Tools[/font_size]
-[font_size=24]Godot[/font_size]
-![url=https://godot.community/assets/uploads/godot.community.png]Godot Community logo[/url]
-Author: [url=https://godotengine.org/contact]Juan Linietsky, Ariel Manzur, and contributors[/url]
-Source: [url=https://godotengine.org/]godotengine.org[/url]
-License: [url=https://github.com/godotengine/godot/blob/master/LICENSE.txt]MIT License[/url]
+[/b]
+[img={300}]res://Icons/godot_color_light.png[/img]
+[url=https://godotengine.org/]godotengine.org[/url]
 
-[font_size=24]Git[/font_size]
-Author: [url=https://github.com/torvalds]Linus Torvalds[/url]
-Source: [url=https://git-scm.com/downloads]git-scm.com[/url]
-License: [url=https://opensource.org/licenses/GPL-2.0]GNU General Public License version 2[/url]
+[b]
+[font_size=32]Blender[/font_size]
+[/b]
+[url=https://www.blender.org/]blender.org[/url]
+[b]
+[font_size=32]Git[/font_size]
+[/b]
+[url=https://git-scm.com/downloads]git-scm.com[/url]
 
-[font_size=24]Godot Game Template[/font_size]
-Author: [url=https://github.com/Maaack/Godot-Game-Template/graphs/contributors]Marek Belski and contributors[/url]
-Source: [url=https://github.com/Maaack/Godot-Game-Template]github: Godot-Game-Template[/url]
-License: [url=LICENSE.txt]MIT License[/url]
+[b]
+[font_size=32]Godot Game Template[/font_size]
+[/b]
+[url=https://github.com/Maaack/Godot-Game-Template]github: Godot-Game-Template[/url]
+[b]
+
+[font_size=48]Cooperation[/font_size]
 
 [font_size=32]UN-Games[/font_size]
-![url=res://CrackedIce/Menus/CreditsMenu/UNGAMES_LOGO.png]UN-Games Logo[/url]
+[/b]
+[img={200}]res://Icons/UNGAMES_LOGO.png[/img]
 [/center]"
 fit_content = true
 scroll_active = false

@@ -56,7 +56,7 @@ func _ready():
 func initialize():
 	previous_global_position = global_transform.origin
 	average_drive_wheel_radius = $WheelFrontRight.wheel_radius
-
+	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
 
 func _physics_process(delta):
 	speed = linear_velocity.length()*Engine.get_frames_per_second()*3.6*delta

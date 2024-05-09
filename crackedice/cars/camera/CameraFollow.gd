@@ -4,6 +4,7 @@ extends Camera3D
 @export var target_distance = 5
 @export var target_height = 2
 @export var speed:=20.0
+@export var freecam3d:= Freecam3D.new()
 var follow_this = null
 var last_lookat
 
@@ -30,3 +31,6 @@ func _physics_process(delta):
 	last_lookat = last_lookat.lerp(follow_this.global_transform.origin, delta * speed)
 	
 	look_at(last_lookat, Vector3.UP)
+
+	if Input.is_action_just_pressed("switch_camera"):
+		freecam3d.make_current()
