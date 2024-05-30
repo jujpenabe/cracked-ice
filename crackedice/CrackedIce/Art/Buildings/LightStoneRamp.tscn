@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cea5tf0r67n3c"]
 
-[ext_resource type="Material" uid="uid://qhut602vi5fa" path="res://CrackedIce/MaterialLibrary/Nature/Stone/light_stone.tres" id="1_l76be"]
+[ext_resource type="Material" uid="uid://qhut602vi5fa" path="res://CrackedIce/MaterialLibrary/Nature/Stone-high/light_stone.tres" id="1_l76be"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_a5ixh"]
 _surfaces = [{

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cyuiukb62s8td" path="res://CrackedIce/Art/Nature/mountain_range.glb" id="2_ql8ob"]
 [ext_resource type="FontFile" uid="uid://inairxsjwdy6" path="res://CrackedIce/UI/fonts/Blackcraft_fixed.woff2" id="3_omp7x"]
 [ext_resource type="PackedScene" uid="uid://bg04dr8a6q71r" path="res://CrackedIce/Entities/Player/torke.tscn" id="5_hv8kc"]
-[ext_resource type="Material" uid="uid://qhut602vi5fa" path="res://CrackedIce/MaterialLibrary/Nature/Stone/light_stone.tres" id="13_e2y43"]
+[ext_resource type="Material" uid="uid://qhut602vi5fa" path="res://CrackedIce/MaterialLibrary/Nature/Stone-high/light_stone.tres" id="13_e2y43"]
 [ext_resource type="PackedScene" uid="uid://dcifgrkgqslgk" path="res://CrackedIce/Art/Buildings/Workshop1.tscn" id="18_g27no"]
 [ext_resource type="PackedScene" uid="uid://m4w2pyr3h1uq" path="res://CrackedIce/Art/Buildings/TheGenerator.tscn" id="18_psvjm"]
 [ext_resource type="PackedScene" uid="uid://didfufi5anrd2" path="res://CrackedIce/Art/Buildings/abandoned_building2.tscn" id="19_1nx5n"]
@@ -149,11 +149,10 @@ mesh = SubResource("TextMesh_ueus2")
 [node name="Pedestrians" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 301)
 
-[node name="Freecam3D" type="Camera3D" parent="." node_paths=PackedStringArray("player_cam3d")]
+[node name="Freecam3D" type="Camera3D" parent="."]
 transform = Transform3D(1, -1.77636e-15, 8.9407e-08, -2.31402e-08, 0.965926, 0.258819, -8.63605e-08, -0.258819, 0.965926, 27, 1, 357)
 script = ExtResource("20_tfhfb")
 overlay_text = false
-player_cam3d = NodePath("")
 
 [node name="Torke" parent="." instance=ExtResource("5_hv8kc")]
 

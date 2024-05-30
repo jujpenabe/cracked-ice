@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://dvmwd7sf7xuwk" path="res://CrackedIce/MaterialLibrary/Nature/Elements/lava.tres" id="2_2d8wf"]
 [ext_resource type="Material" uid="uid://bkyub603sddm3" path="res://CrackedIce/MaterialLibrary/Nature/Metal2/detailed_dirty_metal.tres" id="3_oog3m"]
 [ext_resource type="Material" uid="uid://cqtfpjxbqjsgh" path="res://CrackedIce/MaterialLibrary/Nature/Metal/medium_rough_iron.tres" id="4_cklnn"]
-[ext_resource type="Material" uid="uid://qhut602vi5fa" path="res://CrackedIce/MaterialLibrary/Nature/Stone/light_stone.tres" id="5_hvkdr"]
+[ext_resource type="Material" uid="uid://qhut602vi5fa" path="res://CrackedIce/MaterialLibrary/Nature/Stone-high/light_stone.tres" id="5_hvkdr"]
 [ext_resource type="Material" uid="uid://t0f4scfg8fbq" path="res://CrackedIce/MaterialLibrary/Nature/Elements-tiny/dark_glass.tres" id="6_fnuk3"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_cp6l2"]

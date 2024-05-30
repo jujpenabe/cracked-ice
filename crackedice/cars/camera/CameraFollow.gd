@@ -1,8 +1,8 @@
 extends Camera3D
 
 
-@export var target_distance = 5
-@export var target_height = 2
+@export var target_distance: float = 5.0
+@export var target_height: float = 2.0
 @export var speed:=20.0
 @export var freecam3d:= Freecam3D.new()
 var follow_this = null
