@@ -1,12 +1,10 @@
-[gd_scene load_steps=33 format=3 uid="uid://b76fcyiisui0w"]
+[gd_scene load_steps=31 format=3 uid="uid://b76fcyiisui0w"]
 
-[ext_resource type="Script" path="res://addons/maaacks_game_template/base/scenes/Menus/MainMenu/MainMenu.gd" id="1_4p54k"]
-[ext_resource type="PackedScene" uid="uid://bvwl11s2p0hd" path="res://addons/maaacks_game_template/base/scenes/Menus/OptionsMenu/MasterOptionsMenu.tscn" id="2_7s6uj"]
+[ext_resource type="Script" path="res://CrackedIce/Menus/MainMenu/MainMenu.gd" id="1_4p54k"]
+[ext_resource type="PackedScene" uid="uid://k0nh1lqsjth4" path="res://CrackedIce/Menus/OptionsMenu/MasterOptionsMenu.tscn" id="2_1040c"]
 [ext_resource type="AudioStream" uid="uid://dgxemelrejynd" path="res://Audio/Music/CrackediceMainMenu.ogg" id="2_cc2lm"]
 [ext_resource type="PackedScene" uid="uid://d2k6pr8elkwsv" path="res://CrackedIce/Menus/CreditsMenu/Credits.tscn" id="3_00v7a"]
-[ext_resource type="FontFile" uid="uid://di7vjsrko4o42" path="res://CrackedIce/UI/fonts/Smashed.ttf" id="3_6eg0m"]
 [ext_resource type="PackedScene" uid="uid://cv2f614m7kh0v" path="res://CrackedIce/UI/fx/2DSnowParticles.tscn" id="4_bvuea"]
-[ext_resource type="FontFile" uid="uid://inairxsjwdy6" path="res://CrackedIce/UI/fonts/Blackcraft_fixed.woff2" id="4_wp7fe"]
 [ext_resource type="VideoStream" path="res://CrackedIce/Menus/MainMenu/main_menu_background_animation2.ogv" id="5_erniu"]
 [ext_resource type="Texture2D" uid="uid://bqpkvyoec5vef" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_transparent.png" id="6_4epll"]
 [ext_resource type="Texture2D" uid="uid://cvcwckhxuufpn" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_play_normal.png" id="9_mc2a6"]
@@ -80,9 +78,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4p54k")
 game_scene_path = "res://CrackedIce/Maps/Main/Main.tscn"
-options_packed_scene = ExtResource("2_7s6uj")
+test_scene_path = "res://CrackedIce/Maps/Test/Blocking1.tscn"
+options_packed_scene = ExtResource("2_1040c")
 credits_packed_scene = ExtResource("3_00v7a")
-version_name = "0.0.1"
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
@@ -154,6 +152,7 @@ offset_right = -8.0
 offset_bottom = -7.0
 grow_horizontal = 0
 grow_vertical = 0
+text = "v0.1"
 horizontal_alignment = 2
 
 [node name="MenuContainer" type="Control" parent="."]
@@ -164,19 +163,39 @@ offset_top = 447.0
 offset_right = 584.0
 offset_bottom = 487.0
 
+[node name="LevelTestButton" type="Button" parent="MenuContainer"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -512.0
+offset_top = -238.0
+offset_right = -303.0
+offset_bottom = -180.0
+focus_neighbor_left = NodePath("../ExitButton")
+focus_neighbor_top = NodePath("../ExitButton")
+focus_neighbor_right = NodePath("../PlayButton")
+focus_neighbor_bottom = NodePath("../PlayButton")
+focus_next = NodePath("../PlayButton")
+focus_previous = NodePath("../ExitButton")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.321569, 0.815686, 0.772549, 1)
+theme_override_font_sizes/font_size = 36
+button_mask = 0
+text = "LEVEL TEST!"
+
 [node name="PlayButton" type="TextureButton" parent="MenuContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-offset_left = -514.0
+offset_left = -513.0
 offset_top = -180.0
-offset_right = -344.0
+offset_right = -343.0
 offset_bottom = -95.0
-focus_neighbor_left = NodePath("../ExitButton")
-focus_neighbor_top = NodePath("../ExitButton")
+tooltip_text = "Soon!"
+focus_neighbor_left = NodePath("../LevelTestButton")
+focus_neighbor_top = NodePath("../LevelTestButton")
 focus_neighbor_right = NodePath("../OptionsButton")
 focus_neighbor_bottom = NodePath("../OptionsButton")
 focus_next = NodePath("../OptionsButton")
-focus_previous = NodePath("../ExitButton")
+focus_previous = NodePath("../LevelTestButton")
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("9_mc2a6")
 texture_pressed = ExtResource("10_xfgx3")
@@ -224,7 +243,6 @@ texture_focused = ExtResource("15_byi6b")
 
 [node name="ExitButton" type="TextureButton" parent="MenuContainer"]
 unique_name_in_owner = true
-clip_contents = true
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 offset_left = -516.0
@@ -233,69 +251,13 @@ offset_right = -388.0
 offset_bottom = 20.0
 focus_neighbor_left = NodePath("../CreditsButton")
 focus_neighbor_top = NodePath("../CreditsButton")
-focus_neighbor_right = NodePath("../PlayButton")
-focus_neighbor_bottom = NodePath("../PlayButton")
-focus_next = NodePath("../PlayButton")
+focus_neighbor_right = NodePath("../LevelTestButton")
+focus_neighbor_bottom = NodePath("../LevelTestButton")
+focus_next = NodePath("../LevelTestButton")
 focus_previous = NodePath("../CreditsButton")
 texture_normal = ExtResource("16_syg20")
 texture_pressed = ExtResource("17_52l3k")
 texture_focused = ExtResource("18_e6e2k")
-
-[node name="MenuContainer2" type="MarginContainer" parent="."]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer2"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="TitlesMargin" type="MarginContainer" parent="MenuContainer2/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 5
-size_flags_vertical = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 0
-
-[node name="TitlesContainer" type="VBoxContainer" parent="MenuContainer2/VBoxContainer/TitlesMargin"]
-layout_mode = 2
-
-[node name="Title" type="Label" parent="MenuContainer2/VBoxContainer/TitlesMargin/TitlesContainer"]
-visible = false
-layout_mode = 2
-theme_override_colors/font_color = Color(0.721569, 0.8, 0.768627, 1)
-theme_override_colors/font_shadow_color = Color(0.72, 0.8, 0.772, 1)
-theme_override_colors/font_outline_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/outline_size = 5
-theme_override_constants/shadow_outline_size = 10
-theme_override_constants/line_spacing = -25
-theme_override_fonts/font = ExtResource("3_6eg0m")
-theme_override_font_sizes/font_size = 102
-text = "CRACKED
-ICE
-"
-vertical_alignment = 1
-uppercase = true
-
-[node name="SubTitle" type="Label" parent="MenuContainer2/VBoxContainer/TitlesMargin/TitlesContainer"]
-visible = false
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_wp7fe")
-theme_override_font_sizes/font_size = 24
-text = "I"
-vertical_alignment = 1
-
-[node name="MenuMargin" type="MarginContainer" parent="MenuContainer2/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_constants/margin_top = 90
 
 [node name="OptionsContainer" type="MarginContainer" parent="."]
 unique_name_in_owner = true
@@ -354,6 +316,7 @@ script = ExtResource("13_bdt0k")
 
 [node name="DiscordRpc" parent="." instance=ExtResource("23_i2e8r")]
 
+[connection signal="pressed" from="MenuContainer/LevelTestButton" to="." method="_on_level_test_button_pressed"]
 [connection signal="button_down" from="MenuContainer/PlayButton" to="." method="_on_play_button_button_down"]
 [connection signal="button_up" from="MenuContainer/PlayButton" to="." method="_on_play_button_button_up"]
 [connection signal="pressed" from="MenuContainer/PlayButton" to="." method="_on_play_button_pressed"]

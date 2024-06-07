@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://5lctwpfh4nc4"]
+
+[ext_resource type="Script" path="res://CrackedIce/UI/progressbar/rpmbar.gd" id="1_fdcxg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3gl8w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wmuy"]
+bg_color = Color(0.901961, 0.611765, 0, 1)
+
+[node name="RpmBar" type="ProgressBar"]
+z_index = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxEmpty_3gl8w")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0wmuy")
+step = 1.0
+show_percentage = false
+script = ExtResource("1_fdcxg")
+
+[node name="RPM" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "RPM"
+horizontal_alignment = 1
+
+[node name="Gear" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -38.0
+offset_right = -160.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Gear"
+horizontal_alignment = 2

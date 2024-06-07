@@ -1,10 +1,13 @@
 class_name BaseCar
 extends VehicleBody3D
 
+signal car_collided(force: float)
+
 @export var steer_speed = 0.1
 @export var steer_limit = 0.5
 @export var engine_force_value = 100
 @export var throttle_speed := 10.0
+@export var brake_speed := 10.0
 @export var motor_drag := 0.005
 @export var max_rpm := 7000.0
 @export var torque_curve : Curve
@@ -20,6 +23,8 @@ extends VehicleBody3D
 @export var reverse_ratio := 3.3
 ## Time it takes to change gears on up shifts in seconds
 @export var shift_time := 0.2
+@export var resilience: float = 4.0
+@export var block_damage: int = 10
 
 const ANGULAR_VELOCITY_TO_RPM := 60.0 / TAU
 
@@ -27,6 +32,7 @@ var steer_target = 0
 
 var throttle_input := 0.0
 var brake_input := 0.0
+var damage: float = 0 : set = _set_damage
 
 var local_velocity := Vector3.ZERO
 var previous_global_position := Vector3.ZERO
@@ -39,7 +45,7 @@ var clutch_amount := 0.0
 var need_clutch := false
 var clutch_input := 0.0
 var is_shifting := false
-var current_gear := 0
+var current_gear := 0 : set = _set_current_gear
 var brake_amount := 0.0
 var requested_gear := 0
 var speed := 0.0
@@ -49,19 +55,55 @@ var delta_time := 0.0
 var is_up_shifting := false
 var complete_shift_delta_time := 0.0
 var throttle_factor := 1.0
+var prev_velocity: Vector3
 
 func _ready():
+	connect_signals()
 	initialize()
+
+func connect_signals():
+	EventBus.max_rpm_requested.connect(_send_max_rpm_value)
+	EventBus.damage_made.connect(_set_damage)
 
 func initialize():
 	previous_global_position = global_transform.origin
 	average_drive_wheel_radius = $WheelFrontRight.wheel_radius
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+
+func _set_damage(value):
+	damage += value
+	final_drive -= value * 0.3
+	if damage >= 100:
+		EventBus.car_destroyed.emit()
+
+func _send_max_rpm_value():
+	EventBus.max_rpm_changed.emit(max_rpm)
+
+func _set_current_gear(value):
+	current_gear = value
+	var gear_string = ""
+	# match the gears with R, 1, 2, 3, 4, 5
+	match current_gear:
+		-1:
+			gear_string = "R"
+		0:
+			gear_string = "1"
+		1:
+			gear_string = "2"
+		2:
+			gear_string = "3"
+		3:
+			gear_string = "4"
+		4:
+			gear_string = "5"
+		5:
+			gear_string = "6"
+
+	EventBus.gear_changed.emit(gear_string)
 
 func _physics_process(delta):
+	prev_velocity = linear_velocity
 	speed = linear_velocity.length()*Engine.get_frames_per_second()*3.6*delta
 	traction(speed)
-	$Hud/speed.text=str(round(speed))+"  KMPH"
 
 	delta_time += delta
 	local_velocity = lerp(((global_transform.origin - previous_global_position) / delta) * global_transform.basis, local_velocity, 0.5)
@@ -73,90 +115,86 @@ func _physics_process(delta):
 
 	# var fwd_mps = transform.basis.x.x
 	steer_target = Input.get_action_strength("Steer Left") - Input.get_action_strength("Steer Right")
-	steer_target *= steer_limit
+	steer_target *= steer_limit * 40 / (50 + speed)
 
 	throttle_input = max(pow(Input.get_action_strength("Throttle"), 2.0), pow(Input.get_action_strength("Full Throttle"), 2.0))
 
 	if Input.is_action_pressed("Full Throttle"):
 		# Increase engine force at cost of wheel slip
-		if speed < 20 and speed != 0:
+		if speed < 10 and speed != 0:
 			engine_force = -clamp(engine_force_value * 2, 0, 3000)
 		else:
 			engine_force = -clamp(engine_force_value * 1.2 * get_gear_ratio(current_gear), 0, 7500)
 		full_throttle_amount = 0.1
 		throttle_factor = 2.0
 		# Slip penalty
-		$WheelFrontLeft.wheel_friction_slip=2
-		$WheelFrontRight.wheel_friction_slip=2
-		$WheelRearRight.wheel_friction_slip=0.2
-		$WheelRearLeft.wheel_friction_slip=0.2
+		$WheelFrontLeft.wheel_friction_slip=1
+		$WheelFrontRight.wheel_friction_slip=1
+		$WheelRearRight.wheel_friction_slip=1
+		$WheelRearLeft.wheel_friction_slip=1
 
 		# Roll influence penalty
-		$WheelFrontLeft.wheel_roll_influence= 1
-		$WheelFrontRight.wheel_roll_influence= 1
-		$WheelRearRight.wheel_roll_influence= 0
-		$WheelRearLeft.wheel_roll_influence = 0
+		$WheelFrontLeft.wheel_roll_influence= 0.5
+		$WheelFrontRight.wheel_roll_influence= 0.5
+		$WheelRearRight.wheel_roll_influence= 0.7
+		$WheelRearLeft.wheel_roll_influence = 0.7
 
 	else:
 
 		full_throttle_amount = 1.0
 		throttle_factor = 1.0
-		$WheelFrontLeft.wheel_friction_slip=2
-		$WheelFrontRight.wheel_friction_slip=2
-		$WheelRearRight.wheel_friction_slip=2
-		$WheelRearLeft.wheel_friction_slip=2
-
-		$WheelFrontLeft.wheel_roll_influence=0.5
-		$WheelFrontRight.wheel_roll_influence=0.5
-		$WheelRearRight.wheel_roll_influence=0.5
-		$WheelRearLeft.wheel_roll_influence=0.5
 		engine_force = 0
-
 
 	if Input.is_action_pressed("Throttle"):
 		# Increase engine force at low speeds to make the initial acceleration faster.
-		if speed < 20 and speed != 0:
+		if speed < 10 and speed != 0:
 			engine_force = -clamp(engine_force_value * 1.5, 0, 3000)
 		else:
 			engine_force = -clamp(engine_force_value * get_gear_ratio(current_gear), 0, 7500)
-			print("engine force: ", str(engine_force))
+		$WheelFrontLeft.wheel_friction_slip=1.0
+		$WheelFrontRight.wheel_friction_slip=1.0
+		$WheelRearRight.wheel_friction_slip=1.3
+		$WheelRearLeft.wheel_friction_slip=1.3
 
+		$WheelFrontLeft.wheel_roll_influence=0.4
+		$WheelFrontRight.wheel_roll_influence=0.4
+		$WheelRearRight.wheel_roll_influence=0.2
+		$WheelRearLeft.wheel_roll_influence=0.2
 
 	brake_input = Input.get_action_strength("Brakes")
 
 	if Input.get_action_strength("Brakes"):
 	# Increase engine force at low speeds to make the initial acceleration faster.
 		# print("forwad velocity: ", str(global_transform.basis.z.dot(body.velocity)))
-		if local_velocity.z < -0.5:
-			brake = 20
+		if local_velocity.z < -0.2:
+			brake = brake_speed
 		else:
 			engine_force = -engine_force_value * get_gear_ratio(-1)
+			$WheelFrontLeft.wheel_friction_slip=1.4
+			$WheelFrontRight.wheel_friction_slip=1.4
+			$WheelRearRight.wheel_friction_slip=1.3
+			$WheelRearLeft.wheel_friction_slip=1.3
 	else:
 		brake = 0
 
 	if Input.is_action_pressed("Handbrake"):
 		# brake front wheels
-		$WheelFrontLeft.brake = 30
-		$WheelFrontRight.brake = 30
+		$WheelFrontLeft.brake = brake_speed * 4
+		$WheelFrontRight.brake = brake_speed * 4
 
 		$WheelFrontLeft.wheel_friction_slip=0.9
 		$WheelFrontRight.wheel_friction_slip=0.9
-		$WheelRearRight.wheel_friction_slip=0.1
-		$WheelRearLeft.wheel_friction_slip=0.1
-	else:
-		$WheelRearRight.wheel_friction_slip=2
-		$WheelRearLeft.wheel_friction_slip=2
+		$WheelRearRight.wheel_friction_slip=0.4
+		$WheelRearLeft.wheel_friction_slip=0.4
 
-	steering = move_toward(steering, steer_target, steer_speed)
-
+	steering = move_toward(steering, steer_target, steer_speed * 50 / (50 + speed))
 
 
 func traction(speed):
-	apply_central_force(Vector3.DOWN*speed)
+	apply_central_force(Vector3.DOWN*speed*10)
 
 func process_throttle(delta : float):
 	var throttle_delta := throttle_speed * delta * throttle_factor
-
 	if (throttle_input < throttle_amount):
 		throttle_amount -= throttle_delta
 		if (throttle_input > throttle_amount):
@@ -187,7 +225,7 @@ func process_motor(delta : float):
 	var new_rpm := motor_rpm
 	new_rpm += ANGULAR_VELOCITY_TO_RPM * delta * torque_output / motor_moment
 	motor_is_redline = false
-	if new_rpm > (max_rpm ) or new_rpm <= idle_rpm:
+	if new_rpm > (max_rpm) or new_rpm <= idle_rpm:
 		torque_output = 0.0
 		if new_rpm > max_rpm:
 			motor_is_redline = true
@@ -201,6 +239,7 @@ func process_motor(delta : float):
 		need_clutch = false
 
 	motor_rpm = maxf(motor_rpm, idle_rpm)
+	EventBus.rpm_changed.emit(motor_rpm)
 
 func process_transmission(delta : float):
 	if is_shifting:
@@ -215,7 +254,7 @@ func process_transmission(delta : float):
 	var reversing := false
 #	print(d " + str(speed))
 	var ideal_wheel_spin := speed / average_drive_wheel_radius
-#	print("Real wheel spin " + str(real_wheel_spin) + " ideal wheel spin " + str(ideal_wheel_spin) + " final drive " + str(final_drive))
+
 	var current_ideal_gear_rpm := gear_ratios[current_gear - 1] * final_drive * ideal_wheel_spin * ANGULAR_VELOCITY_TO_RPM
 
 	if current_gear == -1:
@@ -232,26 +271,26 @@ func process_transmission(delta : float):
 		if current_gear < gear_ratios.size():
 			if current_gear > 0:
 				# print with 0 precision decimals place
-				print("RPM: " + str(motor_rpm).pad_decimals(0) + " Ideal RPM: " + str(current_ideal_gear_rpm).pad_decimals(0) + " Speed: " + str(speed).pad_decimals(0))
-				print("Current gear: " + str(current_gear))
+				#print("RPM: " + str(motor_rpm).pad_decimals(0) + " Ideal RPM: " + str(current_ideal_gear_rpm).pad_decimals(0) + " Speed: " + str(speed).pad_decimals(0))
+				#print("Current gear: " + str(current_gear))
 				# calculate the shift rpm based on current gear: more gear means higher rpm to shift
-				if (current_ideal_gear_rpm + motor_rpm) * 0.5 > (max_rpm * 0.8 * (1 - (full_throttle_amount / (1 + current_gear)))):
+				if (current_ideal_gear_rpm + motor_rpm) * 0.5 > (max_rpm * 0.55 * (1 - (full_throttle_amount / (1 + current_gear)))):
 					if delta_time - last_shift_delta_time > shift_time:
 						shift(1)
-			elif current_gear == 0 and motor_rpm > clutch_out_rpm:
+			elif current_gear <= 0 and motor_rpm > clutch_out_rpm:
 				shift(1)
 		if current_gear - 1 > 0:
-			if current_gear > 1 and previous_gear_rpm < 0.3 * max_rpm * (1 - (full_throttle_amount / (1 + current_gear - 1))):
+			if current_gear > 1 and previous_gear_rpm < 0.25 * max_rpm * (1 - (full_throttle_amount / (1 + current_gear - 1))):
 				if delta_time - last_shift_delta_time > shift_time:
 					shift(-1)
 
-	if absf(current_gear) <= 1 and brake_input > 0.7:
+	if absf(current_gear) <= 1:
 		if not reversing:
-			if speed < 1.0 or local_velocity.z > 0.0:
+			if speed < 1.0 or local_velocity.z > 0:
 				if delta_time - last_shift_delta_time > shift_time:
 					shift(-1)
 		else:
-			if speed < 1.0 or local_velocity.z < 0.0:
+			if speed < 1.0 or local_velocity.z < 0:
 				if delta_time - last_shift_delta_time > shift_time:
 					shift(1)
 
@@ -297,3 +336,10 @@ func get_gear_ratio(gear : int) -> float:
 		return -reverse_ratio * final_drive
 	else:
 		return 0.0
+
+func _on_body_entered(body:Node):
+	var impulse = mass * (linear_velocity - prev_velocity)
+	impulse = sqrt(impulse.length()) / resilience
+	# if the damage is greater than 10, do the damage
+	if impulse > block_damage:
+		EventBus.car_collided.emit(impulse)

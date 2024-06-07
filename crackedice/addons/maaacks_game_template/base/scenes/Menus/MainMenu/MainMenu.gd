@@ -1,8 +1,9 @@
-class_name MainMenu
+class_name TemplateMainMenu
 extends Control
 
 
 @export_file("*.tscn") var game_scene_path : String
+@export_file("*.tscn") var test_scene_path : String
 @export var options_packed_scene : PackedScene
 @export var credits_packed_scene : PackedScene
 @export var version_name : String = '0.0.0'
@@ -20,6 +21,10 @@ func load_scene(scene_path : String):
 
 func play_game():
 	SceneLoader.load_scene(game_scene_path)
+
+func play_test():
+	print("Enter to test")
+	SceneLoader.load_scene(test_scene_path)
 
 func _open_sub_menu(menu : Control):
 	sub_menu = menu
@@ -89,6 +94,9 @@ func _ready():
 
 func _on_play_button_pressed():
 	play_game()
+
+func _on_level_button_pressed():
+	play_test()
 
 func _on_options_button_pressed():
 	_open_sub_menu(options_scene)

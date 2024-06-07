@@ -14,7 +14,7 @@ config/name="Cracked Ice"
 config/version="0.0.1"
 run/main_scene="res://CrackedIce/Maps/Opening/Opening.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
-run/max_fps=60
+run/max_fps=30
 boot_splash/bg_color=Color(0.02, 0.14, 0.2, 1)
 config/icon="res://Icons/CrackedIceCover1.jpg"
 
@@ -26,7 +26,7 @@ SceneLoader="*res://addons/maaacks_game_template/base/scenes/Autoloads/SceneLoad
 ProjectMusicController="*res://addons/maaacks_game_template/extras/scenes/Autoloads/ProjectMusicController.tscn"
 ProjectUISoundController="*res://addons/maaacks_game_template/extras/scenes/Autoloads/ProjectUISoundController.tscn"
 DiscordRPCLoader="*res://addons/discord-rpc-gd/nodes/discord_autoload.gd"
-CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
+EventBus="*res://CrackedIce/Globals/event_bus.gd"
 
 [display]
 
@@ -38,7 +38,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/cyclops_level_builder/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/discord-rpc-gd/plugin.cfg", "res://addons/freecam_3D/plugin.cfg", "res://addons/godot_conventions_cheat_sheet/plugin.cfg", "res://addons/maaacks_game_template/plugin.cfg")
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/discord-rpc-gd/plugin.cfg", "res://addons/freecam_3D/plugin.cfg", "res://addons/godot_conventions_cheat_sheet/plugin.cfg", "res://addons/maaacks_game_template/plugin.cfg")
 
 [file_customization]
 

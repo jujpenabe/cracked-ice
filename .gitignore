@@ -17,3 +17,6 @@ mono_crash.*.json
 # file: ~/.gitignore_global
 .DS_Store
 .idea
+
+# Builds
+Builds/

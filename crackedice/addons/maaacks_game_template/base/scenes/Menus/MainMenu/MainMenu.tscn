@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c6k5nnpbypshi"]
 
-[ext_resource type="Script" path="res://addons/maaacks_game_template/base/scenes/Menus/MainMenu/MainMenu.gd" id="1"]
+[ext_resource type="Script" path="res://CrackedIce/Menus/MainMenu/MainMenu.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://bvwl11s2p0hd" path="res://addons/maaacks_game_template/base/scenes/Menus/OptionsMenu/MasterOptionsMenu.tscn" id="2_67m86"]
 [ext_resource type="PackedScene" uid="uid://t2dui8ppm3a4" path="res://addons/maaacks_game_template/base/scenes/Credits/Credits.tscn" id="3_5dhvp"]
 [ext_resource type="Script" path="res://addons/maaacks_game_template/base/scripts/CaptureFocus.gd" id="4_l1ebe"]

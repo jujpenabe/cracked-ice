@@ -1,0 +1,16 @@
+extends Node
+
+# Vehicle update events
+signal max_rpm_changed(new_max_rpm)
+signal rpm_changed(new_rpm)
+signal gear_changed(new_gear: String)
+signal car_collided(impulse)
+signal car_destroyed()
+signal damage_made(damage_amount: float)
+
+# Vehicle request events
+signal max_rpm_requested
+
+# UI update events
+signal damagebar_setup(max_health)
+signal damagebar_hit_health_changed(new_hit_health)

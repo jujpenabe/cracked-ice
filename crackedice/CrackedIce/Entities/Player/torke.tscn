@@ -121,7 +121,6 @@ particles_anim_loop = false
 material = SubResource("StandardMaterial3D_1t4st")
 
 [node name="Torke" type="VehicleBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 488)
 collision_mask = 7
 mass = 500.0
 center_of_mass_mode = 1
@@ -214,10 +213,9 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 [node name="look" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1)
 
-[node name="Camera3D" parent="look" node_paths=PackedStringArray("freecam3d") instance=ExtResource("5_o8cam")]
+[node name="Camera3D" parent="look" instance=ExtResource("5_o8cam")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 351)
 target_distance = 6
-freecam3d = NodePath("")
 
 [node name="Hud" type="CanvasLayer" parent="."]
 layer = 2
@@ -244,8 +242,7 @@ Space to drift and break
 "
 label_settings = SubResource("LabelSettings_yc8e5")
 
-[node name="s_EngineSound" parent="." node_paths=PackedStringArray("vehicle") instance=ExtResource("6_ww05p")]
-vehicle = NodePath("")
+[node name="s_EngineSound" parent="." instance=ExtResource("6_ww05p")]
 
 [node name="BlizzardGPUParticles" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
