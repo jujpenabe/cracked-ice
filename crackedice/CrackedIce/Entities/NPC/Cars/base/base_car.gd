@@ -4,7 +4,7 @@ extends VehicleBody3D
 signal car_collided(force: float)
 
 @export var steer_speed = 0.1
-@export var steer_limit = 0.5
+@export var steer_limit = 1.0
 @export var engine_force_value = 100
 @export var throttle_speed := 10.0
 @export var brake_speed := 10.0
@@ -71,7 +71,7 @@ func initialize():
 
 func _set_damage(value):
 	damage += value
-	final_drive -= value * 0.3
+	engine_force_value -= value * 10
 	if damage >= 100:
 		EventBus.car_destroyed.emit()
 
@@ -115,7 +115,7 @@ func _physics_process(delta):
 
 	# var fwd_mps = transform.basis.x.x
 	steer_target = Input.get_action_strength("Steer Left") - Input.get_action_strength("Steer Right")
-	steer_target *= steer_limit * 40 / (50 + speed)
+	steer_target *= steer_limit * 50 / (50 + speed)
 
 	throttle_input = max(pow(Input.get_action_strength("Throttle"), 2.0), pow(Input.get_action_strength("Full Throttle"), 2.0))
 
@@ -151,15 +151,15 @@ func _physics_process(delta):
 			engine_force = -clamp(engine_force_value * 1.5, 0, 3000)
 		else:
 			engine_force = -clamp(engine_force_value * get_gear_ratio(current_gear), 0, 7500)
-		$WheelFrontLeft.wheel_friction_slip=1.0
-		$WheelFrontRight.wheel_friction_slip=1.0
-		$WheelRearRight.wheel_friction_slip=1.3
-		$WheelRearLeft.wheel_friction_slip=1.3
+		$WheelFrontLeft.wheel_friction_slip  = 2.0
+		$WheelFrontRight.wheel_friction_slip = 2.0
+		$WheelRearRight.wheel_friction_slip  = 2.25
+		$WheelRearLeft.wheel_friction_slip   = 2.25
 
-		$WheelFrontLeft.wheel_roll_influence=0.4
-		$WheelFrontRight.wheel_roll_influence=0.4
-		$WheelRearRight.wheel_roll_influence=0.2
-		$WheelRearLeft.wheel_roll_influence=0.2
+		$WheelFrontLeft.wheel_roll_influence  = 0.4
+		$WheelFrontRight.wheel_roll_influence = 0.4
+		$WheelRearRight.wheel_roll_influence  = 0.3
+		$WheelRearLeft.wheel_roll_influence	  = 0.3
 
 	brake_input = Input.get_action_strength("Brakes")
 
@@ -168,12 +168,13 @@ func _physics_process(delta):
 		# print("forwad velocity: ", str(global_transform.basis.z.dot(body.velocity)))
 		if local_velocity.z < -0.2:
 			brake = brake_speed
+			engine_force *= 0.2
 		else:
 			engine_force = -engine_force_value * get_gear_ratio(-1)
-			$WheelFrontLeft.wheel_friction_slip=1.4
-			$WheelFrontRight.wheel_friction_slip=1.4
-			$WheelRearRight.wheel_friction_slip=1.3
-			$WheelRearLeft.wheel_friction_slip=1.3
+			$WheelFrontLeft.wheel_friction_slip=1.8
+			$WheelFrontRight.wheel_friction_slip=1.8
+			$WheelRearRight.wheel_friction_slip=1.6
+			$WheelRearLeft.wheel_friction_slip=1.6
 	else:
 		brake = 0
 
@@ -182,16 +183,22 @@ func _physics_process(delta):
 		$WheelFrontLeft.brake = brake_speed * 4
 		$WheelFrontRight.brake = brake_speed * 4
 
+		# brake rear wheels
+		$WheelRearRight.brake = brake_speed
+		$WheelRearLeft.brake = brake_speed
+
+		engine_force *= 0.8
+
 		$WheelFrontLeft.wheel_friction_slip=0.9
 		$WheelFrontRight.wheel_friction_slip=0.9
-		$WheelRearRight.wheel_friction_slip=0.4
-		$WheelRearLeft.wheel_friction_slip=0.4
+		$WheelRearRight.wheel_friction_slip=0.5
+		$WheelRearLeft.wheel_friction_slip=0.5
 
-	steering = move_toward(steering, steer_target, steer_speed * 50 / (50 + speed))
+	steering = move_toward(steering, steer_target, steer_speed * 25 / (25 + speed))
 
 
 func traction(speed):
-	apply_central_force(Vector3.DOWN*speed*10)
+	apply_central_force(Vector3.DOWN*speed*2)
 
 func process_throttle(delta : float):
 	var throttle_delta := throttle_speed * delta * throttle_factor
