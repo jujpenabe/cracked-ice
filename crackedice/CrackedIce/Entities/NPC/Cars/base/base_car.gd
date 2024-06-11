@@ -25,6 +25,7 @@ signal car_collided(force: float)
 @export var shift_time := 0.2
 @export var resilience: float = 4.0
 @export var block_damage: int = 10
+@export var heat_resistance: int = 10
 
 const ANGULAR_VELOCITY_TO_RPM := 60.0 / TAU
 
@@ -33,6 +34,11 @@ var steer_target = 0
 var throttle_input := 0.0
 var brake_input := 0.0
 var damage: float = 0 : set = _set_damage
+var target_heat: float = 0.0
+var engine_heat: float = 0.0
+var heat: float = 0 : set = _set_heat
+
+var ambient_temp: float = -0.025 : set = _set_ambient_temp
 
 var local_velocity := Vector3.ZERO
 var previous_global_position := Vector3.ZERO
@@ -64,16 +70,27 @@ func _ready():
 func connect_signals():
 	EventBus.max_rpm_requested.connect(_send_max_rpm_value)
 	EventBus.damage_made.connect(_set_damage)
+	EventBus.heat_applied.connect(_set_heat)
+	EventBus.ambient_temperature_changed.connect(_set_ambient_temp)
 
 func initialize():
 	previous_global_position = global_transform.origin
 	average_drive_wheel_radius = $WheelFrontRight.wheel_radius
+	EventBus.ambient_temperature_requested.emit()
 
 func _set_damage(value):
 	damage += value
-	engine_force_value -= value * 10
+	engine_force_value -= value * 100
+	final_drive -= value * 0.2
 	if damage >= 100:
 		EventBus.car_destroyed.emit()
+
+func _set_ambient_temp(value):
+	ambient_temp = value
+
+func _set_heat(value):
+	heat = clamp(value, -100, 100)
+
 
 func _send_max_rpm_value():
 	EventBus.max_rpm_changed.emit(max_rpm)
@@ -112,6 +129,8 @@ func _physics_process(delta):
 	process_throttle(delta)
 	process_motor(delta)
 	process_transmission(delta)
+	process_target_heat(delta)
+	process_heat(delta)
 
 	# var fwd_mps = transform.basis.x.x
 	steer_target = Input.get_action_strength("Steer Left") - Input.get_action_strength("Steer Right")
@@ -128,8 +147,8 @@ func _physics_process(delta):
 		full_throttle_amount = 0.1
 		throttle_factor = 2.0
 		# Slip penalty
-		$WheelFrontLeft.wheel_friction_slip=1
-		$WheelFrontRight.wheel_friction_slip=1
+		$WheelFrontLeft.wheel_friction_slip=1.25
+		$WheelFrontRight.wheel_friction_slip=1.25
 		$WheelRearRight.wheel_friction_slip=1
 		$WheelRearLeft.wheel_friction_slip=1
 
@@ -246,6 +265,9 @@ func process_motor(delta : float):
 		need_clutch = false
 
 	motor_rpm = maxf(motor_rpm, idle_rpm)
+	# add heat based on rpm plus time throtled
+	engine_heat = clampf(sqrt(motor_rpm - idle_rpm)*5 / max_rpm, 0.0, 1.0)
+	print("Engine heat: ", engine_heat)
 	EventBus.rpm_changed.emit(motor_rpm)
 
 func process_transmission(delta : float):
@@ -300,6 +322,21 @@ func process_transmission(delta : float):
 			if speed < 1.0 or local_velocity.z < 0:
 				if delta_time - last_shift_delta_time > shift_time:
 					shift(1)
+
+func process_target_heat(delta : float):
+	target_heat += ambient_temp + engine_heat
+	print("Target heat: ", target_heat)
+
+func process_heat(delta : float):
+	# smooth lerp between current heat and target heat
+	# if target heat is greater than current heat do not apply heat resistance
+	if target_heat > heat:
+		heat = lerp(heat, target_heat, delta)
+	else:
+		# if target heat is less than current heat apply heat resistance
+		heat = lerp(heat, target_heat, delta / (1 + heat_resistance))
+	print("Heat: ", heat)
+	EventBus.heat_changed.emit(heat)
 
 func get_torque_at_rpm(lookup_rpm : float) -> float:
 	var rpm_factor = clamp(lookup_rpm / max_rpm, 0.0, 1.0)

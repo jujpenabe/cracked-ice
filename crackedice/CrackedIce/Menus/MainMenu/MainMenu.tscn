@@ -179,7 +179,6 @@ focus_previous = NodePath("../ExitButton")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0.321569, 0.815686, 0.772549, 1)
 theme_override_font_sizes/font_size = 36
-button_mask = 0
 text = "LEVEL TEST!"
 
 [node name="PlayButton" type="TextureButton" parent="MenuContainer"]
@@ -197,6 +196,7 @@ focus_neighbor_bottom = NodePath("../OptionsButton")
 focus_next = NodePath("../OptionsButton")
 focus_previous = NodePath("../LevelTestButton")
 mouse_default_cursor_shape = 2
+disabled = true
 texture_normal = ExtResource("9_mc2a6")
 texture_pressed = ExtResource("10_xfgx3")
 texture_focused = ExtResource("10_5pxq8")

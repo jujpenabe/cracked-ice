@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://0xvqidkk0f8y"]
 
-[ext_resource type="Texture2D" uid="uid://c3racxwsjo484" path="res://CrackedIce/MaterialLibrary/Nature/Elements-tiny/Elements_18-128x128.png" id="1_123cq"]
+[ext_resource type="Texture2D" path="res://CrackedIce/MaterialLibrary/Nature/Elements-tiny/Elements_18-128x128.png" id="1_123cq"]
 
 [resource]
 shading_mode = 2

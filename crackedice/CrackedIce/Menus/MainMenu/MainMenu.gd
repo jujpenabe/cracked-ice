@@ -55,7 +55,8 @@ func _event_skips_intro(event : InputEvent):
 
 func _setup_for_web():
 	if OS.has_feature("web"):
-		%ExitButton.hide()
+		#%ExitButton.hide()
+		pass
 
 func _setup_version_name():
 	AppLog.version_opened(version_name)

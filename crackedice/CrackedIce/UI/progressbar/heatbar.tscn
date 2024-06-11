@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://ufcyde5o8pq3"]
+
+[ext_resource type="Script" path="res://CrackedIce/UI/progressbar/heatbar.gd" id="1_685xe"]
+[ext_resource type="Texture2D" uid="uid://wkjsys6fl44l" path="res://CrackedIce/UI/progressbar/heat_bar_bg.jpg" id="1_i6a6r"]
+[ext_resource type="FontFile" uid="uid://xa52ban2hus5" path="res://CrackedIce/UI/fonts/Winter Kei.ttf" id="3_4bqtr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3gl8w"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eowgi"]
+texture = ExtResource("1_i6a6r")
+
+[sub_resource type="LabelSettings" id="LabelSettings_hdtgf"]
+line_spacing = 0.0
+font = ExtResource("3_4bqtr")
+font_size = 20
+font_color = Color(0.576471, 1, 1, 1)
+
+[node name="HeatBar" type="ProgressBar"]
+z_index = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -20.0
+offset_right = 160.0
+grow_vertical = 0
+rotation = -1.5708
+theme_override_styles/background = SubResource("StyleBoxEmpty_3gl8w")
+theme_override_styles/fill = SubResource("StyleBoxTexture_eowgi")
+min_value = -100.0
+step = 1.0
+value = 100.0
+show_percentage = false
+script = ExtResource("1_685xe")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_right = 100.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+text = "H"
+label_settings = SubResource("LabelSettings_hdtgf")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

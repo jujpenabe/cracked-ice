@@ -17,7 +17,6 @@ func _set_gear(_new_gear: String):
 	$Gear.text = _new_gear
 
 func _set_rpm_max(_new_rpm_max):
-	print("RPM MAX: " + str(_new_rpm_max))
 	max_value = _new_rpm_max * 0.8
 
 func _get_rpm_max():
