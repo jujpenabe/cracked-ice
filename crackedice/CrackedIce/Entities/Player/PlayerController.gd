@@ -13,11 +13,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$Hud/speed.text="SPEED: " + str(round(vehicle.speed * 1.8))+"  km/h"
+	$Hud/speed.text= str(round(vehicle.speed * 1.8))
 
 	# do 10 damage when pressing g
 	if Input.is_physical_key_pressed(KEY_G):
-		EventBus.car_collided.emit(5)
+		EventBus.car_hit_damage.emit(5)
 
 	if Input.is_physical_key_pressed(KEY_R):
 		get_tree().reload_current_scene()
@@ -25,8 +25,7 @@ func _process(delta):
 func _destroyed():
 	if is_alive:
 		is_alive = false
-		EventBus.car_destroyed.emit()
-		await get_tree().create_timer(1.0).timeout
+		await get_tree().create_timer(4.4).timeout
 		get_tree().reload_current_scene()
 	else:
 		pass

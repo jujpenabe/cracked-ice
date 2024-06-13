@@ -1,11 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://dd0rubbt6wcm3"]
+[gd_scene load_steps=8 format=3 uid="uid://dd0rubbt6wcm3"]
 
 [ext_resource type="Script" path="res://CrackedIce/UI/progressbar/damagebar.gd" id="1_cswa7"]
+[ext_resource type="FontFile" uid="uid://c6ucy4buw7xvx" path="res://CrackedIce/UI/fonts/BrokenGlass.woff2" id="2_y8ax2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3gl8w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wmuy"]
 bg_color = Color(0.4, 0.0666667, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_umiwn"]
+line_spacing = 0.0
+font = ExtResource("2_y8ax2")
+font_size = 30
+font_color = Color(1, 1, 1, 0.607843)
+outline_size = 4
+outline_color = Color(0.1, 0.1, 0.1, 0.392157)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fma4b"]
 bg_color = Color(0, 0, 0, 1)
@@ -35,11 +44,12 @@ script = ExtResource("1_cswa7")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
-offset_top = -1.5
 offset_right = 160.0
-offset_bottom = 21.5
+offset_bottom = 23.0
 text = "DAMAGE"
+label_settings = SubResource("LabelSettings_umiwn")
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HitBar" type="ProgressBar" parent="."]
 z_index = -1

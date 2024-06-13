@@ -1,19 +1,30 @@
-[gd_scene load_steps=7 format=3 uid="uid://ufcyde5o8pq3"]
+[gd_scene load_steps=8 format=3 uid="uid://ufcyde5o8pq3"]
 
 [ext_resource type="Script" path="res://CrackedIce/UI/progressbar/heatbar.gd" id="1_685xe"]
-[ext_resource type="Texture2D" uid="uid://wkjsys6fl44l" path="res://CrackedIce/UI/progressbar/heat_bar_bg.jpg" id="1_i6a6r"]
-[ext_resource type="FontFile" uid="uid://xa52ban2hus5" path="res://CrackedIce/UI/fonts/Winter Kei.ttf" id="3_4bqtr"]
+[ext_resource type="FontFile" uid="uid://7ciq5a116q6g" path="res://CrackedIce/UI/fonts/Blackcraft.woff2" id="2_ojmir"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3gl8w"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4dbmw"]
+bg_color = Color(0, 0, 0, 1)
+expand_margin_right = 20.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eowgi"]
-texture = ExtResource("1_i6a6r")
+[sub_resource type="Gradient" id="Gradient_i78po"]
+offsets = PackedFloat32Array(0, 0.95114, 1)
+colors = PackedColorArray(0.14, 0.606667, 0.7, 1, 0.48, 0.693333, 0.8, 1, 1, 0, 0.0166664, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jiknl"]
+gradient = SubResource("Gradient_i78po")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ve3uy"]
+texture = SubResource("GradientTexture1D_jiknl")
+modulate_color = Color(0.901961, 0.901961, 0.901961, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_hdtgf"]
 line_spacing = 0.0
-font = ExtResource("3_4bqtr")
+font = ExtResource("2_ojmir")
 font_size = 20
-font_color = Color(0.576471, 1, 1, 1)
+font_color = Color(0.501961, 1, 1, 0.607843)
+outline_size = 4
+outline_color = Color(0.1, 0.1, 0.1, 0.392157)
 
 [node name="HeatBar" type="ProgressBar"]
 z_index = 1
@@ -21,11 +32,11 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -20.0
-offset_right = 160.0
+offset_right = 120.0
 grow_vertical = 0
 rotation = -1.5708
-theme_override_styles/background = SubResource("StyleBoxEmpty_3gl8w")
-theme_override_styles/fill = SubResource("StyleBoxTexture_eowgi")
+theme_override_styles/background = SubResource("StyleBoxFlat_4dbmw")
+theme_override_styles/fill = SubResource("StyleBoxTexture_ve3uy")
 min_value = -100.0
 step = 1.0
 value = 100.0

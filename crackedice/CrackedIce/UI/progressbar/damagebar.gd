@@ -42,15 +42,15 @@ func _set_hit_damage(_value):
 func _ready():
 	EventBus.damagebar_hit_health_changed.connect(_set_hit_health)
 	EventBus.damagebar_setup.connect(_setup)
-	EventBus.car_collided.connect(_set_hit_damage)
+	EventBus.car_hit_damage.connect(_set_hit_damage)
 
 func _process(delta):
 	if damaged:
 		health += damage_amount
+		EventBus.damage_made.emit(damage_amount)
 		if health >= hit_health:
 			health = hit_health
 			damaged = false
-			EventBus.damage_made.emit(damage_amount)
 		value = health
 		#print("Damaging, health: " + str(health))
 

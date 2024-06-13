@@ -5,7 +5,6 @@ var rpm: float = 0 : set = _set_rpm, get = _get_rpm
 
 func _set_rpm(_new_rpm):
 	rpm = min(max_value, _new_rpm)
-	print("RPM: " + str(rpm))
 	value = rpm
 	# change color exponentially from yellow to red
 	sb.bg_color = Color.from_hsv(0.15 - (rpm / max_value) * 0.2, 0.9, 0.9 - (rpm / max_value) * 0.2)
@@ -14,7 +13,7 @@ func _get_rpm():
 	return rpm
 
 func _set_gear(_new_gear: String):
-	$Gear.text = _new_gear
+	$Gear.text = "G " +_new_gear
 
 func _set_rpm_max(_new_rpm_max):
 	max_value = _new_rpm_max * 0.8

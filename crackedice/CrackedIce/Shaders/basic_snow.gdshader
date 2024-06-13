@@ -10,6 +10,7 @@ uniform float metallic = 0.0;
 uniform vec4 albedo : source_color = vec4(1.0,1.0,1.0,1.0);
 uniform sampler2D texture_albedo : source_color;
 uniform sampler2D texture_normal : hint_normal;
+uniform sampler2D texture_emision: hint_default_black;
 uniform float normal_scale : hint_range(-16,16) = 1.0;
 uniform float roughness : hint_range(0,1) = 0.9;
 

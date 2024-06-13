@@ -4,7 +4,7 @@ extends Node
 signal max_rpm_changed(new_max_rpm)
 signal rpm_changed(new_rpm)
 signal gear_changed(new_gear: String)
-signal car_collided(impulse)
+signal car_hit_damage(impulse)
 signal car_destroyed()
 signal damage_made(damage_amount: float)
 signal heat_applied(heat_amount: float)
