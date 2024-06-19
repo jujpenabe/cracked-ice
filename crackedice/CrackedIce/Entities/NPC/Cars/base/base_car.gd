@@ -18,6 +18,7 @@ signal car_collided(force: float)
 @export_group("Gearbox")
 ## Transmission gear ratios, the size of the array determines the number of gears
 @export var gear_ratios : Array[float] = [ 3.8, 2.3, 1.7, 1.3, 1.0, 0.8 ]
+
 ## Final drive ratio
 @export var final_drive := 3.2
 @export var reverse_ratio := 3.3
@@ -30,9 +31,6 @@ signal car_collided(force: float)
 ## Damage stuff
 @export var block_damage: int = 10
 @export var heat_resistance: int = 10
-
-## Body stuff
-@export var main_body : MeshInstance3D
 
 const ANGULAR_VELOCITY_TO_RPM := 60.0 / TAU
 
@@ -88,7 +86,7 @@ func initialize():
 	previous_global_position = global_transform.origin
 	average_drive_wheel_radius = $WheelFrontRight.wheel_radius
 	EventBus.ambient_temperature_requested.emit()
-	main_body_material = main_body.get_active_material(0)
+	main_body_material = %main_body.get_active_material(0)
 
 func _set_damage(value):
 	damage += value
@@ -148,6 +146,7 @@ func _set_current_gear(value):
 func _physics_process(delta):
 	prev_velocity = linear_velocity
 	speed = linear_velocity.length()*Engine.get_frames_per_second()*3.6*delta
+	EventBus.speed_changed.emit(round(speed * 1.8))
 	traction(speed)
 
 	delta_time += delta

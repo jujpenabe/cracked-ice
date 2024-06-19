@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://b76fcyiisui0w"]
+[gd_scene load_steps=34 format=3 uid="uid://b76fcyiisui0w"]
 
 [ext_resource type="Script" path="res://CrackedIce/Menus/MainMenu/MainMenu.gd" id="1_4p54k"]
 [ext_resource type="PackedScene" uid="uid://k0nh1lqsjth4" path="res://CrackedIce/Menus/OptionsMenu/MasterOptionsMenu.tscn" id="2_1040c"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://np0bcgp2hp6a" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_exit_normal.png" id="16_syg20"]
 [ext_resource type="Texture2D" uid="uid://0fe516n8loc8" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_exit_smashed.png" id="17_52l3k"]
 [ext_resource type="Texture2D" uid="uid://c1tgrfgushrfc" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_exit_focused.png" id="18_e6e2k"]
+[ext_resource type="FontFile" uid="uid://xa52ban2hus5" path="res://CrackedIce/UI/fonts/Winter Kei.ttf" id="20_h5xlw"]
 [ext_resource type="PackedScene" uid="uid://coalkvpbyiipp" path="res://CrackedIce/Globals/DiscordRPCInit.tscn" id="23_i2e8r"]
 
 [sub_resource type="Gradient" id="Gradient_baqu3"]
@@ -69,6 +70,13 @@ pressed = true
 [sub_resource type="Shortcut" id="Shortcut_nyj11"]
 events = [SubResource("InputEventKey_acp7n"), SubResource("InputEventJoypadButton_uhen7")]
 
+[sub_resource type="Gradient" id="Gradient_05e41"]
+colors = PackedColorArray(0.408, 0.630133, 0.68, 1, 0.007, 0.0299333, 0.05, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_b3c78"]
+gradient = SubResource("Gradient_05e41")
+fill_to = Vector2(0, 1)
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -77,10 +85,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4p54k")
-game_scene_path = "res://CrackedIce/Maps/Main/Main.tscn"
-test_scene_path = "res://CrackedIce/Maps/Test/Blocking1.tscn"
+game_scene_path = "res://CrackedIce/Maps/Main/LedNi'ja.tscn"
 options_packed_scene = ExtResource("2_1040c")
 credits_packed_scene = ExtResource("3_00v7a")
+version_name = "0.0.1-dev"
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
@@ -165,6 +173,7 @@ offset_bottom = 487.0
 
 [node name="LevelTestButton" type="Button" parent="MenuContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = -512.0
 offset_top = -238.0
@@ -179,6 +188,7 @@ focus_previous = NodePath("../ExitButton")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0.321569, 0.815686, 0.772549, 1)
 theme_override_font_sizes/font_size = 36
+disabled = true
 text = "LEVEL TEST!"
 
 [node name="PlayButton" type="TextureButton" parent="MenuContainer"]
@@ -196,7 +206,6 @@ focus_neighbor_bottom = NodePath("../OptionsButton")
 focus_next = NodePath("../OptionsButton")
 focus_previous = NodePath("../LevelTestButton")
 mouse_default_cursor_shape = 2
-disabled = true
 texture_normal = ExtResource("9_mc2a6")
 texture_pressed = ExtResource("10_xfgx3")
 texture_focused = ExtResource("10_5pxq8")
@@ -310,6 +319,35 @@ offset_right = 62.0
 grow_vertical = 0
 shortcut = SubResource("Shortcut_nyj11")
 text = "Back"
+
+[node name="ForegroundThanksForPlaying" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_b3c78")
+
+[node name="Label" type="RichTextLabel" parent="ForegroundThanksForPlaying"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -80.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_fonts/normal_font = ExtResource("20_h5xlw")
+theme_override_font_sizes/normal_font_size = 44
+bbcode_enabled = true
+text = "[center]
+[url=https://catblue44.itch.io]THANKS FOR PLAYING![/url]
+[/center]"
 
 [node name="UISoundController" type="Node" parent="."]
 script = ExtResource("13_bdt0k")

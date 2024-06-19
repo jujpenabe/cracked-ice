@@ -1,6 +1,7 @@
 extends Node
 
 # Vehicle update events
+signal speed_changed(new_speed)
 signal max_rpm_changed(new_max_rpm)
 signal rpm_changed(new_rpm)
 signal gear_changed(new_gear: String)

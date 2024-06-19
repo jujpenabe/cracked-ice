@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://po1b2fmndqn1"]
+
+[ext_resource type="Environment" uid="uid://c3ho1vohp1tyy" path="res://CrackedIce/Art/Lightning/Enviroment/LedNi'jaSunlight.tres" id="1_6poas"]
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = ExtResource("1_6poas")

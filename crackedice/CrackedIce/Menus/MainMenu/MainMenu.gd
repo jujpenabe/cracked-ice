@@ -85,7 +85,7 @@ func _setup_credits():
 		%CreditsContainer.call_deferred("add_child", credits_scene)
 
 func _ready():
-	%LevelTestButton.grab_focus()
+	%PlayButton.grab_focus()
 	_setup_for_web()
 	_setup_version_name()
 	_setup_options()
@@ -156,6 +156,9 @@ func _on_credits_button_button_up():
 func _on_exit_button_button_down():
 	exit_button_focused_texture = %ExitButton.get_texture_focused()
 	%ExitButton.set_texture_focused(null)
+	if (OS.has_feature("web")):
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		%ForegroundThanksForPlaying.show()
 
 func _on_exit_button_button_up():
 	# Reset all focus textures

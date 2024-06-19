@@ -1,0 +1,160 @@
+[gd_scene load_steps=18 format=3 uid="uid://dpdiwf4xpmo4h"]
+
+[ext_resource type="PackedScene" uid="uid://po1b2fmndqn1" path="res://CrackedIce/Art/Lightning/Enviroment/LedNi'jaEnvironment.tscn" id="1_jdeb5"]
+[ext_resource type="PackedScene" uid="uid://8sl5gmdd6o6w" path="res://cars/camera/camera_3d.tscn" id="2_f30ug"]
+[ext_resource type="PackedScene" uid="uid://cvuokl6pvc3k" path="res://CrackedIce/Entities/Player/PlayerController.tscn" id="3_7sj46"]
+[ext_resource type="PackedScene" uid="uid://bg04dr8a6q71r" path="res://CrackedIce/Entities/NPC/Cars/base/torke.tscn" id="3_s8frt"]
+[ext_resource type="PackedScene" uid="uid://dnytessqq552i" path="res://CrackedIce/Art/VFX/VehicleSnowGPUParticles.tscn" id="5_lu7da"]
+[ext_resource type="FontFile" uid="uid://c6ucy4buw7xvx" path="res://CrackedIce/UI/fonts/BrokenGlass.woff2" id="7_520lm"]
+[ext_resource type="Script" path="res://CrackedIce/UI/labels/vehicle_speed.gd" id="8_q4poe"]
+[ext_resource type="FontFile" uid="uid://c4lwpp1x5wyu8" path="res://CrackedIce/UI/fonts/Kurland.woff2" id="9_bi8x6"]
+[ext_resource type="Script" path="res://CrackedIce/Maps/Test/DieDialog.gd" id="10_jpui7"]
+[ext_resource type="PackedScene" uid="uid://dd0rubbt6wcm3" path="res://CrackedIce/UI/progressbar/damagebar.tscn" id="11_veoik"]
+[ext_resource type="PackedScene" uid="uid://5lctwpfh4nc4" path="res://CrackedIce/UI/progressbar/rpmbar.tscn" id="12_um7jh"]
+[ext_resource type="Script" path="res://CrackedIce/Maps/Test/Timer.gd" id="13_jys6f"]
+[ext_resource type="PackedScene" uid="uid://ufcyde5o8pq3" path="res://CrackedIce/UI/progressbar/heatbar.tscn" id="14_qimxu"]
+[ext_resource type="PackedScene" uid="uid://40fh8ikhnbq4" path="res://CrackedIce/Entities/NPC/Cars/base/engine_sound_base.tscn" id="15_d84id"]
+[ext_resource type="PackedScene" uid="uid://ii68bspwm7jp" path="res://CrackedIce/Art/Terrain/LedNi'ja.tscn" id="15_l87dr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2n0tf"]
+font = ExtResource("7_520lm")
+font_size = 30
+font_color = Color(1, 1, 1, 0.607843)
+outline_size = 4
+outline_color = Color(0.1, 0.1, 0.1, 0.392157)
+
+[sub_resource type="LabelSettings" id="LabelSettings_sitmt"]
+line_spacing = 0.0
+font = ExtResource("9_bi8x6")
+font_size = 40
+font_color = Color(0.54, 0.9, 0.9, 1)
+shadow_size = 4
+shadow_color = Color(0.854902, 0, 0, 0.172549)
+
+[node name="LedNi\'ja" type="Node3D"]
+
+[node name="WorldEnvironment" parent="." instance=ExtResource("1_jdeb5")]
+
+[node name="PlayerController" parent="." node_paths=PackedStringArray("vehicle", "camera", "camera_target", "snow_particles") instance=ExtResource("3_7sj46")]
+vehicle = NodePath("Torke")
+camera = NodePath("Torke/lookat/Camera3D")
+camera_target = NodePath("Torke/lookat")
+snow_particles = NodePath("Torke/VehicleSnowGPUParticles")
+
+[node name="Torke" parent="PlayerController" instance=ExtResource("3_s8frt")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -120.696, 62.8997, -53.3005)
+engine_force_value = 800
+final_drive = 1.1
+
+[node name="lookat" type="Node3D" parent="PlayerController/Torke"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Camera3D" parent="PlayerController/Torke/lookat" instance=ExtResource("2_f30ug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5)
+target_height = 1.5
+speed = 15.0
+
+[node name="VehicleSnowGPUParticles" parent="PlayerController/Torke" instance=ExtResource("5_lu7da")]
+
+[node name="EngineSound" parent="PlayerController/Torke" instance=ExtResource("15_d84id")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Hud" type="CanvasLayer" parent="PlayerController"]
+layer = 2
+
+[node name="speed" type="Label" parent="PlayerController/Hud"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+label_settings = SubResource("LabelSettings_2n0tf")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_q4poe")
+
+[node name="speed2" type="Label" parent="PlayerController/Hud"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -30.0
+offset_right = -18.9994
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "SPEED"
+label_settings = SubResource("LabelSettings_2n0tf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="speed3" type="Label" parent="PlayerController/Hud"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -30.0
+offset_right = 81.0006
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "km/h"
+label_settings = SubResource("LabelSettings_2n0tf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="You Wrecked Your Car!" type="Label" parent="PlayerController/Hud"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -208.0
+offset_top = -47.5
+offset_right = 208.0
+offset_bottom = 47.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(4.235, 0)
+size_flags_horizontal = 4
+text = "You Wrecked Your Car!
+"
+label_settings = SubResource("LabelSettings_sitmt")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+script = ExtResource("10_jpui7")
+
+[node name="DamageBar" parent="PlayerController/Hud" instance=ExtResource("11_veoik")]
+unique_name_in_owner = true
+offset_top = -30.0
+
+[node name="RpmBar" parent="PlayerController/Hud" instance=ExtResource("12_um7jh")]
+offset_top = -30.0
+rounded = true
+
+[node name="TimerLabel" type="RichTextLabel" parent="PlayerController/Hud"]
+offset_top = -1.0
+offset_right = 640.0
+offset_bottom = 212.0
+theme_override_font_sizes/normal_font_size = 44
+bbcode_enabled = true
+text = "Time"
+script = ExtResource("13_jys6f")
+
+[node name="HeatBar" parent="PlayerController/Hud" instance=ExtResource("14_qimxu")]
+offset_top = -40.0
+offset_bottom = -20.0
+
+[node name="LedNi\'ja" parent="." instance=ExtResource("15_l87dr")]
