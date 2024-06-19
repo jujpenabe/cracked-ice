@@ -1,28 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://njcwo7lywfaw"]
+[gd_scene load_steps=4 format=3 uid="uid://c2q4nrkbr0hmu"]
 
-[ext_resource type="Texture2D" uid="uid://cal58ce7q8fy4" path="res://addons/kenney_particle_pack/smoke_03.png" id="1_b0d0h"]
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vlu4j"]
-emission_shape_offset = Vector3(0, 0, -75)
-emission_shape = 3
-emission_box_extents = Vector3(75, 5, 100)
-angle_min = 1.07288e-05
-angle_max = 360.0
-direction = Vector3(1, -1, 0)
-spread = 60.0
-flatness = 0.25
-initial_velocity_min = 1.0
-initial_velocity_max = 10.0
-angular_velocity_min = -1.60933e-05
-angular_velocity_max = 9.99998
-linear_accel_min = 0.499998
-linear_accel_max = 4.0
-scale_min = 0.4
-scale_max = 0.6
-collision_mode = 1
-collision_friction = 0.8
-collision_bounce = 0.0
-collision_use_scale = true
+[ext_resource type="Texture2D" uid="uid://cal58ce7q8fy4" path="res://addons/kenney_particle_pack/smoke_03.png" id="1_ej7vg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1t4st"]
 transparency = 1
@@ -30,7 +8,7 @@ blend_mode = 1
 shading_mode = 2
 diffuse_mode = 3
 specular_mode = 2
-albedo_texture = ExtResource("1_b0d0h")
+albedo_texture = ExtResource("1_ej7vg")
 texture_filter = 2
 billboard_mode = 3
 billboard_keep_scale = true
@@ -41,7 +19,7 @@ particles_anim_loop = false
 [sub_resource type="QuadMesh" id="QuadMesh_yc7t8"]
 material = SubResource("StandardMaterial3D_1t4st")
 
-[node name="VehicleSnowGPUParticles" type="GPUParticles3D"]
+[node name="VehicleSnowCPUParticles" type="CPUParticles3D"]
 transform = Transform3D(1, 0, -3.72529e-09, 0, 1, 0, 3.72529e-09, 0, 1, 0, 20, 0)
 amount = 10000
 lifetime = 4.0
@@ -49,8 +27,21 @@ preprocess = 4.0
 speed_scale = 0.44
 explosiveness = 0.1
 randomness = 0.2
+fixed_fps = 30
 fract_delta = false
-visibility_aabb = AABB(-4, -20, -4, 8, 16, 8)
-transform_align = 3
-process_material = SubResource("ParticleProcessMaterial_vlu4j")
-draw_pass_1 = SubResource("QuadMesh_yc7t8")
+mesh = SubResource("QuadMesh_yc7t8")
+emission_shape = 3
+emission_box_extents = Vector3(75, 5, 100)
+direction = Vector3(1, -1, 0)
+spread = 60.0
+flatness = 0.25
+initial_velocity_min = 1.0
+initial_velocity_max = 10.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 9.99998
+linear_accel_min = 0.499998
+linear_accel_max = 4.0
+angle_min = 1.07288e-05
+angle_max = 360.0
+scale_amount_min = 0.4
+scale_amount_max = 0.6

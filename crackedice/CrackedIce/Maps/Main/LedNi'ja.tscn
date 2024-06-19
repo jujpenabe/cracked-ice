@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://8sl5gmdd6o6w" path="res://cars/camera/camera_3d.tscn" id="2_f30ug"]
 [ext_resource type="PackedScene" uid="uid://cvuokl6pvc3k" path="res://CrackedIce/Entities/Player/PlayerController.tscn" id="3_7sj46"]
 [ext_resource type="PackedScene" uid="uid://bg04dr8a6q71r" path="res://CrackedIce/Entities/NPC/Cars/base/torke.tscn" id="3_s8frt"]
-[ext_resource type="PackedScene" uid="uid://dnytessqq552i" path="res://CrackedIce/Art/VFX/VehicleSnowGPUParticles.tscn" id="5_lu7da"]
+[ext_resource type="PackedScene" uid="uid://c2q4nrkbr0hmu" path="res://CrackedIce/Art/VFX/VehicleSnowCPUParticles.tscn" id="5_xbtsj"]
 [ext_resource type="FontFile" uid="uid://c6ucy4buw7xvx" path="res://CrackedIce/UI/fonts/BrokenGlass.woff2" id="7_520lm"]
 [ext_resource type="Script" path="res://CrackedIce/UI/labels/vehicle_speed.gd" id="8_q4poe"]
 [ext_resource type="FontFile" uid="uid://c4lwpp1x5wyu8" path="res://CrackedIce/UI/fonts/Kurland.woff2" id="9_bi8x6"]
@@ -35,11 +35,10 @@ shadow_color = Color(0.854902, 0, 0, 0.172549)
 
 [node name="WorldEnvironment" parent="." instance=ExtResource("1_jdeb5")]
 
-[node name="PlayerController" parent="." node_paths=PackedStringArray("vehicle", "camera", "camera_target", "snow_particles") instance=ExtResource("3_7sj46")]
+[node name="PlayerController" parent="." node_paths=PackedStringArray("vehicle", "camera", "camera_target") instance=ExtResource("3_7sj46")]
 vehicle = NodePath("Torke")
 camera = NodePath("Torke/lookat/Camera3D")
 camera_target = NodePath("Torke/lookat")
-snow_particles = NodePath("Torke/VehicleSnowGPUParticles")
 
 [node name="Torke" parent="PlayerController" instance=ExtResource("3_s8frt")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -120.696, 62.8997, -53.3005)
@@ -54,7 +53,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5)
 target_height = 1.5
 speed = 15.0
 
-[node name="VehicleSnowGPUParticles" parent="PlayerController/Torke" instance=ExtResource("5_lu7da")]
+[node name="VehicleSnowCPUParticles" parent="PlayerController/Torke/lookat/Camera3D" instance=ExtResource("5_xbtsj")]
+transform = Transform3D(-3.99861e-08, 0, 1, 0, 1, 0, -1, 0, -3.99861e-08, 2.85713, 18.796, -29.9011)
+amount = 20000
+lifetime = 5.0
+preprocess = 5.0
+speed_scale = 0.4
+explosiveness = 0.15
+lifetime_randomness = 0.1
+emission_box_extents = Vector3(25, 5, 65)
+particle_flag_align_y = true
 
 [node name="EngineSound" parent="PlayerController/Torke" instance=ExtResource("15_d84id")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
