@@ -54,14 +54,14 @@ target_height = 1.5
 speed = 15.0
 
 [node name="VehicleSnowCPUParticles" parent="PlayerController/Torke/lookat/Camera3D" instance=ExtResource("5_xbtsj")]
-transform = Transform3D(-3.99861e-08, 0, 1, 0, 1, 0, -1, 0, -3.99861e-08, 2.85713, 18.796, -29.9011)
-amount = 20000
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, -40)
+amount = 12000
 lifetime = 5.0
 preprocess = 5.0
 speed_scale = 0.4
-explosiveness = 0.15
+explosiveness = 0.05
 lifetime_randomness = 0.1
-emission_box_extents = Vector3(25, 5, 65)
+emission_box_extents = Vector3(30, 5, 45)
 particle_flag_align_y = true
 
 [node name="EngineSound" parent="PlayerController/Torke" instance=ExtResource("15_d84id")]
