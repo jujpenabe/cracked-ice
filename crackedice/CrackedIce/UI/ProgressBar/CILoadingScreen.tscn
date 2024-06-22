@@ -1,0 +1,123 @@
+[gd_scene load_steps=12 format=3 uid="uid://ccx5qe2i6jjoi"]
+
+[ext_resource type="Script" path="res://addons/maaacks_game_template/base/scenes/LoadingScreen/LoadingScreen.gd" id="1_vh8oh"]
+[ext_resource type="PackedScene" uid="uid://cv2f614m7kh0v" path="res://CrackedIce/UI/FX/2DSnowParticles.tscn" id="2_j5eiu"]
+[ext_resource type="FontFile" uid="uid://c6ucy4buw7xvx" path="res://CrackedIce/UI/Fonts/BrokenGlass.woff2" id="3_q3mmn"]
+
+[sub_resource type="Gradient" id="Gradient_wkdfk"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.8, 0.95, 1, 1, 0.56, 0.736, 0.8, 1, 0.02, 0.0746667, 0.1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ix1uc"]
+gradient = SubResource("Gradient_wkdfk")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0cccv"]
+texture = SubResource("GradientTexture2D_ix1uc")
+
+[sub_resource type="Gradient" id="Gradient_my65k"]
+colors = PackedColorArray(0.8, 0.8, 0.8, 1, 1, 1, 1, 0.607843)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rphor"]
+line_spacing = 0.0
+font = ExtResource("3_q3mmn")
+font_size = 40
+font_color = Color(0.8, 0.8, 0.8, 1)
+shadow_size = 2
+shadow_color = Color(0.160784, 0.588235, 0.8, 0.215686)
+
+[sub_resource type="Gradient" id="Gradient_wm3ox"]
+offsets = PackedFloat32Array(0.25, 0.95, 1)
+colors = PackedColorArray(0, 0, 0, 0.215686, 0.8, 0.142667, 0.12, 0.784314, 1, 0.811765, 0.301961, 0.882353)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gy3rm"]
+gradient = SubResource("Gradient_wm3ox")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yi4vl"]
+texture = SubResource("GradientTexture1D_gy3rm")
+
+[node name="LoadingScreen" type="CanvasLayer"]
+process_mode = 3
+layer = 20
+script = ExtResource("1_vh8oh")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackPanel" type="Panel" parent="Control"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_0cccv")
+
+[node name="BackgroundColor" type="ColorRect" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="BackgroundTextureRect" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CPUParticles2D" parent="Control" instance=ExtResource("2_j5eiu")]
+amount = 500
+explosiveness = 0.2
+scale_amount_min = 0.01
+scale_amount_max = 0.02
+color = Color(1, 1, 1, 0.784314)
+color_initial_ramp = SubResource("Gradient_my65k")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 160.0
+offset_bottom = 240.0
+alignment = 1
+
+[node name="Title" type="Label" parent="Control/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Loading..."
+label_settings = SubResource("LabelSettings_rphor")
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxTexture_yi4vl")
+max_value = 1.0
+step = 0.05
+value = 0.5
+show_percentage = false
+
+[node name="ErrorMessage" type="AcceptDialog" parent="Control"]
+unique_name_in_owner = true
+
+[node name="LoadingTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="confirmed" from="Control/ErrorMessage" to="." method="_on_error_message_confirmed"]
+[connection signal="timeout" from="LoadingTimer" to="." method="_on_loading_timer_timeout"]

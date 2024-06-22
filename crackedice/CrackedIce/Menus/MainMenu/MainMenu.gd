@@ -8,6 +8,9 @@ extends Control
 @export var credits_packed_scene : PackedScene
 @export var version_name : String = '0.0.0'
 
+@export var audio_bus : StringName = &"SFX"
+@export var engine_start : AudioStream
+
 var options_scene
 var credits_scene
 var sub_menu
@@ -15,6 +18,7 @@ var play_button_focused_texture : Texture2D
 var options_button_focused_texture : Texture2D
 var credits_button_focused_texture : Texture2D
 var exit_button_focused_texture : Texture2D
+
 
 func load_scene(scene_path : String):
 	SceneLoader.load_scene(scene_path)
@@ -93,11 +97,9 @@ func _ready():
 	_setup_play()
 
 func _on_play_button_pressed():
-	print("Play")
 	play_game()
 
 func _on_level_test_button_pressed():
-	print("Level Test")
 	play_test()
 
 func _on_options_button_pressed():
@@ -135,6 +137,7 @@ func _on_play_button_button_down():
 func _on_play_button_button_up():
 	# Reset all focus textures
 	reset_focused_button_textures()
+	ProjectUISoundController.play_ui_sound(engine_start)
 
 func _on_options_button_button_down():
 	options_button_focused_texture = %OptionsButton.get_texture_focused()
@@ -164,3 +167,12 @@ func _on_exit_button_button_up():
 	# Reset all focus textures
 	reset_focused_button_textures()
 
+func _build_stream_player(stream : AudioStream, stream_name : String = ""):
+	var stream_player : AudioStreamPlayer
+	if stream != null:
+		stream_player = AudioStreamPlayer.new()
+		stream_player.stream = stream
+		stream_player.bus = audio_bus
+		stream_player.name = stream_name + "AudioStreamPlayer"
+		add_child(stream_player)
+	return stream_player

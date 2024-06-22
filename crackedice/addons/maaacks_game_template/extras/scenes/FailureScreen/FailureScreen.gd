@@ -15,9 +15,14 @@ func _setup_main_menu():
 		%MainMenuButton.hide()
 
 func _ready():
+	EventBus.car_destroyed.connect(_destroyed)
 	if OS.has_feature("web"):
 		%ExitButton.hide()
 	_setup_main_menu()
+
+func _destroyed():
+	show()
+	%RestartButton.grab_focus()
 
 func _on_exit_button_pressed():
 	$ConfirmExit.popup_centered()

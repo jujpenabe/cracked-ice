@@ -1,10 +1,11 @@
-[gd_scene load_steps=34 format=3 uid="uid://b76fcyiisui0w"]
+[gd_scene load_steps=37 format=3 uid="uid://b76fcyiisui0w"]
 
 [ext_resource type="Script" path="res://CrackedIce/Menus/MainMenu/MainMenu.gd" id="1_4p54k"]
 [ext_resource type="PackedScene" uid="uid://k0nh1lqsjth4" path="res://CrackedIce/Menus/OptionsMenu/MasterOptionsMenu.tscn" id="2_1040c"]
 [ext_resource type="AudioStream" uid="uid://dgxemelrejynd" path="res://Audio/Music/CrackediceMainMenu.ogg" id="2_cc2lm"]
 [ext_resource type="PackedScene" uid="uid://d2k6pr8elkwsv" path="res://CrackedIce/Menus/CreditsMenu/Credits.tscn" id="3_00v7a"]
-[ext_resource type="PackedScene" uid="uid://cv2f614m7kh0v" path="res://CrackedIce/UI/fx/2DSnowParticles.tscn" id="4_bvuea"]
+[ext_resource type="AudioStream" uid="uid://day1aqvt1k8kh" path="res://Audio/SFX/muscle_car_engine_start.mp3" id="4_565fv"]
+[ext_resource type="PackedScene" uid="uid://cv2f614m7kh0v" path="res://CrackedIce/UI/FX/2DSnowParticles.tscn" id="4_bvuea"]
 [ext_resource type="VideoStream" path="res://CrackedIce/Menus/MainMenu/main_menu_background_animation2.ogv" id="5_erniu"]
 [ext_resource type="Texture2D" uid="uid://bqpkvyoec5vef" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_transparent.png" id="6_4epll"]
 [ext_resource type="Texture2D" uid="uid://cvcwckhxuufpn" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_play_normal.png" id="9_mc2a6"]
@@ -20,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://np0bcgp2hp6a" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_exit_normal.png" id="16_syg20"]
 [ext_resource type="Texture2D" uid="uid://0fe516n8loc8" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_exit_smashed.png" id="17_52l3k"]
 [ext_resource type="Texture2D" uid="uid://c1tgrfgushrfc" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_exit_focused.png" id="18_e6e2k"]
-[ext_resource type="FontFile" uid="uid://xa52ban2hus5" path="res://CrackedIce/UI/fonts/Winter Kei.ttf" id="20_h5xlw"]
+[ext_resource type="FontFile" uid="uid://xa52ban2hus5" path="res://CrackedIce/UI/Fonts/Winter Kei.ttf" id="20_h5xlw"]
 [ext_resource type="PackedScene" uid="uid://coalkvpbyiipp" path="res://CrackedIce/Globals/DiscordRPCInit.tscn" id="23_i2e8r"]
 
 [sub_resource type="Gradient" id="Gradient_baqu3"]
@@ -59,6 +60,14 @@ fog_light_energy = 1.27
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_dy3wh"]
 
+[sub_resource type="InputEventKey" id="InputEventKey_6kdme"]
+device = -1
+keycode = 81
+unicode = 113
+
+[sub_resource type="Shortcut" id="Shortcut_lv1rf"]
+events = [SubResource("InputEventKey_6kdme")]
+
 [sub_resource type="InputEventKey" id="InputEventKey_acp7n"]
 device = -1
 keycode = 4194305
@@ -86,9 +95,12 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4p54k")
 game_scene_path = "res://CrackedIce/Maps/Main/LedNi'ja.tscn"
+test_scene_path = null
 options_packed_scene = ExtResource("2_1040c")
 credits_packed_scene = ExtResource("3_00v7a")
 version_name = "0.0.1-dev"
+audio_bus = null
+engine_start = ExtResource("4_565fv")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
@@ -111,7 +123,7 @@ stream = ExtResource("5_erniu")
 autoplay = true
 loop = true
 
-[node name="CPUParticles2D" parent="." instance=ExtResource("4_bvuea")]
+[node name="SnowCPUParticles2D" parent="." instance=ExtResource("4_bvuea")]
 position = Vector2(10, 128)
 amount = 400
 lifetime = 7.0
@@ -124,7 +136,7 @@ initial_velocity_max = 24.0
 scale_amount_max = 0.03
 
 [node name="CPUParticles2D2" parent="." instance=ExtResource("4_bvuea")]
-position = Vector2(200, 16)
+position = Vector2(225, 16)
 amount = 250
 lifetime = 6.0
 preprocess = 6.0
@@ -136,6 +148,7 @@ initial_velocity_max = 24.0
 scale_amount_max = 0.03
 
 [node name="BackgroundTextureRect" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.988235)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -264,6 +277,7 @@ focus_neighbor_right = NodePath("../LevelTestButton")
 focus_neighbor_bottom = NodePath("../LevelTestButton")
 focus_next = NodePath("../LevelTestButton")
 focus_previous = NodePath("../CreditsButton")
+shortcut = SubResource("Shortcut_lv1rf")
 texture_normal = ExtResource("16_syg20")
 texture_pressed = ExtResource("17_52l3k")
 texture_focused = ExtResource("18_e6e2k")

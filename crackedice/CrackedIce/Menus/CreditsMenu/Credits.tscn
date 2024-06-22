@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://d2k6pr8elkwsv"]
 
 [ext_resource type="Script" path="res://addons/maaacks_game_template/base/scenes/Credits/Credits.gd" id="1_h6rdx"]
-[ext_resource type="FontFile" uid="uid://c4lwpp1x5wyu8" path="res://CrackedIce/UI/fonts/Kurland.woff2" id="2_kb8pw"]
-[ext_resource type="FontFile" uid="uid://bi4bmn883f83q" path="res://CrackedIce/UI/fonts/Scratched Letters.otf" id="2_rviue"]
+[ext_resource type="FontFile" uid="uid://c4lwpp1x5wyu8" path="res://CrackedIce/UI/Fonts/Kurland.woff2" id="2_kb8pw"]
+[ext_resource type="FontFile" uid="uid://bi4bmn883f83q" path="res://CrackedIce/UI/Fonts/Scratched Letters.otf" id="2_rviue"]
 
 [node name="Credits" type="Control"]
 layout_mode = 3

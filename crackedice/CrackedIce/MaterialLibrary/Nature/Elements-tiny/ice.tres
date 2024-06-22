@@ -1,7 +1,11 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://0xvqidkk0f8y"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://0xvqidkk0f8y"]
+
+[ext_resource type="Texture2D" uid="uid://ucbsw181t5mj" path="res://CrackedIce/MaterialLibrary/Nature/Elements-tiny/Elements_18-128x128.jpg" id="1_81342"]
 
 [resource]
 shading_mode = 2
-albedo_color = Color(0.891, 0.99, 0.97185, 1)
-uv1_scale = Vector3(5, 5, 5)
+albedo_color = Color(0.72, 0.773333, 0.8, 1)
+albedo_texture = ExtResource("1_81342")
+roughness = 0.0
+uv1_scale = Vector3(5, 10, 20)
 texture_filter = 2

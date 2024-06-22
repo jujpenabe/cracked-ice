@@ -135,6 +135,7 @@ shape = SubResource("BoxShape3D_5ykjq")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.25, 0, 0, 0, 0.108945, 1.24524, 0, -1.24524, 0.108945, 0, 0.75511, -1.7355)
+visible = false
 shape = SubResource("CapsuleShape3D_jmxwd")
 
 [node name="main_body" type="MeshInstance3D" parent="."]
@@ -145,6 +146,7 @@ skeleton = NodePath("")
 
 [node name="torke_nose" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.25, 0, -3.72529e-09, 0, 1.1, 0, 3.72529e-09, 0, 1.25, 0, 0.25, 0)
+visible = false
 mesh = SubResource("ArrayMesh_wj27o")
 skeleton = NodePath("")
 

@@ -1,8 +1,11 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://dvmwd7sf7xuwk"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dvmwd7sf7xuwk"]
+
+[ext_resource type="Texture2D" uid="uid://bklfxosoy7ond" path="res://CrackedIce/MaterialLibrary/Nature/Elements-tiny/Elements_01-128x128.jpg" id="1_4wi23"]
 
 [resource]
 shading_mode = 2
 diffuse_mode = 3
+albedo_texture = ExtResource("1_4wi23")
 emission_enabled = true
 emission = Color(1, 0.477333, 0.02, 1)
 emission_energy_multiplier = 0.5

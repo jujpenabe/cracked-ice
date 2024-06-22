@@ -29,22 +29,28 @@ signal car_collided(force: float)
 @export var resilience: float = 4.0
 
 ## Damage stuff
+@export var engine_heat_factor: float = 1.0
 @export var block_damage: int = 10
 @export var heat_resistance: int = 10
 
 const ANGULAR_VELOCITY_TO_RPM := 60.0 / TAU
 
+var destroyed = false
+
 var steer_target = 0
 
 var throttle_input := 0.0
-var brake_input := 0.0
 var damage: float = 0 : set = _set_damage
 var target_heat: float = 0.0
 var engine_heat: float = 0.0
-var heat: float = 0 : set = _set_heat
+var heat: float = 20 : set = _set_heat
 var hit_heat: float = 0.0
 
 var ambient_temp: float = -0.03 : set = _set_ambient_temp
+
+var near_heat_zone_max_heat: float = 0.0
+var near_heat_zone_pos: Vector3 = Vector3.ZERO
+var in_heat_zone: bool = false
 
 var local_velocity := Vector3.ZERO
 var previous_global_position := Vector3.ZERO
@@ -60,7 +66,7 @@ var is_shifting := false
 var current_gear := 0 : set = _set_current_gear
 var brake_amount := 0.0
 var requested_gear := 0
-var speed := 0.0
+var speed : float = 0.0
 var average_drive_wheel_radius := 0.0
 var last_shift_delta_time := 0.0
 var delta_time := 0.0
@@ -79,7 +85,8 @@ func _ready():
 func connect_signals():
 	EventBus.max_rpm_requested.connect(_send_max_rpm_value)
 	EventBus.damage_made.connect(_set_damage)
-	EventBus.heat_applied.connect(_set_heat)
+	EventBus.heat_zone_assigned.connect(_new_heat_source)
+	EventBus.heat_zone_removed.connect(_remove_heat_source)
 	EventBus.ambient_temperature_changed.connect(_set_ambient_temp)
 
 func initialize():
@@ -88,34 +95,50 @@ func initialize():
 	EventBus.ambient_temperature_requested.emit()
 	main_body_material = %main_body.get_active_material(0)
 
+func destroy():
+	destroyed = true
+	engine_force_bonus = 0
+	engine_force = 0
+	final_drive = 0
+	idle_rpm = 0
+	motor_rpm = 0
+	brake = brake_speed * 0.2
+	torque_output = 0
+	heat_resistance = 0
+	steer_limit = 0.05
+
+	EventBus.car_destroyed.emit()
+
 func _set_damage(value):
 	damage += value
-	print("Total damage: ", damage)
 	engine_force_bonus = 1 - (damage / 400)
 	if damage >= 100:
-		engine_force_bonus = 0
-		final_drive = 0
-		idle_rpm = 0
-		motor_rpm = 0
-		brake = brake_speed * 4
-		torque_output = 0
-		heat_resistance = 0
-		EventBus.car_destroyed.emit()
+		destroy()
 
 
 func _set_ambient_temp(value):
 	ambient_temp = value
 
+func _new_heat_source(_max_heat: float, _source_pos: Vector3):
+	near_heat_zone_max_heat = _max_heat
+	near_heat_zone_pos = _source_pos
+	in_heat_zone = true
+
+func _remove_heat_source():
+	in_heat_zone = false
+
 func _set_heat(value):
 	heat = clamp(value, -100, 100)
 	# if heat is grater than 50 apply damage
-	if heat > 50.0:
+	if heat > 80.0:
 		EventBus.car_hit_damage.emit(heat / 6000)
-	elif heat < -25.0:
+	elif heat < -20.0:
 		# low freeze penalty
 		freeze_penalty = 1.0 + (heat / 100.0)
 	else:
 		freeze_penalty = 1.0
+	if heat <= -98.0:
+		destroy()
 	EventBus.heat_changed.emit(heat)
 
 func _send_max_rpm_value():
@@ -144,6 +167,8 @@ func _set_current_gear(value):
 	EventBus.gear_changed.emit(gear_string)
 
 func _physics_process(delta):
+	if destroyed:
+		return
 	prev_velocity = linear_velocity
 	speed = linear_velocity.length()*Engine.get_frames_per_second()*3.6*delta
 	EventBus.speed_changed.emit(round(speed * 1.8))
@@ -155,22 +180,22 @@ func _physics_process(delta):
 
 	process_throttle(delta)
 	process_motor(delta)
-	process_transmission(delta)
+	process_transmission(delta)	
 	process_target_heat(delta)
 	process_heat(delta)
 
 	# var fwd_mps = transform.basis.x.x
 	steer_target = Input.get_action_strength("Steer Left") - Input.get_action_strength("Steer Right")
-	steer_target *= steer_limit * 50 / (50 + speed)
+	steer_target *= (steer_limit * 50) / (50 + speed)
 
 	throttle_input = max(pow(Input.get_action_strength("Throttle"), 2.0), pow(Input.get_action_strength("Full Throttle"), 2.0))
 
 	if Input.is_action_pressed("Full Throttle"):
 		# Increase engine force at cost of wheel slip
 		if speed < 10 and speed != 0:
-			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * 2, 0, 3000)
+			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * 5, 0, 3000)
 		else:
-			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * 1.2 * get_gear_ratio(current_gear), 0, 7500)
+			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * 1.25 * get_gear_ratio(current_gear), 0, 7500)
 		full_throttle_amount = 0.1
 		throttle_factor = 2.0
 		# Slip penalty
@@ -194,7 +219,7 @@ func _physics_process(delta):
 	if Input.is_action_pressed("Throttle"):
 		# Increase engine force at low speeds to make the initial acceleration faster.
 		if speed < 10 and speed != 0:
-			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * 1.5, 0, 3000)
+			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * 3, 0, 3000)
 		else:
 			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * get_gear_ratio(current_gear), 0, 7500)
 		$WheelFrontLeft.wheel_friction_slip  = 2.0
@@ -207,11 +232,8 @@ func _physics_process(delta):
 		$WheelRearRight.wheel_roll_influence  = 0.3
 		$WheelRearLeft.wheel_roll_influence	  = 0.3
 
-	brake_input = Input.get_action_strength("Brakes")
-
 	if Input.get_action_strength("Brakes"):
 	# Increase engine force at low speeds to make the initial acceleration faster.
-		# print("forwad velocity: ", str(global_transform.basis.z.dot(body.velocity)))
 		if local_velocity.z < -0.2:
 			brake = brake_speed
 			engine_force *= 0.2
@@ -241,7 +263,6 @@ func _physics_process(delta):
 		$WheelRearLeft.wheel_friction_slip=0.5
 
 	steering = move_toward(steering, steer_target, steer_speed * 25 / (25 + speed))
-
 
 func traction(speed):
 	apply_central_force(Vector3.DOWN*speed*2)
@@ -293,7 +314,7 @@ func process_motor(delta : float):
 
 	motor_rpm = maxf(motor_rpm, idle_rpm)
 	# add heat based on rpm plus time throtled
-	engine_heat = clampf(sqrt(motor_rpm - idle_rpm) * 6.5 / max_rpm, 0.0, 1.0)
+	engine_heat = clampf(sqrt(motor_rpm - idle_rpm) * engine_heat_factor / max_rpm, 0.0, 1.0)
 	EventBus.rpm_changed.emit(motor_rpm)
 
 func process_transmission(delta : float):
@@ -307,7 +328,6 @@ func process_transmission(delta : float):
 	## tires without immidiately shifting to the next gear.
 
 	var reversing := false
-#	print(d " + str(speed))
 	var ideal_wheel_spin := speed / average_drive_wheel_radius
 
 	var current_ideal_gear_rpm := gear_ratios[current_gear - 1] * final_drive * ideal_wheel_spin * ANGULAR_VELOCITY_TO_RPM
@@ -347,8 +367,21 @@ func process_transmission(delta : float):
 					shift(1)
 
 func process_target_heat(delta : float):
+	if in_heat_zone:
+		# apply heat by the square of the distance to the source
+		var distance = near_heat_zone_pos.distance_to(global_transform.origin)
+		print("Distance: ", distance)
+		var heat_aplied = near_heat_zone_max_heat / (200 +(distance * distance * 0.1))
+		if target_heat < 80.0:
+			target_heat += heat_aplied
+		else:
+			target_heat+= heat_aplied * 0.5
+		if distance < 5.0:
+			heat += (heat_aplied * 0.2)
+			EventBus.car_hit_damage.emit(near_heat_zone_max_heat / 300)
+
 	target_heat += ambient_temp + engine_heat
-	target_heat = clamp(target_heat, -100.0, 200.0)
+	target_heat = clamp(target_heat, -100.0, 120.0)
 
 	if target_heat <= 10:
 		main_body_material.set_shader_parameter("snow_threshold", (target_heat + 100) / 100.0)
@@ -416,6 +449,8 @@ func get_gear_ratio(gear : int) -> float:
 		return 0.0
 
 func _on_body_entered(body:Node):
+	if destroyed:
+		return
 	var impulse = mass * (linear_velocity - prev_velocity)
 	impulse = sqrt(impulse.length()) / resilience
 	# if the damage is greater than 10, do the damage

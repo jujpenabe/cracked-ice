@@ -1,7 +1,7 @@
 class_name LoadingScreen
 extends CanvasLayer
 
-const LOADING_COMPLETE_TEXT = "Loading Complete!"
+const LOADING_COMPLETE_TEXT = "Loading..."
 const LOADING_COMPLETE_TEXT_WAITING = "Any Moment Now..."
 const LOADING_COMPLETE_TEXT_STILL_WAITING = "Any Moment Now... (%d seconds)"
 const LOADING_TEXT = "Loading..."

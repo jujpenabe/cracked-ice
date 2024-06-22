@@ -1,6 +1,7 @@
 extends Node
 
 # Vehicle update events
+signal engine_started()
 signal speed_changed(new_speed)
 signal max_rpm_changed(new_max_rpm)
 signal rpm_changed(new_rpm)
@@ -8,7 +9,8 @@ signal gear_changed(new_gear: String)
 signal car_hit_damage(impulse)
 signal car_destroyed()
 signal damage_made(damage_amount: float)
-signal heat_applied(heat_amount: float)
+signal heat_zone_assigned(heat_amount: float, source_pos : Vector3)
+signal heat_zone_removed()
 
 # Vehicle request events
 signal max_rpm_requested

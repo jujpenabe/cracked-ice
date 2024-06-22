@@ -1,0 +1,38 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://inairxsjwdy6"
+path="res://.godot/imported/Blackcraft_fixed.woff2-2d167bcbe4837d0c64b1979d7c9f02ee.fontdata"
+
+[deps]
+
+source_file="res://CrackedIce/UI/Fonts/Blackcraft_fixed.woff2"
+dest_files=["res://.godot/imported/Blackcraft_fixed.woff2-2d167bcbe4837d0c64b1979d7c9f02ee.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=0
+generate_mipmaps=false
+multichannel_signed_distance_field=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+hinting=2
+subpixel_positioning=3
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[{
+"chars": [],
+"glyphs": [],
+"name": "New Configuration",
+"size": Vector2i(16, 0)
+}]
+language_support={}
+script_support={}
+opentype_features={}

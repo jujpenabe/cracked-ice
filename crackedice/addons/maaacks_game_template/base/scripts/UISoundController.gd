@@ -60,6 +60,8 @@ var line_text_changed_player : AudioStreamPlayer
 var line_text_submitted_player : AudioStreamPlayer
 var line_text_change_rejected_player : AudioStreamPlayer
 
+var tmp_audio_stream_player : AudioStreamPlayer
+
 func _update_persistent_signals():
 	if not is_inside_tree():
 		return
@@ -148,6 +150,11 @@ func connect_ui_sounds(node: Node) -> void:
 		_connect_stream_player(node, line_text_changed_player, &"text_changed", _line_event_play_stream)
 		_connect_stream_player(node, line_text_submitted_player, &"text_submitted", _line_event_play_stream)
 		_connect_stream_player(node, line_text_change_rejected_player, &"text_change_rejected", _line_event_play_stream)
+
+func play_ui_sound(audio_player : AudioStream) -> void:
+	tmp_audio_stream_player = _build_stream_player(audio_player)
+	# print("Playing UI sound: " + tmp_audio_stream_player.stream.resource_name)
+	tmp_audio_stream_player.play()
 
 func _recursive_connect_ui_sounds(current_node: Node, current_depth : int = 0) -> void:
 	if current_depth >= MAX_DEPTH:

@@ -11,12 +11,16 @@ config_version=5
 [application]
 
 config/name="Cracked Ice"
-config/version="0.0.1"
-run/main_scene="res://CrackedIce/Maps/Opening/Opening.tscn"
+config/description="3D Retro, Action, Vehicular Game inspired in PSOne graphics "
+config/version="0.0.2"
+run/main_scene="res://CrackedIce/UI/Opening/Opening.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 run/max_fps=30
-boot_splash/bg_color=Color(0.02, 0.14, 0.2, 1)
-config/icon="res://Icons/CrackedIceCover1.jpg"
+boot_splash/bg_color=Color(0.01, 0.07, 0.1, 1)
+boot_splash/image="res://Icons/playstation-20th.png"
+boot_splash/use_filter=false
+config/icon="res://Icons/CrackedIceAppIcon.png"
+config/windows_native_icon="res://Icons/CrackedIceAppIcon.ico"
 
 [autoload]
 
@@ -120,8 +124,7 @@ ui_accept={
 }
 ui_cancel={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194305,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
-, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":1,"pressure":0.0,"pressed":true,"script":null)
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":1,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
 ui_focus_next={
@@ -192,6 +195,11 @@ switch_back_camera={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":true,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194306,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
+Restart={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"key_label":0,"unicode":114,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -199,11 +207,13 @@ switch_back_camera={
 3d_physics/layer_2="Terrain"
 3d_physics/layer_3="Structures"
 3d_physics/layer_4="Foliage"
+3d_physics/layer_5="HeatZone"
 
 [physics]
 
 3d/run_on_separate_thread=true
 common/physics_ticks_per_second=120
+3d/physics_engine="JoltPhysics3D"
 
 [rendering]
 

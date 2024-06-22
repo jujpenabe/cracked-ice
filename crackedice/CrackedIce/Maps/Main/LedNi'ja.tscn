@@ -1,20 +1,34 @@
-[gd_scene load_steps=18 format=3 uid="uid://dpdiwf4xpmo4h"]
+[gd_scene load_steps=24 format=3 uid="uid://dpdiwf4xpmo4h"]
 
 [ext_resource type="PackedScene" uid="uid://po1b2fmndqn1" path="res://CrackedIce/Art/Lightning/Enviroment/LedNi'jaEnvironment.tscn" id="1_jdeb5"]
 [ext_resource type="PackedScene" uid="uid://8sl5gmdd6o6w" path="res://cars/camera/camera_3d.tscn" id="2_f30ug"]
 [ext_resource type="PackedScene" uid="uid://cvuokl6pvc3k" path="res://CrackedIce/Entities/Player/PlayerController.tscn" id="3_7sj46"]
+[ext_resource type="Material" uid="uid://o2c3hgltivyn" path="res://CrackedIce/MaterialLibrary/Nature/Metal/large_rough_iron.tres" id="3_8rihx"]
 [ext_resource type="PackedScene" uid="uid://bg04dr8a6q71r" path="res://CrackedIce/Entities/NPC/Cars/base/torke.tscn" id="3_s8frt"]
+[ext_resource type="Material" uid="uid://0xvqidkk0f8y" path="res://CrackedIce/MaterialLibrary/Nature/Elements-tiny/ice.tres" id="4_sh0mw"]
+[ext_resource type="Material" uid="uid://dvmwd7sf7xuwk" path="res://CrackedIce/MaterialLibrary/Nature/Elements/lava.tres" id="5_tpo8q"]
 [ext_resource type="PackedScene" uid="uid://c2q4nrkbr0hmu" path="res://CrackedIce/Art/VFX/VehicleSnowCPUParticles.tscn" id="5_xbtsj"]
-[ext_resource type="FontFile" uid="uid://c6ucy4buw7xvx" path="res://CrackedIce/UI/fonts/BrokenGlass.woff2" id="7_520lm"]
-[ext_resource type="Script" path="res://CrackedIce/UI/labels/vehicle_speed.gd" id="8_q4poe"]
-[ext_resource type="FontFile" uid="uid://c4lwpp1x5wyu8" path="res://CrackedIce/UI/fonts/Kurland.woff2" id="9_bi8x6"]
-[ext_resource type="Script" path="res://CrackedIce/Maps/Test/DieDialog.gd" id="10_jpui7"]
-[ext_resource type="PackedScene" uid="uid://dd0rubbt6wcm3" path="res://CrackedIce/UI/progressbar/damagebar.tscn" id="11_veoik"]
-[ext_resource type="PackedScene" uid="uid://5lctwpfh4nc4" path="res://CrackedIce/UI/progressbar/rpmbar.tscn" id="12_um7jh"]
-[ext_resource type="Script" path="res://CrackedIce/Maps/Test/Timer.gd" id="13_jys6f"]
-[ext_resource type="PackedScene" uid="uid://ufcyde5o8pq3" path="res://CrackedIce/UI/progressbar/heatbar.tscn" id="14_qimxu"]
+[ext_resource type="Script" path="res://CrackedIce/Maps/Main/HeatZone.gd" id="6_nkwjw"]
+[ext_resource type="FontFile" uid="uid://c6ucy4buw7xvx" path="res://CrackedIce/UI/Fonts/BrokenGlass.woff2" id="7_520lm"]
+[ext_resource type="Script" path="res://CrackedIce/UI/Labels/vehicle_speed.gd" id="8_q4poe"]
+[ext_resource type="PackedScene" uid="uid://nnf74qff1cbr" path="res://CrackedIce/UI/FX/CrackingScreen.tscn" id="8_vul67"]
+[ext_resource type="PackedScene" uid="uid://dd0rubbt6wcm3" path="res://CrackedIce/UI/ProgressBar/damagebar.tscn" id="11_veoik"]
+[ext_resource type="PackedScene" uid="uid://5lctwpfh4nc4" path="res://CrackedIce/UI/ProgressBar/rpmbar.tscn" id="12_um7jh"]
+[ext_resource type="PackedScene" uid="uid://v6mmlt5udyls" path="res://CrackedIce/UI/Screens/WreckedCarScreen.tscn" id="13_dwib2"]
+[ext_resource type="PackedScene" uid="uid://ufcyde5o8pq3" path="res://CrackedIce/UI/ProgressBar/heatbar.tscn" id="14_qimxu"]
 [ext_resource type="PackedScene" uid="uid://40fh8ikhnbq4" path="res://CrackedIce/Entities/NPC/Cars/base/engine_sound_base.tscn" id="15_d84id"]
-[ext_resource type="PackedScene" uid="uid://ii68bspwm7jp" path="res://CrackedIce/Art/Terrain/LedNi'ja.tscn" id="15_l87dr"]
+[ext_resource type="PackedScene" uid="uid://82q6v341br3b" path="res://CrackedIce/Art/Terrain/LedNi'ja.tscn" id="15_l87dr"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_nmo0n"]
+size = Vector2(1000, 2250)
+orientation = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_siwal"]
+size = Vector2(500, 1000)
+orientation = 1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pe4s8"]
+radius = 35.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_2n0tf"]
 font = ExtResource("7_520lm")
@@ -23,27 +37,345 @@ font_color = Color(1, 1, 1, 0.607843)
 outline_size = 4
 outline_color = Color(0.1, 0.1, 0.1, 0.392157)
 
-[sub_resource type="LabelSettings" id="LabelSettings_sitmt"]
-line_spacing = 0.0
-font = ExtResource("9_bi8x6")
-font_size = 40
-font_color = Color(0.54, 0.9, 0.9, 1)
-shadow_size = 4
-shadow_color = Color(0.854902, 0, 0, 0.172549)
+[sub_resource type="GDScript" id="GDScript_y0cgq"]
+script/source = "extends RichTextLabel
+
+@export var time: float = 60.0
+var playing: bool = false
+
+func _ready():
+	# set timer to 1 minute
+	time = 60.0
+
+func _process(delta):
+
+	# update timer
+	if playing:
+		time -= delta
+		if time > 60.0 and time < 60.2:
+			playing = false
+			time = 60.0
+		# get the unique reference for the timer as rich text label
+		text = \"[center]%02d:%02d\" % [floor(time / 60), floor(fmod(time, 60))] + \"[/center]\"
+	else:
+		text = \"[center]press T to start[/center]\"
+
+	if time <= 0.0:
+		playing = false
+		time = 0.0
+		text = \"[center]00:00 press T to restart[/center]\"
+	# start timer when the button \"t\" is pressed
+	if Input.is_physical_key_pressed(KEY_T):
+		if playing and time < 59.0 or time == 0.0:
+			time = 60.5
+		elif time == 60.0 and not playing:
+			text = \"[center]Go![/center]\"
+			time = 60.0
+			playing = true
+	# reload scene when the button \"r\" is pressed
+"
 
 [node name="LedNi\'ja" type="Node3D"]
 
 [node name="WorldEnvironment" parent="." instance=ExtResource("1_jdeb5")]
 
-[node name="PlayerController" parent="." node_paths=PackedStringArray("vehicle", "camera", "camera_target") instance=ExtResource("3_7sj46")]
+[node name="LedNi\'ja" parent="." instance=ExtResource("15_l87dr")]
+
+[node name="Bridge" type="CSGBox3D" parent="LedNi\'ja"]
+transform = Transform3D(0.999377, -0.00523277, -0.0348995, 0.00523596, 0.999986, 0, 0.034899, -0.000182732, 0.999391, 374.289, 5.65, -45.75)
+material_override = ExtResource("3_8rihx")
+use_collision = true
+collision_layer = 2
+size = Vector3(230.607, 0.5, 10)
+
+[node name="WaterPlane" type="CSGMesh3D" parent="LedNi\'ja"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 760, 0, 0)
+use_collision = true
+collision_layer = 2
+mesh = SubResource("QuadMesh_nmo0n")
+material = ExtResource("4_sh0mw")
+
+[node name="WaterPlane2" type="CSGMesh3D" parent="LedNi\'ja"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.91203, 0, 622.866)
+use_collision = true
+collision_layer = 2
+mesh = SubResource("QuadMesh_siwal")
+material = ExtResource("4_sh0mw")
+
+[node name="WaterPlane3" type="CSGMesh3D" parent="LedNi\'ja"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -239.783, 0, -643.063)
+use_collision = true
+collision_layer = 2
+mesh = SubResource("QuadMesh_siwal")
+material = ExtResource("4_sh0mw")
+
+[node name="HeatZone" type="CSGSphere3D" parent="LedNi\'ja"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.866, 39.0008, -310.386)
+use_collision = true
+collision_layer = 2
+flip_faces = true
+radius = 5.0
+material = ExtResource("5_tpo8q")
+script = ExtResource("6_nkwjw")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LedNi\'ja/HeatZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042572, 3.26981, 0)
+operation = 2
+flip_faces = true
+size = Vector3(9.77045, 5.38885, 11)
+
+[node name="Area3D" type="Area3D" parent="LedNi\'ja/HeatZone"]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LedNi\'ja/HeatZone/Area3D"]
+shape = SubResource("SphereShape3D_pe4s8")
+
+[node name="HeatZone2" type="CSGSphere3D" parent="LedNi\'ja"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.529, 17.9532, -585.873)
+use_collision = true
+collision_layer = 2
+flip_faces = true
+radius = 5.0
+material = ExtResource("5_tpo8q")
+script = ExtResource("6_nkwjw")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LedNi\'ja/HeatZone2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042572, 3.26981, 0)
+operation = 2
+flip_faces = true
+size = Vector3(9.77045, 5.38885, 11)
+
+[node name="Area3D" type="Area3D" parent="LedNi\'ja/HeatZone2"]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LedNi\'ja/HeatZone2/Area3D"]
+shape = SubResource("SphereShape3D_pe4s8")
+
+[node name="HeatZone3" type="CSGSphere3D" parent="LedNi\'ja"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 93.7459, 9.78366, -617.226)
+use_collision = true
+collision_layer = 2
+flip_faces = true
+radius = 5.0
+material = ExtResource("5_tpo8q")
+script = ExtResource("6_nkwjw")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LedNi\'ja/HeatZone3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042572, 3.26981, 0)
+operation = 2
+flip_faces = true
+size = Vector3(9.77045, 5.38885, 11)
+
+[node name="Area3D" type="Area3D" parent="LedNi\'ja/HeatZone3"]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LedNi\'ja/HeatZone3/Area3D"]
+shape = SubResource("SphereShape3D_pe4s8")
+
+[node name="HeatZone4" type="CSGSphere3D" parent="LedNi\'ja"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 248.389, 2.27675, -369.43)
+use_collision = true
+collision_layer = 2
+flip_faces = true
+radius = 5.0
+material = ExtResource("5_tpo8q")
+script = ExtResource("6_nkwjw")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LedNi\'ja/HeatZone4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042572, 3.26981, 0)
+operation = 2
+flip_faces = true
+size = Vector3(9.77045, 5.38885, 11)
+
+[node name="Area3D" type="Area3D" parent="LedNi\'ja/HeatZone4"]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LedNi\'ja/HeatZone4/Area3D"]
+shape = SubResource("SphereShape3D_pe4s8")
+
+[node name="HeatZone5" type="CSGSphere3D" parent="LedNi\'ja"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 246.599, 4.72813, -49.0047)
+use_collision = true
+collision_layer = 2
+flip_faces = true
+radius = 5.0
+material = ExtResource("5_tpo8q")
+script = ExtResource("6_nkwjw")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LedNi\'ja/HeatZone5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042572, 3.26981, 0)
+operation = 2
+flip_faces = true
+size = Vector3(9.77045, 5.38885, 11)
+
+[node name="Area3D" type="Area3D" parent="LedNi\'ja/HeatZone5"]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LedNi\'ja/HeatZone5/Area3D"]
+shape = SubResource("SphereShape3D_pe4s8")
+
+[node name="HeatZone12" type="CSGSphere3D" parent="LedNi\'ja"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 504.454, 5.1097, -38.1479)
+use_collision = true
+collision_layer = 2
+flip_faces = true
+radius = 10.0
+material = ExtResource("5_tpo8q")
+script = ExtResource("6_nkwjw")
+max_heat = 5
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LedNi\'ja/HeatZone12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.926208, 5.53154, -0.313492)
+operation = 2
+flip_faces = true
+size = Vector3(20.9623, 9.91232, 22.338)
+
+[node name="Area3D" type="Area3D" parent="LedNi\'ja/HeatZone12"]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LedNi\'ja/HeatZone12/Area3D"]
+shape = SubResource("SphereShape3D_pe4s8")
+
+[node name="HeatZone6" type="CSGSphere3D" parent="LedNi\'ja"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 87.1977, 24.0398, 456.791)
+use_collision = true
+collision_layer = 2
+flip_faces = true
+radius = 5.0
+material = ExtResource("5_tpo8q")
+script = ExtResource("6_nkwjw")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LedNi\'ja/HeatZone6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042572, 3.26981, 0)
+operation = 2
+flip_faces = true
+size = Vector3(9.77045, 5.38885, 11)
+
+[node name="Area3D" type="Area3D" parent="LedNi\'ja/HeatZone6"]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LedNi\'ja/HeatZone6/Area3D"]
+shape = SubResource("SphereShape3D_pe4s8")
+
+[node name="HeatZone7" type="CSGSphere3D" parent="LedNi\'ja"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114.694, 37.0114, 469.485)
+use_collision = true
+collision_layer = 2
+flip_faces = true
+radius = 5.0
+material = ExtResource("5_tpo8q")
+script = ExtResource("6_nkwjw")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LedNi\'ja/HeatZone7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042572, 3.26981, 0)
+operation = 2
+flip_faces = true
+size = Vector3(9.77045, 5.38885, 11)
+
+[node name="Area3D" type="Area3D" parent="LedNi\'ja/HeatZone7"]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LedNi\'ja/HeatZone7/Area3D"]
+shape = SubResource("SphereShape3D_pe4s8")
+
+[node name="HeatZone11" type="CSGSphere3D" parent="LedNi\'ja"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.037, 44.7453, 212.668)
+use_collision = true
+collision_layer = 2
+flip_faces = true
+radius = 5.0
+material = ExtResource("5_tpo8q")
+script = ExtResource("6_nkwjw")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LedNi\'ja/HeatZone11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042572, 3.26981, 0)
+operation = 2
+flip_faces = true
+size = Vector3(9.77045, 5.38885, 11)
+
+[node name="Area3D" type="Area3D" parent="LedNi\'ja/HeatZone11"]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LedNi\'ja/HeatZone11/Area3D"]
+shape = SubResource("SphereShape3D_pe4s8")
+
+[node name="HeatZone8" type="CSGSphere3D" parent="LedNi\'ja"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88.9828, 37.4254, 107.231)
+use_collision = true
+collision_layer = 2
+flip_faces = true
+radius = 5.0
+material = ExtResource("5_tpo8q")
+script = ExtResource("6_nkwjw")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LedNi\'ja/HeatZone8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042572, 3.26981, 0)
+operation = 2
+flip_faces = true
+size = Vector3(9.77045, 5.38885, 11)
+
+[node name="Area3D" type="Area3D" parent="LedNi\'ja/HeatZone8"]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LedNi\'ja/HeatZone8/Area3D"]
+shape = SubResource("SphereShape3D_pe4s8")
+
+[node name="HeatZone9" type="CSGSphere3D" parent="LedNi\'ja"]
+transform = Transform3D(-4.37114e-08, -0.0174524, -0.999848, 0, 0.999848, -0.0174524, 1, -7.62869e-10, -4.37047e-08, 77.8032, 36.2842, -213.683)
+use_collision = true
+collision_layer = 2
+flip_faces = true
+radius = 5.0
+material = ExtResource("5_tpo8q")
+script = ExtResource("6_nkwjw")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LedNi\'ja/HeatZone9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042572, 3.26981, 0)
+operation = 2
+flip_faces = true
+size = Vector3(9.77045, 5.38885, 11)
+
+[node name="Area3D" type="Area3D" parent="LedNi\'ja/HeatZone9"]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LedNi\'ja/HeatZone9/Area3D"]
+shape = SubResource("SphereShape3D_pe4s8")
+
+[node name="HeatZone10" type="CSGSphere3D" parent="LedNi\'ja"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114.378, 61.0316, -59.7975)
+use_collision = true
+collision_layer = 2
+flip_faces = true
+radius = 5.0
+material = ExtResource("5_tpo8q")
+script = ExtResource("6_nkwjw")
+max_heat = 20
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LedNi\'ja/HeatZone10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042572, 3.26981, 0)
+operation = 2
+flip_faces = true
+size = Vector3(9.77045, 5.38885, 11)
+
+[node name="Area3D" type="Area3D" parent="LedNi\'ja/HeatZone10"]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LedNi\'ja/HeatZone10/Area3D"]
+shape = SubResource("SphereShape3D_pe4s8")
+
+[node name="PlayerController" parent="." node_paths=PackedStringArray("vehicle", "hud", "camera", "camera_target", "engine_sound") instance=ExtResource("3_7sj46")]
 vehicle = NodePath("Torke")
+hud = NodePath("Hud")
 camera = NodePath("Torke/lookat/Camera3D")
 camera_target = NodePath("Torke/lookat")
+engine_sound = NodePath("Torke/EngineSound")
 
 [node name="Torke" parent="PlayerController" instance=ExtResource("3_s8frt")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -120.696, 62.8997, -53.3005)
-engine_force_value = 800
-final_drive = 1.1
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 91.5755, 10.7879, -628.549)
+engine_force_value = 500
+gear_ratios = Array[float]([3.8, 2.3, 1.7, 1.3, 1.0, 0.8])
+resilience = 4.0
+block_damage = 10
 
 [node name="lookat" type="Node3D" parent="PlayerController/Torke"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
@@ -66,9 +398,15 @@ particle_flag_align_y = true
 
 [node name="EngineSound" parent="PlayerController/Torke" instance=ExtResource("15_d84id")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+volume_db = -80.0
+bus = &"SFX"
+attenuation_filter_cutoff_hz = 440.0
+doppler_tracking = 2
 
 [node name="Hud" type="CanvasLayer" parent="PlayerController"]
 layer = 2
+
+[node name="BackgroundTextureRect" parent="PlayerController/Hud" instance=ExtResource("8_vul67")]
 
 [node name="speed" type="Label" parent="PlayerController/Hud"]
 anchors_preset = 7
@@ -121,29 +459,6 @@ label_settings = SubResource("LabelSettings_2n0tf")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="You Wrecked Your Car!" type="Label" parent="PlayerController/Hud"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -208.0
-offset_top = -47.5
-offset_right = 208.0
-offset_bottom = 47.5
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(4.235, 0)
-size_flags_horizontal = 4
-text = "You Wrecked Your Car!
-"
-label_settings = SubResource("LabelSettings_sitmt")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
-script = ExtResource("10_jpui7")
-
 [node name="DamageBar" parent="PlayerController/Hud" instance=ExtResource("11_veoik")]
 unique_name_in_owner = true
 offset_top = -30.0
@@ -156,13 +471,40 @@ rounded = true
 offset_top = -1.0
 offset_right = 640.0
 offset_bottom = 212.0
+theme_override_fonts/normal_font = ExtResource("7_520lm")
 theme_override_font_sizes/normal_font_size = 44
 bbcode_enabled = true
 text = "Time"
-script = ExtResource("13_jys6f")
+script = SubResource("GDScript_y0cgq")
 
 [node name="HeatBar" parent="PlayerController/Hud" instance=ExtResource("14_qimxu")]
 offset_top = -40.0
 offset_bottom = -20.0
 
-[node name="LedNi\'ja" parent="." instance=ExtResource("15_l87dr")]
+[node name="WreckedCarScreen2" parent="PlayerController" instance=ExtResource("13_dwib2")]
+visible = false
+
+[connection signal="body_entered" from="LedNi'ja/HeatZone/Area3D" to="LedNi'ja/HeatZone" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="LedNi'ja/HeatZone/Area3D" to="LedNi'ja/HeatZone" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="LedNi'ja/HeatZone2/Area3D" to="LedNi'ja/HeatZone2" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="LedNi'ja/HeatZone2/Area3D" to="LedNi'ja/HeatZone2" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="LedNi'ja/HeatZone3/Area3D" to="LedNi'ja/HeatZone3" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="LedNi'ja/HeatZone3/Area3D" to="LedNi'ja/HeatZone3" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="LedNi'ja/HeatZone4/Area3D" to="LedNi'ja/HeatZone4" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="LedNi'ja/HeatZone4/Area3D" to="LedNi'ja/HeatZone4" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="LedNi'ja/HeatZone5/Area3D" to="LedNi'ja/HeatZone5" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="LedNi'ja/HeatZone5/Area3D" to="LedNi'ja/HeatZone5" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="LedNi'ja/HeatZone12/Area3D" to="LedNi'ja/HeatZone12" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="LedNi'ja/HeatZone12/Area3D" to="LedNi'ja/HeatZone12" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="LedNi'ja/HeatZone6/Area3D" to="LedNi'ja/HeatZone6" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="LedNi'ja/HeatZone6/Area3D" to="LedNi'ja/HeatZone6" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="LedNi'ja/HeatZone7/Area3D" to="LedNi'ja/HeatZone7" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="LedNi'ja/HeatZone7/Area3D" to="LedNi'ja/HeatZone7" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="LedNi'ja/HeatZone11/Area3D" to="LedNi'ja/HeatZone11" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="LedNi'ja/HeatZone11/Area3D" to="LedNi'ja/HeatZone11" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="LedNi'ja/HeatZone8/Area3D" to="LedNi'ja/HeatZone8" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="LedNi'ja/HeatZone8/Area3D" to="LedNi'ja/HeatZone8" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="LedNi'ja/HeatZone9/Area3D" to="LedNi'ja/HeatZone9" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="LedNi'ja/HeatZone9/Area3D" to="LedNi'ja/HeatZone9" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="LedNi'ja/HeatZone10/Area3D" to="LedNi'ja/HeatZone10" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="LedNi'ja/HeatZone10/Area3D" to="LedNi'ja/HeatZone10" method="_on_area_3d_body_exited"]

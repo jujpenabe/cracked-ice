@@ -15,7 +15,6 @@ func _ready():
 	EventBus.car_destroyed.connect(_destroyed)
 	EventBus.damagebar_setup.emit(100)
 
-
 func _process(delta):
 	
 
@@ -23,14 +22,13 @@ func _process(delta):
 	if Input.is_physical_key_pressed(KEY_G):
 		EventBus.car_hit_damage.emit(5)
 
-	if Input.is_physical_key_pressed(KEY_R):
-		get_tree().reload_current_scene()
+	if Input.is_action_just_pressed("Restart"):
+		if is_alive:
+			# wait 0.2 second and reload the current scene
+			await get_tree().create_timer(0.2).timeout
+			vehicle.destroy()
 
 func _destroyed():
-	if is_alive:
-		is_alive = false
-		await get_tree().create_timer(4.4).timeout
-		get_tree().reload_current_scene()
-	else:
-		pass
+	hud.hide()	
+	is_alive = false
 
