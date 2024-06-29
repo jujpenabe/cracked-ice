@@ -23,7 +23,7 @@ scroll_active = false
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-scroll_vertical = 100
+scroll_vertical = 240
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
@@ -47,19 +47,21 @@ text = "[center]
 [b]
 [font_size=48]Collaborators[/font_size]
 
+
+
 [font_size=32]Development[/font_size]
 [/b]
 [url=https://catblue44.itch.io]Juan José Peña \"catblue44\"[/url]
 
 [b]
-[font_size=32]Music & SFX[/font_size]
+[font_size=32]Music | SFX[/font_size]
 [/b]
 [url=https://dbg1209.itch.io]Daniel Bazurto[/url]
 [b]
-[font_size=32]2D/3D Artist[/font_size]
+[font_size=32]2D-3D Artist[/font_size]
 [/b]
 Juan José Peña
-Julian
+Julian Pulido
 [b]
 [font_size=32]Design[/font_size]
 [/b]

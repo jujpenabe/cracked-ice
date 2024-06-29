@@ -1,4 +1,4 @@
-extends ProgressBar
+extends TextureProgressBar
 
 var sb = StyleBoxFlat.new()
 var rpm: float = 0 : set = _set_rpm, get = _get_rpm
@@ -29,8 +29,5 @@ func _ready():
 	EventBus.max_rpm_requested.emit()
 
 	add_theme_stylebox_override("fill", sb)
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 

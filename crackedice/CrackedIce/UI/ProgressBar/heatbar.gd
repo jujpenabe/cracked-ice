@@ -11,4 +11,4 @@ func _set_heat(heat):
 	value = heat
 	# modulate color based on heat, if heat is 0, modulate is white (1,1,1)
 	# modulate in hsv
-	modulate = Color.from_hsv(1, (1000 + (heat * abs(heat))) / 4000, 1)
+	modulate = Color.from_hsv(1, (1000 + (heat * abs(heat))) / 4000, 1 , 0.8)

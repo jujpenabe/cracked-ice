@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://dbog3tmvgs5ro"
+path="res://.godot/imported/icon.png-49a39ed267c09459b54f469c8fb025fe.image"
+
+[deps]
+
+source_file="res://addons/csgtomesh/icon.png"
+dest_files=["res://.godot/imported/icon.png-49a39ed267c09459b54f469c8fb025fe.image"]
+
+[params]
+

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsrm7eju33xsb"]
+
+[ext_resource type="Script" path="res://addons/csgtomesh/ui.gd" id="1_hiwpb"]
+
+[node name="Button" type="Button"]
+text = "Convert to MeshInstance3D"
+script = ExtResource("1_hiwpb")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

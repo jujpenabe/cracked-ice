@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://c58r0qx4ego7q"]
+
+[ext_resource type="FontFile" uid="uid://c6ucy4buw7xvx" path="res://CrackedIce/UI/Fonts/BrokenGlass.woff2" id="1_bq8no"]
+
+[resource]
+font = ExtResource("1_bq8no")
+font_size = 40
+font_color = Color(1, 1, 1, 0.607843)
+outline_size = 4
+outline_color = Color(0.1, 0.1, 0.1, 0.392157)

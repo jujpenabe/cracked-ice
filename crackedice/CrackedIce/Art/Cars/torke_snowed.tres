@@ -1,0 +1,31 @@
+[gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://dmspvgmm2vetx"]
+
+[ext_resource type="Shader" path="res://CrackedIce/Shaders/basic_snow.gdshader" id="1_bs4n3"]
+[ext_resource type="Texture2D" uid="uid://bwmtkyg21xg" path="res://CrackedIce/Art/Cars/torke.jpg" id="2_135ye"]
+[ext_resource type="Texture2D" uid="uid://cv6fe7njxc0f1" path="res://CrackedIce/MaterialLibrary/Nature/Elements/snow_02_diff.jpg" id="3_b7c2l"]
+[ext_resource type="Texture2D" uid="uid://eyh1n024hhot" path="res://CrackedIce/Art/Cars/torke_emit.jpg" id="4_4g6se"]
+[ext_resource type="Texture2D" uid="uid://b6iy3d4mla25i" path="res://CrackedIce/Art/Cars/torke_nor.jpg" id="5_76i4y"]
+[ext_resource type="Texture2D" uid="uid://cek2uijlm3lak" path="res://CrackedIce/MaterialLibrary/Nature/Elements/snow_02_nor_gl.jpg" id="6_2ylpw"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_bs4n3")
+shader_parameter/snow_threshold = 1.0
+shader_parameter/snow_blend_range = 0.005
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.5
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/roughness = 0.9
+shader_parameter/albedo_snow = Color(1, 1, 1, 1)
+shader_parameter/normal_scale_snow = 1.0
+shader_parameter/roughness_snow = 0.75
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = null
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = null
+shader_parameter/texture_albedo = ExtResource("2_135ye")
+shader_parameter/texture_normal = ExtResource("5_76i4y")
+shader_parameter/texture_emision = ExtResource("4_4g6se")
+shader_parameter/texture_albedo_snow = ExtResource("3_b7c2l")
+shader_parameter/texture_normal_snow = ExtResource("6_2ylpw")

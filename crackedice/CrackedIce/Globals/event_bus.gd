@@ -11,16 +11,12 @@ signal car_destroyed()
 signal damage_made(damage_amount: float)
 signal heat_zone_assigned(heat_amount: float, source_pos : Vector3)
 signal heat_zone_removed()
+signal slip_bonus_changed(new_slip_bonus: float)
+signal throtle_bonus_changed(new_throtle_bonus: float)
 
 # Vehicle request events
 signal max_rpm_requested
 
-
-# World update events
-signal ambient_temperature_changed(new_temperature)
-
-# World request events
-signal ambient_temperature_requested
 
 # UI update events
 signal damagebar_setup(max_health)

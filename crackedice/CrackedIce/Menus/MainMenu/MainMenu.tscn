@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://b76fcyiisui0w"]
+[gd_scene load_steps=38 format=3 uid="uid://b76fcyiisui0w"]
 
 [ext_resource type="Script" path="res://CrackedIce/Menus/MainMenu/MainMenu.gd" id="1_4p54k"]
 [ext_resource type="PackedScene" uid="uid://k0nh1lqsjth4" path="res://CrackedIce/Menus/OptionsMenu/MasterOptionsMenu.tscn" id="2_1040c"]
@@ -76,8 +76,13 @@ keycode = 4194305
 button_index = 1
 pressed = true
 
+[sub_resource type="InputEventKey" id="InputEventKey_wgmid"]
+device = -1
+keycode = 81
+unicode = 113
+
 [sub_resource type="Shortcut" id="Shortcut_nyj11"]
-events = [SubResource("InputEventKey_acp7n"), SubResource("InputEventJoypadButton_uhen7")]
+events = [SubResource("InputEventKey_acp7n"), SubResource("InputEventJoypadButton_uhen7"), SubResource("InputEventKey_wgmid")]
 
 [sub_resource type="Gradient" id="Gradient_05e41"]
 colors = PackedColorArray(0.408, 0.630133, 0.68, 1, 0.007, 0.0299333, 0.05, 1)
@@ -98,7 +103,7 @@ game_scene_path = "res://CrackedIce/Maps/Main/LedNi'ja.tscn"
 test_scene_path = null
 options_packed_scene = ExtResource("2_1040c")
 credits_packed_scene = ExtResource("3_00v7a")
-version_name = "0.0.1-dev"
+version_name = "0.0.2-dev"
 audio_bus = null
 engine_start = ExtResource("4_565fv")
 

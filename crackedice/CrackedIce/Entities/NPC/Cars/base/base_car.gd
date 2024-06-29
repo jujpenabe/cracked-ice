@@ -38,15 +38,12 @@ const ANGULAR_VELOCITY_TO_RPM := 60.0 / TAU
 var destroyed = false
 
 var steer_target = 0
-
+var brake_input := 0.0
 var throttle_input := 0.0
 var damage: float = 0 : set = _set_damage
 var target_heat: float = 0.0
-var engine_heat: float = 0.0
 var heat: float = 20 : set = _set_heat
 var hit_heat: float = 0.0
-
-var ambient_temp: float = -0.03 : set = _set_ambient_temp
 
 var near_heat_zone_max_heat: float = 0.0
 var near_heat_zone_pos: Vector3 = Vector3.ZERO
@@ -73,8 +70,10 @@ var delta_time := 0.0
 var is_up_shifting := false
 var complete_shift_delta_time := 0.0
 var throttle_factor := 1.0
+var throttle_factor_bonus := 1.0
 var prev_velocity: Vector3
 var engine_force_bonus := 1.0
+var slip_bonus := 1.0
 var freeze_penalty := 1.0
 var main_body_material: Material
 
@@ -87,12 +86,12 @@ func connect_signals():
 	EventBus.damage_made.connect(_set_damage)
 	EventBus.heat_zone_assigned.connect(_new_heat_source)
 	EventBus.heat_zone_removed.connect(_remove_heat_source)
-	EventBus.ambient_temperature_changed.connect(_set_ambient_temp)
+	EventBus.slip_bonus_changed.connect(_set_slip_bonus)
+	EventBus.throtle_bonus_changed.connect(_set_throttle_factor)
 
 func initialize():
 	previous_global_position = global_transform.origin
 	average_drive_wheel_radius = $WheelFrontRight.wheel_radius
-	EventBus.ambient_temperature_requested.emit()
 	main_body_material = %main_body.get_active_material(0)
 
 func destroy():
@@ -115,9 +114,11 @@ func _set_damage(value):
 	if damage >= 100:
 		destroy()
 
+func _set_slip_bonus(value):
+	slip_bonus = value
 
-func _set_ambient_temp(value):
-	ambient_temp = value
+func _set_throttle_factor(value):
+	throttle_factor = value
 
 func _new_heat_source(_max_heat: float, _source_pos: Vector3):
 	near_heat_zone_max_heat = _max_heat
@@ -126,6 +127,7 @@ func _new_heat_source(_max_heat: float, _source_pos: Vector3):
 
 func _remove_heat_source():
 	in_heat_zone = false
+	LevelManager.remove_heat_bonus("zone")
 
 func _set_heat(value):
 	heat = clamp(value, -100, 100)
@@ -180,9 +182,10 @@ func _physics_process(delta):
 
 	process_throttle(delta)
 	process_motor(delta)
-	process_transmission(delta)	
+	process_transmission(delta)
 	process_target_heat(delta)
 	process_heat(delta)
+	process_impulse(delta)
 
 	# var fwd_mps = transform.basis.x.x
 	steer_target = Input.get_action_strength("Steer Left") - Input.get_action_strength("Steer Right")
@@ -190,25 +193,27 @@ func _physics_process(delta):
 
 	throttle_input = max(pow(Input.get_action_strength("Throttle"), 2.0), pow(Input.get_action_strength("Full Throttle"), 2.0))
 
+	brake_input = Input.get_action_strength("Brakes")
+
 	if Input.is_action_pressed("Full Throttle"):
 		# Increase engine force at cost of wheel slip
-		if speed < 10 and speed != 0:
-			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * 5, 0, 3000)
+		if speed < 5 and speed != 0:
+			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * 4, 0, 3000)
 		else:
-			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * 1.25 * get_gear_ratio(current_gear), 0, 7500)
-		full_throttle_amount = 0.1
-		throttle_factor = 2.0
+			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * 1.1 * get_gear_ratio(current_gear), 0, 7500)
+		full_throttle_amount = 0.05
+		throttle_factor = 1.5
 		# Slip penalty
-		$WheelFrontLeft.wheel_friction_slip=1.25
-		$WheelFrontRight.wheel_friction_slip=1.25
-		$WheelRearRight.wheel_friction_slip=1
-		$WheelRearLeft.wheel_friction_slip=1
+		$WheelFrontLeft.wheel_friction_slip=1.25 * slip_bonus
+		$WheelFrontRight.wheel_friction_slip=1.25 * slip_bonus
+		$WheelRearRight.wheel_friction_slip=1 * slip_bonus
+		$WheelRearLeft.wheel_friction_slip=1 * slip_bonus
 
 		# Roll influence penalty
-		$WheelFrontLeft.wheel_roll_influence= 0.5
-		$WheelFrontRight.wheel_roll_influence= 0.5
-		$WheelRearRight.wheel_roll_influence= 0.7
-		$WheelRearLeft.wheel_roll_influence = 0.7
+		$WheelFrontLeft.wheel_roll_influence= 0.5 / (pow(slip_bonus, 2.0))
+		$WheelFrontRight.wheel_roll_influence= 0.5 / (pow(slip_bonus, 2.0))
+		$WheelRearRight.wheel_roll_influence= 0.7 / (pow(slip_bonus, 2.0))
+		$WheelRearLeft.wheel_roll_influence = 0.7 / (pow(slip_bonus, 2.0))
 
 	else:
 
@@ -222,15 +227,15 @@ func _physics_process(delta):
 			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * 3, 0, 3000)
 		else:
 			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * get_gear_ratio(current_gear), 0, 7500)
-		$WheelFrontLeft.wheel_friction_slip  = 2.0
-		$WheelFrontRight.wheel_friction_slip = 2.0
-		$WheelRearRight.wheel_friction_slip  = 2.25
-		$WheelRearLeft.wheel_friction_slip   = 2.25
+		$WheelFrontLeft.wheel_friction_slip  = 2.0 * slip_bonus
+		$WheelFrontRight.wheel_friction_slip = 2.0 * slip_bonus
+		$WheelRearRight.wheel_friction_slip  = 2.25 * slip_bonus
+		$WheelRearLeft.wheel_friction_slip   = 2.25 * slip_bonus
 
-		$WheelFrontLeft.wheel_roll_influence  = 0.4
-		$WheelFrontRight.wheel_roll_influence = 0.4
-		$WheelRearRight.wheel_roll_influence  = 0.3
-		$WheelRearLeft.wheel_roll_influence	  = 0.3
+		$WheelFrontLeft.wheel_roll_influence  = 0.4 / (pow(slip_bonus, 2.0))
+		$WheelFrontRight.wheel_roll_influence = 0.4 / (pow(slip_bonus, 2.0))
+		$WheelRearRight.wheel_roll_influence  = 0.3 / (pow(slip_bonus, 2.0))
+		$WheelRearLeft.wheel_roll_influence	  = 0.3 / (pow(slip_bonus, 2.0))
 
 	if Input.get_action_strength("Brakes"):
 	# Increase engine force at low speeds to make the initial acceleration faster.
@@ -239,10 +244,10 @@ func _physics_process(delta):
 			engine_force *= 0.2
 		else:
 			engine_force = -(engine_force_bonus * engine_force_value * freeze_penalty) * get_gear_ratio(-1)
-			$WheelFrontLeft.wheel_friction_slip=1.8
-			$WheelFrontRight.wheel_friction_slip=1.8
-			$WheelRearRight.wheel_friction_slip=1.6
-			$WheelRearLeft.wheel_friction_slip=1.6
+			$WheelFrontLeft.wheel_friction_slip=1.8 * slip_bonus
+			$WheelFrontRight.wheel_friction_slip=1.8 * slip_bonus
+			$WheelRearRight.wheel_friction_slip=1.6 * slip_bonus
+			$WheelRearLeft.wheel_friction_slip=1.6 * slip_bonus
 	else:
 		brake = 0
 
@@ -257,10 +262,10 @@ func _physics_process(delta):
 
 		engine_force *= 0.8
 
-		$WheelFrontLeft.wheel_friction_slip=0.9
-		$WheelFrontRight.wheel_friction_slip=0.9
-		$WheelRearRight.wheel_friction_slip=0.5
-		$WheelRearLeft.wheel_friction_slip=0.5
+		$WheelFrontLeft.wheel_friction_slip=0.9 * slip_bonus
+		$WheelFrontRight.wheel_friction_slip=0.9 * slip_bonus
+		$WheelRearRight.wheel_friction_slip=0.5 * slip_bonus
+		$WheelRearLeft.wheel_friction_slip=0.5 * slip_bonus
 
 	steering = move_toward(steering, steer_target, steer_speed * 25 / (25 + speed))
 
@@ -268,7 +273,7 @@ func traction(speed):
 	apply_central_force(Vector3.DOWN*speed*2)
 
 func process_throttle(delta : float):
-	var throttle_delta := throttle_speed * delta * throttle_factor
+	var throttle_delta := throttle_speed * delta * throttle_factor * throttle_factor_bonus
 	if (throttle_input < throttle_amount):
 		throttle_amount -= throttle_delta
 		if (throttle_input > throttle_amount):
@@ -294,7 +299,6 @@ func process_motor(delta : float):
 	torque_output = get_torque_at_rpm(motor_rpm) * throttle_amount
 	## Adjust torque based on throttle input, clutch input, and motor drag
 	torque_output -= drag_torque * (1.0 + (clutch_amount * (1.0 - throttle_amount)))
-
 	## Prevent motor from outputing torque below idle or far beyond redline
 	var new_rpm := motor_rpm
 	new_rpm += ANGULAR_VELOCITY_TO_RPM * delta * torque_output / motor_moment
@@ -303,9 +307,7 @@ func process_motor(delta : float):
 		torque_output = 0.0
 		if new_rpm > max_rpm:
 			motor_is_redline = true
-
-	motor_rpm += ANGULAR_VELOCITY_TO_RPM * delta * (torque_output - drag_torque) / motor_moment
-
+	motor_rpm += ANGULAR_VELOCITY_TO_RPM * delta * (torque_output - (1.0 - throttle_amount) * drag_torque) / motor_moment
 	## Disengage clutch when near idle
 	if motor_rpm < idle_rpm + 100:
 		need_clutch = true
@@ -314,7 +316,7 @@ func process_motor(delta : float):
 
 	motor_rpm = maxf(motor_rpm, idle_rpm)
 	# add heat based on rpm plus time throtled
-	engine_heat = clampf(sqrt(motor_rpm - idle_rpm) * engine_heat_factor / max_rpm, 0.0, 1.0)
+	LevelManager.add_heat_bonus("motor", sqrt(motor_rpm - idle_rpm) * engine_heat_factor)
 	EventBus.rpm_changed.emit(motor_rpm)
 
 func process_transmission(delta : float):
@@ -336,9 +338,9 @@ func process_transmission(delta : float):
 		reversing = true
 
 	if not reversing:
-		var next_gear_rpm := 0.0
-		if current_gear < gear_ratios.size():
-			next_gear_rpm = get_gear_ratio(current_gear + 1) * ideal_wheel_spin * ANGULAR_VELOCITY_TO_RPM
+		# var next_gear_rpm := 0.0
+		# if current_gear < gear_ratios.size():
+		# 	next_gear_rpm = get_gear_ratio(current_gear + 1) * ideal_wheel_spin * ANGULAR_VELOCITY_TO_RPM
 		var previous_gear_rpm := 0.0
 		if current_gear - 1 > 0:
 			previous_gear_rpm = get_gear_ratio(current_gear - 1) *  ideal_wheel_spin * ANGULAR_VELOCITY_TO_RPM
@@ -346,13 +348,13 @@ func process_transmission(delta : float):
 		if current_gear < gear_ratios.size():
 			if current_gear > 0:
 				# calculate the shift rpm based on current gear: more gear means higher rpm to shift
-				if (current_ideal_gear_rpm + motor_rpm) * 0.5 > (max_rpm * 0.7 * (1 - (full_throttle_amount / (1 + sqrt(current_gear))))):
+				if (current_ideal_gear_rpm + motor_rpm) * 0.5 > (max_rpm * 0.8 * (1 - (full_throttle_amount / (1 + sqrt(current_gear))))):
 					if delta_time - last_shift_delta_time > shift_time:
 						shift(1)
 			elif current_gear <= 0 and motor_rpm > clutch_out_rpm:
 				shift(1)
 		if current_gear - 1 > 0:
-			if current_gear > 1 and previous_gear_rpm < 0.3 * max_rpm * (1 - (full_throttle_amount / (1 + sqrt ((current_gear - 1))))):
+			if current_gear > 1 and previous_gear_rpm < 0.2 * max_rpm:
 				if delta_time - last_shift_delta_time > shift_time:
 					shift(-1)
 
@@ -370,23 +372,19 @@ func process_target_heat(delta : float):
 	if in_heat_zone:
 		# apply heat by the square of the distance to the source
 		var distance = near_heat_zone_pos.distance_to(global_transform.origin)
-		print("Distance: ", distance)
-		var heat_aplied = near_heat_zone_max_heat / (200 +(distance * distance * 0.1))
-		if target_heat < 80.0:
-			target_heat += heat_aplied
-		else:
-			target_heat+= heat_aplied * 0.5
+		var heat_aplied = near_heat_zone_max_heat * 4 / (1 + (distance))
+		LevelManager.add_heat_bonus("zone", heat_aplied)
 		if distance < 5.0:
-			heat += (heat_aplied * 0.2)
-			EventBus.car_hit_damage.emit(near_heat_zone_max_heat / 300)
+			heat += (heat_aplied * 0.02) / (1 +distance)
+			EventBus.car_hit_damage.emit(near_heat_zone_max_heat / ((1 + distance) * 600))
 
-	target_heat += ambient_temp + engine_heat
-	target_heat = clamp(target_heat, -100.0, 120.0)
+	target_heat += (LevelManager.get_total_heat_bonus() * 0.001) 
+	target_heat = clamp(target_heat, -300.0, 120.0)
 
 	if target_heat <= 10:
-		main_body_material.set_shader_parameter("snow_threshold", (target_heat + 100) / 100.0)
-		main_body_material.set_shader_parameter("snow_blend_range", (-target_heat + 10) / 110.0)
-		main_body_material.set_shader_parameter("metallic", ((target_heat + 100) / 100.0) + 0.5)
+		main_body_material.set_shader_parameter("snow_threshold", (target_heat + 300) / 300.0)
+		main_body_material.set_shader_parameter("snow_blend_range", (-target_heat + 30) / 303.0)
+		main_body_material.set_shader_parameter("metallic", ((target_heat + 300) / 300.0) + 0.5)
 	else:
 		main_body_material.set_shader_parameter("snow_threshold", 1.05)
 		main_body_material.set_shader_parameter("snow_blend_range", 0.005)
@@ -398,12 +396,19 @@ func process_heat(delta : float):
 	heat += hit_heat
 	target_heat += hit_heat / heat_resistance
 	hit_heat = 0
-	if target_heat > heat:
+
+	if target_heat > heat || target_heat > 80.0:
 		heat = lerp(heat, target_heat, delta)
 	else:
-		# if target heat is less than current heat apply heat resistance
 		heat = lerp(heat, target_heat, delta / (1 + heat_resistance))
-	
+
+func process_impulse(delta : float):
+	if speed < 1.0:
+		# apply an impulse force to the car based on steer_target
+		apply_central_impulse(transform.basis.x * -steer_target * 25)
+		apply_central_impulse(transform.basis.z * -throttle_input * 25)
+		apply_central_impulse(transform.basis.z * brake_input * 25)
+		apply_impulse(transform.basis.z ,Vector3.UP * 10 * abs(1 + steer_target) * (1+ brake_input * 4))
 
 func get_torque_at_rpm(lookup_rpm : float) -> float:
 	var rpm_factor = clamp(lookup_rpm / max_rpm, 0.0, 1.0)
@@ -455,5 +460,5 @@ func _on_body_entered(body:Node):
 	impulse = sqrt(impulse.length()) / resilience
 	# if the damage is greater than 10, do the damage
 	hit_heat = clamp(impulse, 0.0, 100.0)
-	if impulse > block_damage:
+	if impulse - block_damage > 5:
 		EventBus.car_hit_damage.emit(impulse)

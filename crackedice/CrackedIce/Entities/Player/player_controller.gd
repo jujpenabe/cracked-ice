@@ -2,7 +2,6 @@ extends Node3D
 
 @export var vehicle : BaseCar
 @export var hud : CanvasLayer
-@export var packedSceneToSpawn : PackedScene
 @export var camera : Camera3D
 @export var camera_target : Node3D
 @export var snow_particles : GPUParticles3D
@@ -15,7 +14,7 @@ func _ready():
 	EventBus.car_destroyed.connect(_destroyed)
 	EventBus.damagebar_setup.emit(100)
 
-func _process(delta):
+func _process(_delta):
 	
 
 	# do 10 damage when pressing g

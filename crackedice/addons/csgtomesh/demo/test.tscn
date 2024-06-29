@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://c16dqeoufrq58"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ausom"]
+albedo_color = Color(0.419608, 0.00392157, 0.784314, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a55sj"]
+albedo_color = Color(0.780392, 0.654902, 0.211765, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_thoss"]
+albedo_color = Color(0.92549, 0, 0.101961, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ee7p4"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpogi"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wkwwx"]
+
+[node name="Test" type="Node3D"]
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="."]
+editor_description = "Baking occluders should work for the MeshInstance3D if the index array was created successfully"
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.87423, 0, 0)
+material = SubResource("StandardMaterial3D_ausom")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.34106, 0, 0)
+material = SubResource("StandardMaterial3D_a55sj")
+
+[node name="Pencil" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0214524, 0, 0)
+material = SubResource("StandardMaterial3D_thoss")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Pencil"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00011, 0)
+cone = true
+material = SubResource("StandardMaterial3D_ee7p4")
+
+[node name="Hole" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15142, 0, 0)
+material = SubResource("StandardMaterial3D_qpogi")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Hole"]
+operation = 2
+radius = 0.243378
+material = SubResource("StandardMaterial3D_wkwwx")

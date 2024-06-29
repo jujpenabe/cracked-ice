@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wkjsys6fl44l"
-path="res://.godot/imported/heat_bar_bg.jpg-0d898ae7a6fee5f39264505e9581b278.ctex"
+uid="uid://delpa21y683uj"
+path="res://.godot/imported/CircularProgressBarUnder.webp-0cd0fcdccd9e1130c982713106ebfdf2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://CrackedIce/UI/ProgressBar/heat_bar_bg.jpg"
-dest_files=["res://.godot/imported/heat_bar_bg.jpg-0d898ae7a6fee5f39264505e9581b278.ctex"]
+source_file="res://CrackedIce/UI/ProgressBar/CircularProgressBarUnder.webp"
+dest_files=["res://.godot/imported/CircularProgressBarUnder.webp-0cd0fcdccd9e1130c982713106ebfdf2.ctex"]
 
 [params]
 

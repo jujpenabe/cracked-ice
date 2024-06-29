@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://by653o2q5hog8"]
+[gd_scene load_steps=6 format=3 uid="uid://by653o2q5hog8"]
 
 [ext_resource type="Material" uid="uid://c4w8spiqk8lvk" path="res://CrackedIce/Art/Buildings/iron_stick1.tres" id="1_343g5"]
+[ext_resource type="Script" path="res://CrackedIce/Art/Buildings/DeleteAfterSleep.gd" id="1_tuhjn"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_mn8rn"]
 _surfaces = [{
@@ -45,6 +46,7 @@ mass = 50.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, 1.5, 0)
 sleeping = true
+script = ExtResource("1_tuhjn")
 
 [node name="IronStick-rigid" type="MeshInstance3D" parent="IronStick-rigid"]
 mesh = SubResource("ArrayMesh_2h5xu")
@@ -52,3 +54,5 @@ skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="IronStick-rigid"]
 shape = SubResource("ConvexPolygonShape3D_rwj3k")
+
+[connection signal="sleeping_state_changed" from="IronStick-rigid" to="IronStick-rigid" method="_on_sleeping_state_changed"]

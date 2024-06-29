@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxm3njld6n4oq"]
+
+[ext_resource type="Script" path="res://CrackedIce/Globals/LevelManager.gd" id="1_we4da"]
+
+[node name="LevelManager" type="Node"]
+script = ExtResource("1_we4da")

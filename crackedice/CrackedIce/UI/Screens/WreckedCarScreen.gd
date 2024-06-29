@@ -35,7 +35,7 @@ func _destroyed():
 	await get_tree().create_timer(4).timeout
 	%BackgroundColor.show()
 	var tween2 = get_tree().create_tween()
-	tween2.tween_property(%BackgroundColor, "color", Color(1, 0.9,0.9, 1), 6)
+	tween2.tween_property(%BackgroundColor, "color", Color(1, 0.9,0.9, 0.9), 6)
 	%OptionsPanel.show()
 	# grab focus the restart button
 	%RestartButton.grab_focus()
@@ -64,4 +64,5 @@ func _on_confirm_exit_confirmed():
 
 func _restart():
 	SceneLoader.reload_current_scene()
+	LevelManager.restart_level()
 	InGameMenuController.close_menu()
