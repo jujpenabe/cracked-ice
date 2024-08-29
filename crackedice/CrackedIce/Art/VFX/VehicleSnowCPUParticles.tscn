@@ -1,14 +1,15 @@
 [gd_scene load_steps=4 format=3 uid="uid://c2q4nrkbr0hmu"]
 
-[ext_resource type="Texture2D" uid="uid://cal58ce7q8fy4" path="res://addons/kenney_particle_pack/smoke_03.png" id="1_ej7vg"]
+[ext_resource type="Texture2D" uid="uid://dm4tsxvi4r24j" path="res://addons/kenney_particle_pack/smoke_01.png" id="1_4lf5f"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1t4st"]
+render_priority = 1
 transparency = 1
 blend_mode = 1
 shading_mode = 2
 diffuse_mode = 3
 specular_mode = 2
-albedo_texture = ExtResource("1_ej7vg")
+albedo_texture = ExtResource("1_4lf5f")
 texture_filter = 2
 billboard_mode = 3
 billboard_keep_scale = true
@@ -19,19 +20,19 @@ particles_anim_loop = false
 [sub_resource type="QuadMesh" id="QuadMesh_yc7t8"]
 material = SubResource("StandardMaterial3D_1t4st")
 
-[node name="VehicleSnowCPUParticles" type="CPUParticles3D"]
+[node name="s" type="CPUParticles3D"]
 transform = Transform3D(1, 0, -3.72529e-09, 0, 1, 0, 3.72529e-09, 0, 1, 0, 20, 0)
-amount = 10000
-lifetime = 4.0
-preprocess = 4.0
-speed_scale = 0.44
+amount = 5000
+lifetime = 2.0
+preprocess = 2.0
+speed_scale = 0.6
 explosiveness = 0.1
 randomness = 0.2
 fixed_fps = 30
 fract_delta = false
 mesh = SubResource("QuadMesh_yc7t8")
 emission_shape = 3
-emission_box_extents = Vector3(75, 5, 100)
+emission_box_extents = Vector3(90, 10, 45)
 direction = Vector3(1, -1, 0)
 spread = 60.0
 flatness = 0.25

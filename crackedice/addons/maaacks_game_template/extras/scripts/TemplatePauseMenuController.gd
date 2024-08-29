@@ -1,4 +1,4 @@
-class_name PauseMenuController
+class_name TemplatePauseMenuController
 extends Node
 ## Node for opening a pause menu when detecting a 'ui_cancel' event.
 

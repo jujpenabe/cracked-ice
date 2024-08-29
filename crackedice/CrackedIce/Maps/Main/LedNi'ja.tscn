@@ -1,10 +1,11 @@
-[gd_scene load_steps=33 format=3 uid="uid://dpdiwf4xpmo4h"]
+[gd_scene load_steps=38 format=4 uid="uid://dpdiwf4xpmo4h"]
 
 [ext_resource type="PackedScene" uid="uid://po1b2fmndqn1" path="res://CrackedIce/Art/Lightning/Enviroment/LedNi'jaEnvironment.tscn" id="1_jdeb5"]
 [ext_resource type="PackedScene" uid="uid://8sl5gmdd6o6w" path="res://cars/camera/camera_3d.tscn" id="2_f30ug"]
 [ext_resource type="AudioStream" uid="uid://bf2gw5y0nslln" path="res://Audio/AMB/Test/AX_GeneralAMB_Test1.ogg" id="2_fnjlq"]
 [ext_resource type="PackedScene" uid="uid://cvuokl6pvc3k" path="res://CrackedIce/Entities/Player/PlayerController.tscn" id="3_7sj46"]
 [ext_resource type="Material" uid="uid://o2c3hgltivyn" path="res://CrackedIce/MaterialLibrary/Nature/Metal/large_rough_iron.tres" id="3_8rihx"]
+[ext_resource type="Script" path="res://CrackedIce/Menus/PauseMenu/PauseMenuController.gd" id="3_i458f"]
 [ext_resource type="PackedScene" uid="uid://bg04dr8a6q71r" path="res://CrackedIce/Entities/NPC/Cars/base/torke.tscn" id="3_s8frt"]
 [ext_resource type="Material" uid="uid://0xvqidkk0f8y" path="res://CrackedIce/MaterialLibrary/Nature/Elements-tiny/ice.tres" id="4_sh0mw"]
 [ext_resource type="Script" path="res://CrackedIce/Art/Terrain/IcePlane.gd" id="5_1u3w2"]
@@ -14,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://nnf74qff1cbr" path="res://CrackedIce/UI/FX/CrackingScreen.tscn" id="8_vul67"]
 [ext_resource type="PackedScene" uid="uid://dd0rubbt6wcm3" path="res://CrackedIce/UI/ProgressBar/damagebar.tscn" id="11_veoik"]
 [ext_resource type="PackedScene" uid="uid://5lctwpfh4nc4" path="res://CrackedIce/UI/ProgressBar/rpmbar.tscn" id="12_um7jh"]
+[ext_resource type="Shader" path="res://CrackedIce/UI/FX/psx_camera/psx_camera_shader.gdshader" id="13_a324n"]
 [ext_resource type="PackedScene" uid="uid://v6mmlt5udyls" path="res://CrackedIce/UI/Screens/WreckedCarScreen.tscn" id="13_dwib2"]
 [ext_resource type="FontFile" uid="uid://bnyvva6ll54kk" path="res://CrackedIce/UI/Fonts/SHATTERB.TTF" id="14_jh38w"]
 [ext_resource type="PackedScene" uid="uid://ufcyde5o8pq3" path="res://CrackedIce/UI/ProgressBar/heatbar.tscn" id="14_qimxu"]
@@ -23,20 +25,21 @@
 [ext_resource type="PackedScene" uid="uid://82q6v341br3b" path="res://CrackedIce/Art/Terrain/LedNi'ja.tscn" id="15_l87dr"]
 [ext_resource type="Script" path="res://CrackedIce/UI/Labels/CurrentAmbientTemp.gd" id="16_renhl"]
 [ext_resource type="Texture2D" uid="uid://bm1g2qo76n7nm" path="res://CrackedIce/UI/Labels/GlobalFrost.webp" id="20_pe315"]
+[ext_resource type="PackedScene" uid="uid://c8v32xdxyi5jd" path="res://CrackedIce/Menus/PauseMenu/PauseMenu.tscn" id="25_dn3bh"]
 [ext_resource type="PackedScene" uid="uid://cgo7ptnp3tgne" path="res://CrackedIce/Art/Buildings/Heater.tscn" id="27_nxxk1"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_4sv5j"]
 _surfaces = [{
 "aabb": AABB(-1499.78, 0, -1125, 1999.78, 1e-05, 2250),
-"attribute_data": PackedByteArray(0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 62, 29, 211, 61, 0, 0, 0, 0, 0, 0, 0, 0, 153, 45, 99, 57, 97, 29, 211, 61, 0, 0, 0, 0, 26, 136, 166, 62, 218, 48, 99, 57, 116, 142, 166, 62, 0, 0, 0, 0, 108, 142, 166, 62, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 200, 241, 127, 63, 0, 0, 128, 63, 0, 0, 128, 63, 45, 124, 99, 57, 200, 241, 127, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 200, 241, 127, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 160, 99, 57, 198, 241, 127, 63, 0, 0, 0, 0, 0, 0, 128, 63),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAAAAAACAPwAAgD8AAAAAAAAAAD4d0z0AAAAAAAAAAJktYzlhHdM9AAAAABqIpj7aMGM5dI6mPgAAAABsjqY+AACAPwAAgD8AAAAAAACAPwAAgD8AAAAAAAAAAAAAAAAAAIA/yPF/PwAAgD8AAIA/LXxjOcjxfz8AAIA/AAAAAAAAAAAAAIA/AAAAAMjxfz8AAAAAAAAAAACgYznG8X8/AAAAAAAAgD8="),
 "format": 34359742487,
 "index_count": 51,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 5, 0, 6, 0, 3, 0, 4, 0, 2, 0, 5, 0, 2, 0, 1, 0, 7, 0, 5, 0, 2, 0, 7, 0, 8, 0, 6, 0, 7, 0, 7, 0, 1, 0, 8, 0, 7, 0, 6, 0, 5, 0, 9, 0, 10, 0, 11, 0, 10, 0, 12, 0, 11, 0, 13, 0, 14, 0, 15, 0, 15, 0, 16, 0, 13, 0, 14, 0, 17, 0, 15, 0, 18, 0, 19, 0, 16, 0, 20, 0, 21, 0, 18, 0, 18, 0, 16, 0, 20, 0),
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABQAGAAMABAACAAUAAgABAAcABQACAAcACAAGAAcABwABAAgABwAGAAUACQAKAAsACgAMAAsADQAOAA8ADwAQAA0ADgARAA8AEgATABAAFAAVABIAEgAQABQA"),
 "material": ExtResource("4_sh0mw"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 22,
-"vertex_data": PackedByteArray(0, 0, 250, 67, 0, 0, 0, 0, 0, 160, 140, 68, 0, 0, 250, 195, 0, 0, 0, 0, 0, 160, 140, 68, 0, 0, 250, 67, 0, 0, 0, 0, 0, 160, 140, 196, 2, 0, 250, 195, 0, 0, 0, 0, 8, 68, 95, 196, 0, 0, 250, 195, 0, 0, 0, 0, 0, 160, 140, 196, 58, 228, 249, 195, 0, 0, 0, 0, 8, 68, 95, 196, 0, 0, 250, 195, 0, 0, 0, 0, 244, 149, 196, 195, 58, 228, 249, 195, 0, 0, 0, 0, 16, 136, 196, 195, 0, 0, 250, 195, 0, 0, 0, 0, 16, 136, 196, 195, 68, 11, 250, 195, 0, 0, 0, 0, 182, 91, 140, 68, 162, 5, 122, 196, 0, 0, 0, 0, 182, 91, 140, 68, 68, 11, 250, 195, 0, 0, 0, 0, 104, 187, 245, 66, 162, 5, 122, 196, 0, 0, 0, 0, 104, 187, 245, 66, 2, 0, 250, 195, 0, 0, 0, 0, 8, 68, 95, 196, 58, 228, 249, 195, 0, 0, 0, 0, 8, 68, 95, 196, 0, 0, 250, 195, 0, 0, 0, 0, 244, 149, 196, 195, 14, 121, 187, 196, 0, 0, 0, 0, 8, 68, 95, 196, 58, 228, 249, 195, 0, 0, 0, 0, 16, 136, 196, 195, 0, 0, 250, 195, 0, 0, 0, 0, 16, 136, 196, 195, 14, 121, 187, 196, 0, 0, 0, 0, 16, 136, 196, 195, 0, 0, 250, 195, 0, 0, 0, 0, 244, 149, 196, 195, 58, 228, 249, 195, 0, 0, 0, 0, 16, 136, 196, 195, 0, 128, 255, 255, 255, 255, 255, 191, 0, 128, 255, 255, 254, 255, 255, 191, 0, 128, 255, 255, 254, 255, 255, 191, 0, 128, 255, 255, 255, 255, 43, 192, 0, 128, 255, 255, 255, 255, 255, 191, 0, 128, 255, 255, 255, 255, 21, 192, 0, 128, 255, 255, 255, 255, 38, 192, 0, 128, 255, 255, 255, 255, 19, 192, 0, 128, 255, 255, 255, 255, 39, 192, 0, 128, 255, 255, 255, 255, 255, 191, 0, 128, 255, 255, 255, 255, 255, 191, 0, 128, 255, 255, 255, 255, 255, 191, 0, 128, 255, 255, 255, 255, 255, 191, 0, 128, 255, 255, 255, 255, 255, 255, 0, 128, 255, 255, 255, 255, 255, 255, 0, 128, 255, 255, 255, 255, 255, 255, 0, 128, 255, 255, 255, 255, 255, 255, 0, 128, 255, 255, 255, 255, 255, 255, 0, 128, 255, 255, 255, 255, 239, 255, 0, 128, 255, 255, 255, 255, 255, 255, 0, 128, 255, 255, 255, 255, 237, 255, 0, 128, 255, 255, 255, 255, 237, 255)
+"vertex_data": PackedByteArray("AAD6QwAAAAAAoIxEAAD6wwAAAAAAoIxEAAD6QwAAAAAAoIzEAgD6wwAAAAAIRF/EAAD6wwAAAAAAoIzEOuT5wwAAAAAIRF/EAAD6wwAAAAD0lcTDOuT5wwAAAAAQiMTDAAD6wwAAAAAQiMTDRAv6wwAAAAC2W4xEogV6xAAAAAC2W4xERAv6wwAAAABou/VCogV6xAAAAABou/VCAgD6wwAAAAAIRF/EOuT5wwAAAAAIRF/EAAD6wwAAAAD0lcTDDnm7xAAAAAAIRF/EOuT5wwAAAAAQiMTDAAD6wwAAAAAQiMTDDnm7xAAAAAAQiMTDAAD6wwAAAAD0lcTDOuT5wwAAAAAQiMTDAID//////78AgP///v//vwCA///+//+/AID/////K8AAgP//////vwCA/////xXAAID/////JsAAgP////8TwACA/////yfAAID//////78AgP//////vwCA//////+/AID//////78AgP///////wCA////////AID///////8AgP///////wCA////////AID/////7/8AgP///////wCA/////+3/AID/////7f8=")
 }]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_tn8gs"]
@@ -46,6 +49,26 @@ data = PackedVector3Array(500, 0, 1125, -500, 0, 1125, 500, 0, -1125, -500, 0, -
 friction = 0.0
 bounce = 1.0
 absorbent = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rbvfy"]
+render_priority = 0
+shader = ExtResource("13_a324n")
+shader_parameter/enable_fog = true
+shader_parameter/fog_color = Color(0.81, 0.894, 0.9, 1)
+shader_parameter/noise_color = Color(0.2, 0.2, 0.2, 1)
+shader_parameter/fog_distance = 1024.0
+shader_parameter/fog_fade_range = 1024.0
+shader_parameter/enable_noise = true
+shader_parameter/noise_time_fac = 4.4
+shader_parameter/enable_color_limitation = true
+shader_parameter/color_levels = 24
+shader_parameter/enable_dithering = true
+shader_parameter/dither_strength = 0.2
+
+[sub_resource type="QuadMesh" id="QuadMesh_mrjgf"]
+material = SubResource("ShaderMaterial_rbvfy")
+flip_faces = true
+size = Vector2(2, 2)
 
 [sub_resource type="LabelSettings" id="LabelSettings_pjyyn"]
 font = ExtResource("14_jh38w")
@@ -123,6 +146,11 @@ shadow_color = Color(0.425, 0.85, 0.85, 0.172549)
 stream = ExtResource("2_fnjlq")
 autoplay = true
 
+[node name="PauseMenuController" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("3_i458f")
+pause_menu_packed = ExtResource("25_dn3bh")
+
 [node name="LedNi\'ja" parent="." instance=ExtResource("15_l87dr")]
 
 [node name="Bridge" type="CSGBox3D" parent="LedNi\'ja"]
@@ -152,6 +180,7 @@ physics_material_override = SubResource("PhysicsMaterial_myi1p")
 shape = SubResource("ConcavePolygonShape3D_tn8gs")
 
 [node name="PlayerController" parent="." node_paths=PackedStringArray("vehicle", "hud", "camera", "camera_target", "engine_sound") instance=ExtResource("3_7sj46")]
+process_mode = 3
 vehicle = NodePath("Torke")
 hud = NodePath("Hud")
 camera = NodePath("Torke/lookat/Camera3D")
@@ -159,32 +188,37 @@ camera_target = NodePath("Torke/lookat")
 engine_sound = NodePath("Torke/EngineSound")
 
 [node name="Torke" parent="PlayerController" instance=ExtResource("3_s8frt")]
+process_mode = 1
 transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 91.5755, 10.7879, -628.549)
+steer_speed = 0.3
+steer_limit = 1.2
 engine_force_value = 500
-throttle_speed = 0.4
-motor_drag = 0.02
-motor_moment = 1.0
-gear_ratios = Array[float]([3.8, 2.3, 1.9, 1.5, 1.2, 1.0])
-resilience = 7.0
+throttle_speed = 1.0
+gear_ratios = Array[float]([3.0, 2.4, 1.9, 1.5, 1.2, 1.0])
+final_drive = 1.0
+reverse_ratio = 1.5
+shift_time = 0.25
 
 [node name="lookat" type="Node3D" parent="PlayerController/Torke"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera3D" parent="PlayerController/Torke/lookat" instance=ExtResource("2_f30ug")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5)
-target_height = 1.5
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.5755, 13.2879, -631.549)
+fov = 90.0
+far = 1024.0
+target_distance = 4.0
+target_height = 0.8
 speed = 15.0
 
 [node name="VehicleSnowCPUParticles" parent="PlayerController/Torke/lookat/Camera3D" instance=ExtResource("5_xbtsj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, -40)
-amount = 12000
-lifetime = 5.0
-preprocess = 5.0
-speed_scale = 0.4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, -45)
 explosiveness = 0.05
 lifetime_randomness = 0.1
-emission_box_extents = Vector3(30, 5, 45)
 particle_flag_align_y = true
+
+[node name="PSXMesh" type="MeshInstance3D" parent="PlayerController/Torke/lookat/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1)
+mesh = SubResource("QuadMesh_mrjgf")
 
 [node name="EngineSound" parent="PlayerController/Torke" instance=ExtResource("15_d84id")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
@@ -194,6 +228,7 @@ attenuation_filter_cutoff_hz = 440.0
 doppler_tracking = 2
 
 [node name="Hud" type="CanvasLayer" parent="PlayerController"]
+process_mode = 1
 layer = 2
 
 [node name="BackgroundTextureRect" parent="PlayerController/Hud" instance=ExtResource("8_vul67")]
@@ -256,7 +291,7 @@ bbcode_enabled = true
 text = "Time"
 script = SubResource("GDScript_y0cgq")
 
-[node name="HeatBar" parent="PlayerController/Hud" instance=ExtResource("14_qimxu")]
+[node name="ProgressBar" parent="PlayerController/Hud" instance=ExtResource("14_qimxu")]
 offset_left = 610.0
 offset_top = -10.0
 offset_right = 690.0
@@ -355,9 +390,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 246.6, 5.4, -49.1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.9, 39.8, -310.5)
 
 [node name="Heater11" parent="." instance=ExtResource("27_nxxk1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 248.1, 3.1, -369.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 248.1, 3, -369.3)
 
-[connection signal="area_entered" from="LedNi'ja/IcePlane/Area3D" to="LedNi'ja/IcePlane" method="_on_area_3d_area_entered"]
-[connection signal="area_exited" from="LedNi'ja/IcePlane/Area3D" to="LedNi'ja/IcePlane" method="_on_area_3d_area_exited"]
-[connection signal="body_entered" from="LedNi'ja/IcePlane/Area3D" to="LedNi'ja/IcePlane" method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="LedNi'ja/IcePlane/Area3D" to="LedNi'ja/IcePlane" method="_on_area_3d_body_exited"]
+[connection signal="area_entered" from="LedNi\'ja/IcePlane/Area3D" to="LedNi\'ja/IcePlane" method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="LedNi\'ja/IcePlane/Area3D" to="LedNi\'ja/IcePlane" method="_on_area_3d_area_exited"]
+[connection signal="body_entered" from="LedNi\'ja/IcePlane/Area3D" to="LedNi\'ja/IcePlane" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="LedNi\'ja/IcePlane/Area3D" to="LedNi\'ja/IcePlane" method="_on_area_3d_body_exited"]

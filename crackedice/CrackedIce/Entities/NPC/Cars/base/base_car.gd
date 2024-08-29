@@ -3,7 +3,7 @@ extends VehicleBody3D
 
 signal car_collided(force: float)
 
-@export var steer_speed = 0.1
+@export var steer_speed = 0.2
 @export var steer_limit = 1.0
 @export var engine_force_value = 100
 @export var throttle_speed := 10.0
@@ -165,6 +165,8 @@ func _set_current_gear(value):
 			gear_string = "5"
 		5:
 			gear_string = "6"
+		6:
+			gear_string = "7"
 
 	EventBus.gear_changed.emit(gear_string)
 
@@ -173,7 +175,7 @@ func _physics_process(delta):
 		return
 	prev_velocity = linear_velocity
 	speed = linear_velocity.length()*Engine.get_frames_per_second()*3.6*delta
-	EventBus.speed_changed.emit(round(speed * 1.8))
+	EventBus.speed_changed.emit(round(speed))
 	traction(speed)
 
 	delta_time += delta
@@ -185,7 +187,7 @@ func _physics_process(delta):
 	process_transmission(delta)
 	process_target_heat(delta)
 	process_heat(delta)
-	process_impulse(delta)
+	process_impulse()
 
 	# var fwd_mps = transform.basis.x.x
 	steer_target = Input.get_action_strength("Steer Left") - Input.get_action_strength("Steer Right")
@@ -193,28 +195,35 @@ func _physics_process(delta):
 
 	throttle_input = max(pow(Input.get_action_strength("Throttle"), 2.0), pow(Input.get_action_strength("Full Throttle"), 2.0))
 
-	brake_input = Input.get_action_strength("Brakes")
+	brake_input = Input.get_action_strength("Brakes") + Input.get_action_strength("Handbrake")
 
 	if Input.is_action_pressed("Full Throttle"):
+		EventBus.throtle_in.emit()
 		# Increase engine force at cost of wheel slip
-		if speed < 5 and speed != 0:
-			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * 4, 0, 3000)
+		if speed*sign(-local_velocity.z) < 15 and speed != 0:
+			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * 5, 0, max_rpm)
+			# add motor rpm
+			motor_rpm = lerp(motor_rpm, max_rpm, 0.03)
 		else:
-			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * 1.1 * get_gear_ratio(current_gear), 0, 7500)
+			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * 1.25 * get_gear_ratio(current_gear), 0, max_rpm)
 		full_throttle_amount = 0.05
 		throttle_factor = 1.5
 		# Slip penalty
-		$WheelFrontLeft.wheel_friction_slip=1.25 * slip_bonus
-		$WheelFrontRight.wheel_friction_slip=1.25 * slip_bonus
-		$WheelRearRight.wheel_friction_slip=1 * slip_bonus
-		$WheelRearLeft.wheel_friction_slip=1 * slip_bonus
+		$WheelFrontLeft.wheel_friction_slip=0.8 * slip_bonus
+		$WheelFrontRight.wheel_friction_slip=0.8 * slip_bonus
+		$WheelRearRight.wheel_friction_slip=0.5 * slip_bonus
+		$WheelRearLeft.wheel_friction_slip=0.5 * slip_bonus
 
 		# Roll influence penalty
-		$WheelFrontLeft.wheel_roll_influence= 0.5 / (pow(slip_bonus, 2.0))
-		$WheelFrontRight.wheel_roll_influence= 0.5 / (pow(slip_bonus, 2.0))
-		$WheelRearRight.wheel_roll_influence= 0.7 / (pow(slip_bonus, 2.0))
-		$WheelRearLeft.wheel_roll_influence = 0.7 / (pow(slip_bonus, 2.0))
+		$WheelFrontLeft.wheel_roll_influence= 0.7 / (pow(slip_bonus, 2.0))
+		$WheelFrontRight.wheel_roll_influence= 0.7 / (pow(slip_bonus, 2.0))
+		$WheelRearRight.wheel_roll_influence= 0.4 / (pow(slip_bonus, 2.0))
+		$WheelRearLeft.wheel_roll_influence = 0.4 / (pow(slip_bonus, 2.0))
 
+		# apply lateral impulse (with a random force) if the steer target is not 0
+		if steer_target != 0:
+			apply_force(transform.basis.x * mass * randi_range(-2, 4) * -steer_target, -transform.basis.z )
+			
 	else:
 
 		full_throttle_amount = 1.0
@@ -222,50 +231,53 @@ func _physics_process(delta):
 		engine_force = 0
 
 	if Input.is_action_pressed("Throttle"):
+		EventBus.throtle_in.emit()
 		# Increase engine force at low speeds to make the initial acceleration faster.
-		if speed < 10 and speed != 0:
-			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * 3, 0, 3000)
+		if speed*sign(-local_velocity.z) < 15 and speed != 0:
+			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * 3.5, 0, max_rpm)
+			# add motor rpm
+			motor_rpm = lerp(motor_rpm, max_rpm, 0.015)
 		else:
-			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * get_gear_ratio(current_gear), 0, 7500)
-		$WheelFrontLeft.wheel_friction_slip  = 2.0 * slip_bonus
-		$WheelFrontRight.wheel_friction_slip = 2.0 * slip_bonus
-		$WheelRearRight.wheel_friction_slip  = 2.25 * slip_bonus
-		$WheelRearLeft.wheel_friction_slip   = 2.25 * slip_bonus
+			engine_force = -clamp((engine_force_value * engine_force_bonus * freeze_penalty) * get_gear_ratio(current_gear), 0, max_rpm)
+		$WheelFrontLeft.wheel_friction_slip  = 1.8 * slip_bonus
+		$WheelFrontRight.wheel_friction_slip = 1.8 * slip_bonus
+		$WheelRearRight.wheel_friction_slip  = 2 * slip_bonus
+		$WheelRearLeft.wheel_friction_slip   = 2 * slip_bonus
 
-		$WheelFrontLeft.wheel_roll_influence  = 0.4 / (pow(slip_bonus, 2.0))
-		$WheelFrontRight.wheel_roll_influence = 0.4 / (pow(slip_bonus, 2.0))
-		$WheelRearRight.wheel_roll_influence  = 0.3 / (pow(slip_bonus, 2.0))
-		$WheelRearLeft.wheel_roll_influence	  = 0.3 / (pow(slip_bonus, 2.0))
+		$WheelFrontLeft.wheel_roll_influence  = 0.7 / (pow(slip_bonus, 2.0))
+		$WheelFrontRight.wheel_roll_influence = 0.7 / (pow(slip_bonus, 2.0))
+		$WheelRearRight.wheel_roll_influence  = 0.5 / (pow(slip_bonus, 2.0))
+		$WheelRearLeft.wheel_roll_influence	  = 0.5 / (pow(slip_bonus, 2.0))
 
 	if Input.get_action_strength("Brakes"):
 	# Increase engine force at low speeds to make the initial acceleration faster.
-		if local_velocity.z < -0.2:
+		if local_velocity.z < -0.2 || throttle_input > 0.1:
 			brake = brake_speed
 			engine_force *= 0.2
 		else:
 			engine_force = -(engine_force_bonus * engine_force_value * freeze_penalty) * get_gear_ratio(-1)
-			$WheelFrontLeft.wheel_friction_slip=1.8 * slip_bonus
-			$WheelFrontRight.wheel_friction_slip=1.8 * slip_bonus
-			$WheelRearRight.wheel_friction_slip=1.6 * slip_bonus
-			$WheelRearLeft.wheel_friction_slip=1.6 * slip_bonus
+			$WheelFrontLeft.wheel_friction_slip=1.5 * slip_bonus
+			$WheelFrontRight.wheel_friction_slip=1.5 * slip_bonus
+			$WheelRearRight.wheel_friction_slip=1.2 * slip_bonus
+			$WheelRearLeft.wheel_friction_slip=1.2 * slip_bonus
 	else:
 		brake = 0
 
 	if Input.is_action_pressed("Handbrake"):
 		# brake front wheels
-		$WheelFrontLeft.brake = brake_speed * 4
-		$WheelFrontRight.brake = brake_speed * 4
+		$WheelFrontLeft.brake = brake_speed * 2
+		$WheelFrontRight.brake = brake_speed * 2
 
 		# brake rear wheels
-		$WheelRearRight.brake = brake_speed
-		$WheelRearLeft.brake = brake_speed
+		$WheelRearRight.brake = brake_speed * 0.2
+		$WheelRearLeft.brake = brake_speed * 0.2
 
 		engine_force *= 0.8
 
 		$WheelFrontLeft.wheel_friction_slip=0.9 * slip_bonus
 		$WheelFrontRight.wheel_friction_slip=0.9 * slip_bonus
-		$WheelRearRight.wheel_friction_slip=0.5 * slip_bonus
-		$WheelRearLeft.wheel_friction_slip=0.5 * slip_bonus
+		$WheelRearRight.wheel_friction_slip=0.3 * slip_bonus
+		$WheelRearLeft.wheel_friction_slip=0.3 * slip_bonus
 
 	steering = move_toward(steering, steer_target, steer_speed * 25 / (25 + speed))
 
@@ -307,7 +319,7 @@ func process_motor(delta : float):
 		torque_output = 0.0
 		if new_rpm > max_rpm:
 			motor_is_redline = true
-	motor_rpm += ANGULAR_VELOCITY_TO_RPM * delta * (torque_output - (1.0 - throttle_amount) * drag_torque) / motor_moment
+	motor_rpm += ANGULAR_VELOCITY_TO_RPM * delta * (torque_output - (1.0 - throttle_amount) * drag_torque) * throttle_factor / motor_moment
 	## Disengage clutch when near idle
 	if motor_rpm < idle_rpm + 100:
 		need_clutch = true
@@ -348,13 +360,13 @@ func process_transmission(delta : float):
 		if current_gear < gear_ratios.size():
 			if current_gear > 0:
 				# calculate the shift rpm based on current gear: more gear means higher rpm to shift
-				if (current_ideal_gear_rpm + motor_rpm) * 0.5 > (max_rpm * 0.8 * (1 - (full_throttle_amount / (1 + sqrt(current_gear))))):
+				if (current_ideal_gear_rpm * 0.5 + motor_rpm) > (max_rpm * (1.0 - (full_throttle_amount / (2 + current_gear)))):
 					if delta_time - last_shift_delta_time > shift_time:
 						shift(1)
 			elif current_gear <= 0 and motor_rpm > clutch_out_rpm:
 				shift(1)
 		if current_gear - 1 > 0:
-			if current_gear > 1 and previous_gear_rpm < 0.2 * max_rpm:
+			if current_gear > 1 and previous_gear_rpm < 0.25 * max_rpm:
 				if delta_time - last_shift_delta_time > shift_time:
 					shift(-1)
 
@@ -402,13 +414,13 @@ func process_heat(delta : float):
 	else:
 		heat = lerp(heat, target_heat, delta / (1 + heat_resistance))
 
-func process_impulse(delta : float):
-	if speed < 1.0:
+func process_impulse():
+	if speed < 2.0 && current_gear < 1 && !Input.is_action_pressed("Handbrake"):
 		# apply an impulse force to the car based on steer_target
-		apply_central_impulse(transform.basis.x * -steer_target * 25)
-		apply_central_impulse(transform.basis.z * -throttle_input * 25)
-		apply_central_impulse(transform.basis.z * brake_input * 25)
-		apply_impulse(transform.basis.z ,Vector3.UP * 10 * abs(1 + steer_target) * (1+ brake_input * 4))
+		apply_central_force(transform.basis.x * -steer_target * mass * 0.5)
+		apply_central_force(-transform.basis.z * throttle_input * mass)
+		apply_central_force(transform.basis.z * brake_input * mass)
+		apply_force(Vector3.UP * mass * (1 + abs(steer_target)) * (1+ brake_input * 5), -transform.basis.z )
 
 func get_torque_at_rpm(lookup_rpm : float) -> float:
 	var rpm_factor = clamp(lookup_rpm / max_rpm, 0.0, 1.0)

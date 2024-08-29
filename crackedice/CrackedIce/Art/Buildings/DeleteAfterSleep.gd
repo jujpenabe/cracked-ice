@@ -6,9 +6,6 @@ var destroyable : bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_physics_process(false)
-	# wait 2 seconds and enable can be destroyed
-	await get_tree().create_timer(2.0).timeout
-	set_physics_process(true)
 
 func _physics_process(delta):
 	if !sleeping:
@@ -17,13 +14,21 @@ func _physics_process(delta):
 			$Timer.stop()
 
 func _on_sleeping_state_changed():
-	if sleeping and destroyable:
-		destroyed.emit()
-		$Timer.start()
-
+	if sleeping:
+		# deactivate physics process
+		set_physics_process(false)
+		if destroyable:
+			$Timer.start()
+	else:
+		# activate physics process
+		set_physics_process(true)
+		pass
 
 func _on_timer_timeout():
+	destroyed.emit()
 	destroyable = false
+	freeze = true
+	$CollisionShape3D.disabled = true
 	# duplicate the surface material
 	var alpha_mat: BaseMaterial3D = $Mesh.get_active_material(0).duplicate()
 	$Mesh.set_surface_override_material(0, alpha_mat)

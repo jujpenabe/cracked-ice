@@ -1,6 +1,5 @@
 extends Node
 
-
 # Dictionary of bonuses
 var _heat_bonuses = {}
 var _total_heat: float = 0.0
@@ -11,11 +10,21 @@ var initial_temp : float = -50
 func _ready():
 	add_heat_bonus("ambient", initial_temp)
 	# Ambient temperature + heat bonuses
-	
+
 func restart_level():
 	_heat_bonuses.clear()
 	_ready()
-	
+
+# func pause_level():
+# 	EventBus.game_paused.emit()
+# 	get_tree().paused = true
+
+# func resume_level():
+# 	# wait 0.2 seconds before unpausing
+# 	await get_tree().create_timer(0.2).timeout
+# 	get_tree().paused = false
+# 	EventBus.game_resumed.emit()
+
 func add_heat_bonus(bonus: String, amount: float):
 	_changed = true
 	_heat_bonuses[bonus] = amount

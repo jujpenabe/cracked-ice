@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/Blackcraft.otf-ea2e10168b0be19828347c1673e5e4
 Rendering=null
 antialiasing=0
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=true
 msdf_pixel_range=8
 msdf_size=48

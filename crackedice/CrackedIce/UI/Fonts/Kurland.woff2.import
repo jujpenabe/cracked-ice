@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/Kurland.woff2-59cea5b72b9101ce8fd81df5e0da955
 Rendering=null
 antialiasing=0
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=true
 msdf_pixel_range=8
 msdf_size=48

@@ -1,13 +1,13 @@
 [gd_scene load_steps=38 format=3 uid="uid://b76fcyiisui0w"]
 
 [ext_resource type="Script" path="res://CrackedIce/Menus/MainMenu/MainMenu.gd" id="1_4p54k"]
-[ext_resource type="PackedScene" uid="uid://k0nh1lqsjth4" path="res://CrackedIce/Menus/OptionsMenu/MasterOptionsMenu.tscn" id="2_1040c"]
 [ext_resource type="AudioStream" uid="uid://dgxemelrejynd" path="res://Audio/Music/CrackediceMainMenu.ogg" id="2_cc2lm"]
-[ext_resource type="PackedScene" uid="uid://d2k6pr8elkwsv" path="res://CrackedIce/Menus/CreditsMenu/Credits.tscn" id="3_00v7a"]
-[ext_resource type="AudioStream" uid="uid://day1aqvt1k8kh" path="res://Audio/SFX/muscle_car_engine_start.mp3" id="4_565fv"]
+[ext_resource type="PackedScene" uid="uid://k0nh1lqsjth4" path="res://CrackedIce/Menus/OptionsMenu/MasterOptionsMenu.tscn" id="2_jso65"]
+[ext_resource type="PackedScene" uid="uid://d2k6pr8elkwsv" path="res://CrackedIce/Menus/CreditsMenu/Credits.tscn" id="3_mpu2o"]
+[ext_resource type="AudioStream" uid="uid://day1aqvt1k8kh" path="res://Audio/SFX/muscle_car_engine_start.mp3" id="4_a0kjh"]
 [ext_resource type="PackedScene" uid="uid://cv2f614m7kh0v" path="res://CrackedIce/UI/FX/2DSnowParticles.tscn" id="4_bvuea"]
 [ext_resource type="VideoStream" path="res://CrackedIce/Menus/MainMenu/main_menu_background_animation2.ogv" id="5_erniu"]
-[ext_resource type="Texture2D" uid="uid://bqpkvyoec5vef" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_transparent.png" id="6_4epll"]
+[ext_resource type="Texture2D" uid="uid://cq8ugsvnj5kye" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_transparent.webp" id="8_t5ev5"]
 [ext_resource type="Texture2D" uid="uid://cvcwckhxuufpn" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_play_normal.png" id="9_mc2a6"]
 [ext_resource type="Texture2D" uid="uid://ehk7nn4yjydh" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_play_focused.png" id="10_5pxq8"]
 [ext_resource type="Texture2D" uid="uid://yqju22ehogny" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_play_smashed.png" id="10_xfgx3"]
@@ -100,12 +100,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4p54k")
 game_scene_path = "res://CrackedIce/Maps/Main/LedNi'ja.tscn"
-test_scene_path = null
-options_packed_scene = ExtResource("2_1040c")
-credits_packed_scene = ExtResource("3_00v7a")
-version_name = "0.0.2-dev"
-audio_bus = null
-engine_start = ExtResource("4_565fv")
+options_packed_scene = ExtResource("2_jso65")
+credits_packed_scene = ExtResource("3_mpu2o")
+version_name = "0.0.3"
+engine_start = ExtResource("4_a0kjh")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
@@ -153,14 +151,13 @@ initial_velocity_max = 24.0
 scale_amount_max = 0.03
 
 [node name="BackgroundTextureRect" type="TextureRect" parent="."]
-self_modulate = Color(1, 1, 1, 0.988235)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("6_4epll")
+texture = ExtResource("8_t5ev5")
 expand_mode = 1
 stretch_mode = 5
 
@@ -178,7 +175,7 @@ offset_right = -8.0
 offset_bottom = -7.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "v0.1"
+text = "v0.3"
 horizontal_alignment = 2
 
 [node name="MenuContainer" type="Control" parent="."]
@@ -203,8 +200,8 @@ focus_neighbor_right = NodePath("../PlayButton")
 focus_neighbor_bottom = NodePath("../PlayButton")
 focus_next = NodePath("../PlayButton")
 focus_previous = NodePath("../ExitButton")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0.321569, 0.815686, 0.772549, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 36
 disabled = true
 text = "LEVEL TEST!"

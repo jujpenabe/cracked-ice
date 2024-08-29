@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/Winter Kei.ttf-748fdfa79b7ac3fed4bd24a729c460
 Rendering=null
 antialiasing=0
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/CracksupDemoRegular.ttf-ffd539c4ae3038f0cadec
 Rendering=null
 antialiasing=0
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

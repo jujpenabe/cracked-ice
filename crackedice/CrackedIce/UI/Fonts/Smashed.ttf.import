@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/Smashed.ttf-41037d56b86ccef98a66e0da5bb84f8d.
 Rendering=null
 antialiasing=2
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

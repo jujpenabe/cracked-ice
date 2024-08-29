@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://5lctwpfh4nc4"]
+[gd_scene load_steps=9 format=3 uid="uid://5lctwpfh4nc4"]
 
 [ext_resource type="Script" path="res://CrackedIce/UI/ProgressBar/rpmbar.gd" id="1_fdcxg"]
 [ext_resource type="Texture2D" uid="uid://delpa21y683uj" path="res://CrackedIce/UI/ProgressBar/CircularProgressBarUnder.webp" id="1_heesj"]
 [ext_resource type="Texture2D" uid="uid://ony4r05vw8ru" path="res://CrackedIce/UI/ProgressBar/CircularProgressBarOver.webp" id="2_8t0fj"]
 [ext_resource type="FontFile" uid="uid://c6ucy4buw7xvx" path="res://CrackedIce/UI/Fonts/BrokenGlass.woff2" id="2_70c5t"]
 [ext_resource type="Texture2D" uid="uid://d3efnil6wnvvf" path="res://CrackedIce/UI/ProgressBar/CircularProgressBarProgress.webp" id="3_xegta"]
+[ext_resource type="Texture2D" uid="uid://cs7qyt5wibeet" path="res://CrackedIce/UI/Labels/outline_cog_wheel.png" id="6_eyqc7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ic6hx"]
 line_spacing = 0.0
@@ -17,7 +18,7 @@ outline_color = Color(0.1, 0.1, 0.1, 0.215686)
 [sub_resource type="LabelSettings" id="LabelSettings_smuj7"]
 font = ExtResource("2_70c5t")
 font_size = 20
-font_color = Color(1, 1, 1, 0.607843)
+font_color = Color(0, 0.9, 0.825, 0.607843)
 outline_size = 4
 outline_color = Color(0.1, 0.1, 0.1, 0.392157)
 
@@ -41,8 +42,10 @@ nine_patch_stretch = true
 texture_under = ExtResource("1_heesj")
 texture_over = ExtResource("2_8t0fj")
 texture_progress = ExtResource("3_xegta")
+tint_under = Color(0.2, 0.2, 0.2, 1)
+tint_over = Color(0.8, 0.8, 0.8, 1)
 radial_initial_angle = 135.0
-radial_fill_degrees = 270.0
+radial_fill_degrees = 315.0
 script = ExtResource("1_fdcxg")
 
 [node name="RPM" type="Label" parent="."]
@@ -59,16 +62,28 @@ label_settings = SubResource("LabelSettings_ic6hx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.25, 1, 0.95, 0.607843)
+layout_mode = 0
+offset_left = 42.0
+offset_top = 75.0
+offset_right = 57.0
+offset_bottom = 90.0
+texture = ExtResource("6_eyqc7")
+expand_mode = 1
+
 [node name="Gear" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 48.0
-offset_top = 70.0
-offset_right = -58.0
-offset_bottom = -28.0
+offset_left = 52.0
+offset_top = 71.0
+offset_right = -53.9999
+offset_bottom = -27.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "G"
+text = " 1"
 label_settings = SubResource("LabelSettings_smuj7")
+horizontal_alignment = 1
+vertical_alignment = 1

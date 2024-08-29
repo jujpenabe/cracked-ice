@@ -8,14 +8,22 @@ extends Node3D
 @export var engine_sound : AudioStreamPlayer3D
 
 var is_alive = true
+var reset_timer : Timer
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
 	EventBus.car_destroyed.connect(_destroyed)
 	EventBus.damagebar_setup.emit(100)
 
+	reset_timer = Timer.new()
+	add_child(reset_timer)
+	reset_timer.wait_time = 0.2
+	reset_timer.one_shot = true
+	reset_timer.timeout.connect(_reset)
+
+
 func _process(_delta):
-	
+
 
 	# do 10 damage when pressing g
 	if Input.is_physical_key_pressed(KEY_G):
@@ -23,11 +31,19 @@ func _process(_delta):
 
 	if Input.is_action_just_pressed("Restart"):
 		if is_alive:
-			# wait 0.2 second and reload the current scene
-			await get_tree().create_timer(0.2).timeout
-			vehicle.destroy()
+			reset_timer.start()
+
+	# stop the timer if the action is released
+	if Input.is_action_just_released("Restart"):
+		reset_timer.stop()
 
 func _destroyed():
-	hud.hide()	
+	hud.hide()
 	is_alive = false
+
+# func _pause():
+# 	LevelManager.pause_level()
+
+func _reset():
+	SceneLoader.reload_current_scene()
 

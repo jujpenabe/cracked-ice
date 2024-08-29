@@ -5,7 +5,7 @@
 
 [resource]
 shading_mode = 2
-albedo_color = Color(0.8, 0.8, 0.8, 1)
+albedo_color = Color(0.77, 0.77, 0.77, 1)
 albedo_texture = ExtResource("1_elkuq")
 roughness = 0.8
 emission_operator = 1

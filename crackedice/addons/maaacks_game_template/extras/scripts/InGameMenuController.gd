@@ -24,7 +24,7 @@ static func open_menu(menu_scene : PackedScene, viewport : Viewport, set_pause :
 	scene_tree.current_scene.call_deferred("add_child", current_menu)
 	scene_tree.paused = set_pause
 
-static func close_menu() -> void:
+static func close_menu(delay : float = 0) -> void:
 	if scene_tree == null:
 		push_error("scene_tree is null")
 		return
@@ -32,5 +32,6 @@ static func close_menu() -> void:
 		current_menu.queue_free()
 	Input.set_mouse_mode(saved_mouse_mode)
 	scene_tree.paused = false
+	await scene_tree.create_timer(delay).timeout
 	if is_instance_valid(saved_focus_control) and saved_focus_control.is_inside_tree():
 		saved_focus_control.grab_focus()

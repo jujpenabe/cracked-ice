@@ -13,6 +13,7 @@ signal heat_zone_assigned(heat_amount: float, source_pos : Vector3)
 signal heat_zone_removed()
 signal slip_bonus_changed(new_slip_bonus: float)
 signal throtle_bonus_changed(new_throtle_bonus: float)
+signal throtle_in()
 
 # Vehicle request events
 signal max_rpm_requested
@@ -22,3 +23,9 @@ signal max_rpm_requested
 signal damagebar_setup(max_health)
 signal damagebar_hit_health_changed(new_hit_health)
 signal heat_changed(new_heat)
+
+# Game Events
+signal game_started()
+signal game_paused()
+signal game_resumed()
+signal game_over()
