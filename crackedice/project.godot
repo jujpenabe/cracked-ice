@@ -45,6 +45,7 @@ window/size/viewport_height=480
 window/size/window_width_override=1280
 window/size/window_height_override=960
 window/stretch/mode="viewport"
+mouse_cursor/tooltip_position_offset=Vector2(6, 6)
 
 [editor]
 
@@ -71,6 +72,10 @@ folder_colors={
 
 import/fbx2gltf/enabled.android=true
 import/fbx2gltf/enabled.web=true
+
+[gui]
+
+timers/tooltip_delay_sec=0.4
 
 [importer_defaults]
 
