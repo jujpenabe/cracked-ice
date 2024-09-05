@@ -63,7 +63,7 @@ shader_parameter/noise_time_fac = 4.4
 shader_parameter/enable_color_limitation = true
 shader_parameter/color_levels = 24
 shader_parameter/enable_dithering = true
-shader_parameter/dither_strength = 0.2
+shader_parameter/dither_strength = 0.044
 
 [sub_resource type="QuadMesh" id="QuadMesh_mrjgf"]
 material = SubResource("ShaderMaterial_rbvfy")
@@ -360,6 +360,13 @@ visible = false
 
 [node name="Heater" parent="." instance=ExtResource("27_nxxk1")]
 transform = Transform3D(0.952628, 0, 0.55, 0, 1.1, 0, -0.55, 0, 0.952628, 61.592, 55.5, -550.972)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.683238, 0.464011, -0.563808, 0, 0.772133, 0.635461, 0.730195, 0.434171, -0.527551, 49.2784, 60.5581, -565.935)
+light_energy = 10.0
+spot_range = 20.0
+spot_attenuation = 0.0
+spot_angle = 30.0
 
 [connection signal="area_entered" from="LedNi\'ja/IcePlane/Area3D" to="LedNi\'ja/IcePlane" method="_on_area_3d_area_entered"]
 [connection signal="area_exited" from="LedNi\'ja/IcePlane/Area3D" to="LedNi\'ja/IcePlane" method="_on_area_3d_area_exited"]

@@ -2,21 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdjvpkcnumcsu"
-path.s3tc="res://.godot/imported/torke_wheel.jpg-186efdf2d3e64f7d68738f7562aabbff.s3tc.ctex"
+uid="uid://d3ermeu2khijg"
+path="res://.godot/imported/torke_wheel.jpg-186efdf2d3e64f7d68738f7562aabbff.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://CrackedIce/Art/Cars/torke_wheel.jpg"
-dest_files=["res://.godot/imported/torke_wheel.jpg-186efdf2d3e64f7d68738f7562aabbff.s3tc.ctex"]
+dest_files=["res://.godot/imported/torke_wheel.jpg-186efdf2d3e64f7d68738f7562aabbff.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
