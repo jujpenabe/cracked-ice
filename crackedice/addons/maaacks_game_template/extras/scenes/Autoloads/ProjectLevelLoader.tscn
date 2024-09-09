@@ -5,3 +5,6 @@
 [node name="ProjectLevelLoader" type="Node"]
 script = ExtResource("1_g5xnr")
 auto_load = false
+force_level = -1
+files = Array[String]([])
+directory = ""

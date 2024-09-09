@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://4rgmcqkp1cx6"]
+
+[ext_resource type="Script" path="res://examples/creverter/basic_example/ball.gd" id="1_l2r7t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0wp46"]
+radius = 25.0
+
+[node name="Ball" type="Area2D"]
+position = Vector2(212, 160)
+script = ExtResource("1_l2r7t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0wp46")

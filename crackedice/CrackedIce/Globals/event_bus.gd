@@ -23,7 +23,7 @@ signal max_rpm_requested
 signal damagebar_setup(max_health)
 signal damagebar_hit_health_changed(new_hit_health)
 signal heat_changed(new_heat)
-
+signal screen_fade_changed(target_alpha: float, duration: float)
 # Game Events
 signal game_started()
 signal game_paused()

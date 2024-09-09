@@ -24,7 +24,13 @@ func load_scene(scene_path : String):
 	SceneLoader.load_scene(scene_path)
 
 func play_game():
-	SceneLoader.load_scene(game_scene_path)
+	var load_path = "user://saved_game.scn"
+	if FileAccess.file_exists(load_path):
+		SceneLoader.load_scene(load_path)
+	else:
+		print("No game saved at: " + load_path + " - Starting new game.")
+		SceneLoader.load_scene(game_scene_path)
+
 
 func play_test():
 	SceneLoader.load_scene(test_scene_path)

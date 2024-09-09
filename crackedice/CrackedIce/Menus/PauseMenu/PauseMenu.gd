@@ -20,7 +20,8 @@ func open_options_menu():
 	%MenuContainer.hide()
 
 func _unhandled_input(event):
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("Pause"):
+		print("Pause")
 		if popup_open != null:
 			close_popup()
 		elif %SubMenuContainer.visible:
@@ -49,6 +50,10 @@ func _ready():
 func _on_resume_button_pressed():
 	InGameMenuController.close_menu(0.2)
 
+func _on_save_button_pressed():
+	%ConfirmSave.popup_centered()
+	popup_open = %ConfirmSave
+
 func _on_restart_button_pressed():
 	%ConfirmRestart.popup_centered()
 	popup_open = %ConfirmRestart
@@ -63,6 +68,10 @@ func _on_main_menu_button_pressed():
 func _on_exit_button_pressed():
 	%ConfirmExit.popup_centered()
 	popup_open = %ConfirmExit
+
+func _on_confirm_save_confirmed():
+	LevelManager.save()
+	InGameMenuController.close_menu()
 
 func _on_confirm_restart_confirmed():
 	SceneLoader.reload_current_scene()

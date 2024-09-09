@@ -1,7 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbwmrnp0af35y"]
+[gd_scene load_steps=2 format=3 uid="uid://b8l3gge7js8nf"]
 
-[ext_resource type="Script" path="res://addons/maaacks_game_template/base/scenes/Autoloads/SceneLoader.gd" id="1_l0dhx"]
+[ext_resource type="Script" path="res://CrackedIce/Globals/SceneLoader.gd" id="1_auj37"]
 
 [node name="SceneLoader" type="Node"]
-script = ExtResource("1_l0dhx")
+script = ExtResource("1_auj37")
 loading_screen_path = "res://CrackedIce/UI/ProgressBar/CILoadingScreen.tscn"

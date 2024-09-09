@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://dpdiwf4xpmo4h"]
+[gd_scene load_steps=39 format=4 uid="uid://dpdiwf4xpmo4h"]
 
 [ext_resource type="PackedScene" uid="uid://po1b2fmndqn1" path="res://CrackedIce/Art/Lightning/Enviroment/LedNi'jaEnvironment.tscn" id="1_jdeb5"]
 [ext_resource type="PackedScene" uid="uid://8sl5gmdd6o6w" path="res://cars/camera/camera_3d.tscn" id="2_f30ug"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://ufcyde5o8pq3" path="res://CrackedIce/UI/ProgressBar/heatbar.tscn" id="14_qimxu"]
 [ext_resource type="Texture2D" uid="uid://b6mslh5qmwpf6" path="res://CrackedIce/UI/Labels/snowflake_blue.png" id="14_tfebk"]
 [ext_resource type="FontFile" uid="uid://c4lwpp1x5wyu8" path="res://CrackedIce/UI/Fonts/Kurland.woff2" id="15_4e5xo"]
+[ext_resource type="PackedScene" uid="uid://ckymtsq1bt135" path="res://CrackedIce/UI/FX/FadeScreen.tscn" id="15_72yoj"]
 [ext_resource type="PackedScene" uid="uid://40fh8ikhnbq4" path="res://CrackedIce/Entities/NPC/Cars/base/engine_sound_base.tscn" id="15_d84id"]
 [ext_resource type="PackedScene" uid="uid://b0f8ptml31c6a" path="res://CrackedIce/Art/Terrain/LedNi'ja.tscn" id="15_l87dr"]
 [ext_resource type="Script" path="res://CrackedIce/UI/Labels/CurrentAmbientTemp.gd" id="16_renhl"]
@@ -161,7 +162,7 @@ collision_layer = 2
 size = Vector3(230.607, 0.5, 10)
 
 [node name="IcePlane" type="MeshInstance3D" parent="LedNi\'ja"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 760, 44, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 746, 44, 0)
 mesh = SubResource("ArrayMesh_4sv5j")
 script = ExtResource("5_1u3w2")
 target_temp = -50.0
@@ -179,12 +180,13 @@ physics_material_override = SubResource("PhysicsMaterial_myi1p")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="LedNi\'ja/IcePlane/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_tn8gs")
 
-[node name="PlayerController" parent="." node_paths=PackedStringArray("vehicle", "hud", "camera", "camera_target", "engine_sound") instance=ExtResource("3_7sj46")]
+[node name="PlayerController" parent="." node_paths=PackedStringArray("vehicle", "hud", "camera", "camera_target", "snow_particles", "engine_sound") instance=ExtResource("3_7sj46")]
 process_mode = 3
 vehicle = NodePath("Torke")
 hud = NodePath("Hud")
 camera = NodePath("Torke/lookat/Camera3D")
 camera_target = NodePath("Torke/lookat")
+snow_particles = NodePath("Torke/lookat/Camera3D/VehicleSnowCPUParticles")
 engine_sound = NodePath("Torke/EngineSound")
 
 [node name="Torke" parent="PlayerController" instance=ExtResource("3_s8frt")]
@@ -230,6 +232,9 @@ doppler_tracking = 2
 [node name="Hud" type="CanvasLayer" parent="PlayerController"]
 process_mode = 1
 layer = 2
+
+[node name="BackgroundTextureRect2" parent="PlayerController/Hud" instance=ExtResource("15_72yoj")]
+z_index = 4
 
 [node name="BackgroundTextureRect" parent="PlayerController/Hud" instance=ExtResource("8_vul67")]
 modulate = Color(0.8, 0.8, 0.8, 0)

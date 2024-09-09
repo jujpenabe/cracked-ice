@@ -9,11 +9,11 @@ InTrash=false
 [Exposure]
 Auto=false
 Clip=0.02
-Compensation=-5
-Brightness=0
-Contrast=-100
-Saturation=0
-Black=0
+Compensation=-4
+Brightness=-50
+Contrast=100
+Saturation=-96
+Black=150
 HighlightCompr=500
 HighlightComprThreshold=0
 ShadowCompr=0

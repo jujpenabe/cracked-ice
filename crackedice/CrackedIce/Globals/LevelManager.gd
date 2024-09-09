@@ -1,14 +1,23 @@
 extends Node
 
+
+## PLAYER 1 STATS (Move to player_controller.gd)
 # Dictionary of bonuses
 var _heat_bonuses = {}
 var _total_heat: float = 0.0
 var _changed: bool = false
 
+var _reverter
+
+
 var initial_temp : float = -50
 # Called when the node enters the scene tree for the first time.
 func _ready():
+
 	add_heat_bonus("ambient", initial_temp)
+	_reverter = CReverter.new()
+	_reverter.history.max_size = 5
+	_reverter.connect_save_load(get_instance_id(), _save, _load)
 	# Ambient temperature + heat bonuses
 
 func restart_level():
@@ -46,3 +55,56 @@ func get_total_heat_bonus() -> float:
 		_total_heat = total
 		_changed = false
 	return _total_heat
+
+func _save() -> Dictionary:
+	var scene = get_tree().current_scene
+	var packed_scene = PackedScene.new()
+	packed_scene.pack(scene)
+	return {
+		"game": packed_scene,
+	}
+
+func save(path: String = "saved_game"):
+	var scene = get_tree().current_scene
+	# print root node
+	print(scene)
+	var packed_scene = PackedScene.new()
+	packed_scene.pack(scene)
+
+	var save_path = "user://" + path + ".scn"
+	var error = ResourceSaver.save(packed_scene, save_path)
+
+	if error == OK:
+		print("Game saved at: " + save_path)
+	else:
+		print("Error saving game: " + error)
+
+func _load(memento):
+	get_tree().change_scene_to_packed(memento.game)
+
+func load(path: String = "saved_game"):
+	# dont load if no the game is paused
+	if get_tree().paused:
+		return
+	var load_path = "user://" + path + ".scn"
+
+	if FileAccess.file_exists(load_path):
+		var loaded_scene = ResourceLoader.load(load_path, "", ResourceLoader.CACHE_MODE_IGNORE)
+		if loaded_scene is PackedScene:
+			var error = get_tree().change_scene_to_packed(loaded_scene)
+			if error == OK:
+				print("Game loaded from: " + load_path)
+				# clear the reverter
+				_reverter.history.clear()
+			else:
+				print("Error loading game: " + str(error))
+		else:
+			print("The file loaded is not a valid PackedScene.")
+	else:
+		print("No game saved at: " + load_path)
+
+func commit():
+	_reverter.commit()
+
+func load_oldest():
+	_reverter.load_oldest()

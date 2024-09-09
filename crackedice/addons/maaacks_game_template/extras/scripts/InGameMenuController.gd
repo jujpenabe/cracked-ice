@@ -2,7 +2,7 @@ class_name InGameMenuController
 extends Node
 ## Interface for managing a single in-game menu at a time.
 ##
-## This (static) class manages one in-game menu at a time.
+## This (staclass_name CaptureFoctic) class manages one in-game menu at a time.
 ## It can optionally safely pause and unpause the game for the menu.
 ## The scene_tree property must be set for the static methods to work.
 
@@ -23,6 +23,8 @@ static func open_menu(menu_scene : PackedScene, viewport : Viewport, set_pause :
 	current_menu = menu_scene.instantiate()
 	scene_tree.current_scene.call_deferred("add_child", current_menu)
 	scene_tree.paused = set_pause
+	ProjectMusicController.stop()
+
 
 static func close_menu(delay : float = 0) -> void:
 	if scene_tree == null:
@@ -35,3 +37,4 @@ static func close_menu(delay : float = 0) -> void:
 	await scene_tree.create_timer(delay).timeout
 	if is_instance_valid(saved_focus_control) and saved_focus_control.is_inside_tree():
 		saved_focus_control.grab_focus()
+	ProjectMusicController.play()

@@ -1,13 +1,13 @@
 [gd_scene load_steps=12 format=3 uid="uid://ccx5qe2i6jjoi"]
 
-[ext_resource type="Script" path="res://addons/maaacks_game_template/base/scenes/LoadingScreen/LoadingScreen.gd" id="1_vh8oh"]
+[ext_resource type="Script" path="res://CrackedIce/UI/Screens/LoadingScreen.gd" id="1_vh8oh"]
 [ext_resource type="PackedScene" uid="uid://cv2f614m7kh0v" path="res://CrackedIce/UI/FX/2DSnowParticles.tscn" id="2_j5eiu"]
 [ext_resource type="FontFile" uid="uid://c6ucy4buw7xvx" path="res://CrackedIce/UI/Fonts/BrokenGlass.woff2" id="3_q3mmn"]
 
 [sub_resource type="Gradient" id="Gradient_wkdfk"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.5, 1)
-colors = PackedColorArray(0.8, 0.95, 1, 1, 0.56, 0.736, 0.8, 1, 0.02, 0.0746667, 0.1, 1)
+colors = PackedColorArray(0.81, 0.8775, 0.9, 1, 0.72, 0.778667, 0.8, 1, 0.04, 0.149333, 0.2, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ix1uc"]
 gradient = SubResource("Gradient_wkdfk")

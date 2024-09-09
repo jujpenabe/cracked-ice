@@ -10,9 +10,10 @@ uniform float metallic = 0.0;
 uniform vec4 albedo : source_color = vec4(1.0,1.0,1.0,1.0);
 uniform sampler2D texture_albedo : source_color;
 uniform sampler2D texture_normal : hint_normal;
-uniform sampler2D texture_emision: hint_default_black;
+uniform sampler2D texture_emission: hint_default_black;
 uniform float normal_scale : hint_range(-16,16) = 1.0;
 uniform float roughness : hint_range(0,1) = 0.9;
+uniform float emission : hint_range(0.0, 5.0, 0.2);
 
 uniform vec4 albedo_snow : source_color = vec4(1.0,1.0,1.0,1.0);
 uniform sampler2D texture_albedo_snow : source_color;
@@ -39,6 +40,8 @@ void fragment() {
 	// Mixed values
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
 	vec3 albedo_total = albedo.rgb * albedo_tex.rgb;
+
+	vec4 emission_tex = texture(texture_emission, base_uv);
 
 	vec4 albedo_tex_snow = texture(texture_albedo_snow,base_uv);
 	vec3 albedo_total_snow = albedo_snow.rgb * albedo_tex_snow.rgb;
@@ -72,4 +75,5 @@ void fragment() {
 	NORMAL_MAP = final_normal;
 	NORMAL_MAP_DEPTH = final_normal_scale;
 	ROUGHNESS = final_roughness;
+	EMISSION = emission_tex.rgb * vec3(emission + (snow_threshold * 0.2));
 }

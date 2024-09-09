@@ -13,8 +13,6 @@ font_size = 32
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.1, 0)
 script = ExtResource("1_423tv")
-STEER_LIMIT = 0.8
-engine_force_value = 100
 
 [node name="WheelFrontRight" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03343, 0.340338, -1.57977)

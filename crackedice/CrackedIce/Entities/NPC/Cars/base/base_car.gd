@@ -223,7 +223,7 @@ func _physics_process(delta):
 		# apply lateral impulse (with a random force) if the steer target is not 0
 		if steer_target != 0:
 			apply_force(transform.basis.x * mass * randi_range(-2, 4) * -steer_target, -transform.basis.z )
-			
+
 	else:
 
 		full_throttle_amount = 1.0
@@ -390,7 +390,7 @@ func process_target_heat(delta : float):
 			heat += (heat_aplied * 0.02) / (1 +distance)
 			EventBus.car_hit_damage.emit(near_heat_zone_max_heat / ((1 + distance) * 600))
 
-	target_heat += (LevelManager.get_total_heat_bonus() * 0.001) 
+	target_heat += (LevelManager.get_total_heat_bonus() * 0.001)
 	target_heat = clamp(target_heat, -300.0, 120.0)
 
 	if target_heat <= 10:

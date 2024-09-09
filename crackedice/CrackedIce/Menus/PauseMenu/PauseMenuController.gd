@@ -13,8 +13,8 @@ func _input(event):
 	if event.is_action_released("Pause") :
 		pause_timer.stop()
 
-	if event.is_action_pressed("ui_cancel"): # TODO: ui_cancel is not working
-		print("ui_cancel")
+	# if event.is_action_pressed("ui_cancel"): # TODO: ui_cancel is not working
+	# 	print("ui_cancel")
 
 func _ready():
 	InGameMenuController.scene_tree = get_tree()

@@ -1,8 +1,8 @@
 [gd_scene load_steps=38 format=3 uid="uid://b76fcyiisui0w"]
 
 [ext_resource type="Script" path="res://CrackedIce/Menus/MainMenu/MainMenu.gd" id="1_4p54k"]
+[ext_resource type="PackedScene" uid="uid://hmx6o472ropw" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/master_options_menu_with_tabs.tscn" id="2_8pvg0"]
 [ext_resource type="AudioStream" uid="uid://dgxemelrejynd" path="res://Audio/Music/CrackediceMainMenu.ogg" id="2_cc2lm"]
-[ext_resource type="PackedScene" uid="uid://k0nh1lqsjth4" path="res://CrackedIce/Menus/OptionsMenu/MasterOptionsMenu.tscn" id="2_jso65"]
 [ext_resource type="PackedScene" uid="uid://d2k6pr8elkwsv" path="res://CrackedIce/Menus/CreditsMenu/Credits.tscn" id="3_mpu2o"]
 [ext_resource type="AudioStream" uid="uid://day1aqvt1k8kh" path="res://Audio/SFX/muscle_car_engine_start.mp3" id="4_a0kjh"]
 [ext_resource type="PackedScene" uid="uid://cv2f614m7kh0v" path="res://CrackedIce/UI/FX/2DSnowParticles.tscn" id="4_bvuea"]
@@ -100,7 +100,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4p54k")
 game_scene_path = "res://CrackedIce/Maps/Main/LedNi'ja.tscn"
-options_packed_scene = ExtResource("2_jso65")
+options_packed_scene = ExtResource("2_8pvg0")
 credits_packed_scene = ExtResource("3_mpu2o")
 version_name = "0.0.3"
 engine_start = ExtResource("4_a0kjh")
