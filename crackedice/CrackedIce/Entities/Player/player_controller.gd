@@ -37,7 +37,7 @@ func _ready():
 
 	double_tap_timer = Timer.new()
 	add_child(double_tap_timer)
-	double_tap_timer.wait_time = 0.2
+	double_tap_timer.wait_time = 0.5
 	double_tap_timer.one_shot = true
 
 	#cp_pos = vehicle.global_position
@@ -72,6 +72,9 @@ func _process(_delta):
 func _destroyed():
 	hud.hide()
 	is_alive = false
+	# Disable this script
+	set_process(false)
+
 
 func _autosave():
 	# check if the distance between committed checkpoint and current checkpoint is too small

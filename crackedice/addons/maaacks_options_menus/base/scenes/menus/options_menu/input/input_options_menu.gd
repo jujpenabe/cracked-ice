@@ -7,11 +7,15 @@ const KEY_DELETION_TEXT : String = "Are you sure you want to remove {key} from {
 
 ## Maps the names of input actions to readable names for users.
 @export var action_name_map : Dictionary = {
-	"move_up" : "Up",
-	"move_down" : "Down",
-	"move_left" : "Left",
-	"move_right" : "Right",
-	"interact" : "Interact"
+	"Interact" : "Interact",
+	"Throttle" : "Throttle",
+	"Brakes" : "Brakes",
+	"Steer Right" : "Steer Right",
+	"Steer Left" : "Steer Left",
+	"Full Throttle" : "Full Throttle",
+	"Handbrake" : "Handbrake",
+	"Restart" : "Restart",
+	"Pause" : "Pause",
 }
 ## Show action names that are not explicitely listed in an action name map.
 @export var show_all_actions : bool = false
@@ -92,6 +96,7 @@ func _add_action_as_tree_item(readable_name : String, action_name : String, inpu
 	var action_tree_item : TreeItem = %Tree.create_item(root_tree_item)
 	action_tree_item.set_text(0, readable_name)
 	tree_item_add_map[action_tree_item] = action_name
+	action_tree_item.collapsed = true
 	if add_button_texture != null:
 		action_tree_item.add_button(0, add_button_texture, -1, false, "Add")
 	for input_event in input_events:
@@ -158,8 +163,11 @@ func _remove_input_event_from_action(input_event : InputEvent, action_name : Str
 func _build_assigned_input_events():
 	assigned_input_events.clear()
 	var action_names := _get_all_action_names(show_built_in_actions and catch_built_in_duplicate_inputs)
+	print("action_names: ", action_names)
 	for action_name in action_names:
+		print("action_name: ", action_name)
 		var input_events = InputMap.action_get_events(action_name)
+		print("input_events: ", input_events)
 		for input_event in input_events:
 			_assign_input_event(input_event, action_name)
 

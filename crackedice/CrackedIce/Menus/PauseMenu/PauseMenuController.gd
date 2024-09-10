@@ -7,7 +7,7 @@ extends Node
 var pause_timer : Timer
 
 func _input(event):
-	if event.is_action_pressed("Pause") :
+	if event.is_action_pressed("Pause") && InGameMenuController.current_menu == null :
 		pause_timer.start()
 
 	if event.is_action_released("Pause") :

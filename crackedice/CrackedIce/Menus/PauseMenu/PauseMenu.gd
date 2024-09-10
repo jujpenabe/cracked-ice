@@ -6,6 +6,8 @@ extends CanvasLayer
 
 var popup_open
 
+var guard_timer : Timer # A simple timer to guard against double clicks
+
 func close_popup():
 	if popup_open != null:
 		popup_open.hide()
@@ -14,20 +16,21 @@ func close_popup():
 func close_options_menu():
 	%SubMenuContainer.hide()
 	%MenuContainer.show()
+	%OptionsButton.grab_focus()
 
 func open_options_menu():
 	%SubMenuContainer.show()
 	%MenuContainer.hide()
 
 func _unhandled_input(event):
-	if event.is_action_pressed("Pause"):
-		print("Pause")
+	if event.is_action_pressed("Pause") || Input.is_joy_button_pressed(0, JOY_BUTTON_B) && guard_timer.is_stopped():
 		if popup_open != null:
 			close_popup()
 		elif %SubMenuContainer.visible:
 			close_options_menu()
 		else:
 			InGameMenuController.close_menu(0.2)
+		guard_timer.start()
 
 func _setup_options():
 	if options_packed_scene == null:
@@ -41,6 +44,12 @@ func _setup_main_menu():
 		%MainMenuButton.hide()
 
 func _ready():
+
+	guard_timer = Timer.new()
+	guard_timer.one_shot = true
+	guard_timer.wait_time = 0.1
+	add_child(guard_timer)
+
 	%ResumeButton.grab_focus()
 	if OS.has_feature("web"):
 		%ExitButton.hide()

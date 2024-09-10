@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8vnncjwqcpab"]
+[gd_scene load_steps=6 format=3 uid="uid://c8vnncjwqcpab"]
 
 [ext_resource type="Script" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/audio/audio_options_menu.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cl416gdb1fgwr" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/option_control/slider_option_control.tscn" id="2_raehj"]
 [ext_resource type="Script" path="res://addons/maaacks_options_menus/base/scripts/capture_focus.gd" id="3_dtraq"]
+[ext_resource type="Theme" uid="uid://ci35kolmc4dd6" path="res://CrackedIce/UI/themes/ConfirmationDialog.tres" id="4_jxq6g"]
 [ext_resource type="PackedScene" uid="uid://bsxh6v7j0257h" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/option_control/toggle_option_control.tscn" id="4_ojfec"]
 
 [node name="Audio" type="MarginContainer"]
@@ -29,11 +30,13 @@ search_depth = 3
 [node name="AudioControlContainer" type="VBoxContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("4_jxq6g")
 theme_override_constants/separation = 8
 
 [node name="MuteControl" parent="VBoxContainer" instance=ExtResource("4_ojfec")]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("4_jxq6g")
 option_name = "Mute"
 option_section = 2
 key = "Mute"

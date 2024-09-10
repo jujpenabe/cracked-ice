@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c8v32xdxyi5jd"]
+[gd_scene load_steps=14 format=3 uid="uid://c8v32xdxyi5jd"]
 
 [ext_resource type="Script" path="res://CrackedIce/Menus/PauseMenu/PauseMenu.gd" id="1_deykp"]
 [ext_resource type="PackedScene" uid="uid://hmx6o472ropw" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/master_options_menu_with_tabs.tscn" id="2_xkqk8"]
@@ -17,6 +17,14 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k4s3k"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_us5l0"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_ix2e7"]
+device = -1
+keycode = 81
+unicode = 113
+
+[sub_resource type="Shortcut" id="Shortcut_8yct3"]
+events = [SubResource("InputEventKey_ix2e7")]
 
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
@@ -89,8 +97,10 @@ unique_name_in_owner = true
 modulate = Color(0.8, 0.8, 0.8, 1)
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
+focus_neighbor_top = NodePath("../ExitButton")
+focus_neighbor_bottom = NodePath("../SaveButton")
 theme = ExtResource("4_5m0n1")
-theme_override_colors/font_focus_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.9, 0.9, 1)
 theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.803922)
 theme_override_constants/outline_size = 4
@@ -104,7 +114,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 theme = ExtResource("4_5m0n1")
-theme_override_colors/font_focus_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.9, 0.9, 1)
 theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.803922)
 theme_override_constants/outline_size = 4
@@ -117,7 +127,7 @@ expand_icon = true
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 theme = ExtResource("4_5m0n1")
-theme_override_colors/font_focus_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.9, 0.9, 1)
 theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.803922)
 theme_override_constants/outline_size = 4
@@ -131,7 +141,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 theme = ExtResource("4_5m0n1")
-theme_override_colors/font_focus_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.9, 0.9, 1)
 theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.803922)
 theme_override_constants/outline_size = 4
@@ -145,7 +155,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 theme = ExtResource("4_5m0n1")
-theme_override_colors/font_focus_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.9, 0.9, 1)
 theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.803922)
 theme_override_constants/outline_size = 4
@@ -158,8 +168,10 @@ expand_icon = true
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
+focus_neighbor_top = NodePath("../MainMenuButton")
+focus_neighbor_bottom = NodePath("../ResumeButton")
 theme = ExtResource("4_5m0n1")
-theme_override_colors/font_focus_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.9, 0.9, 1)
 theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.803922)
 theme_override_constants/outline_size = 4
@@ -178,12 +190,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_top = 24
-theme_override_constants/margin_bottom = 24
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/SubMenuContainer"]
 layout_mode = 2
-theme_override_constants/separation = 8
 
 [node name="OptionsContainer" type="MarginContainer" parent="Control/SubMenuContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -194,9 +203,10 @@ size_flags_vertical = 3
 layout_mode = 2
 alignment = 1
 
-[node name="BackButton" type="Button" parent="Control/SubMenuContainer/VBoxContainer/HBoxContainer"]
+[node name="BackButton" type="Button" parent="Control/SubMenuContainer/VBoxContainer"]
 custom_minimum_size = Vector2(62, 40)
 layout_mode = 2
+shortcut = SubResource("Shortcut_8yct3")
 text = "Back"
 
 [node name="ConfirmSave" type="ConfirmationDialog" parent="Control"]
@@ -252,7 +262,7 @@ script = ExtResource("3_rmgkx")
 [connection signal="pressed" from="Control/MenuContainer/VBoxContainer/MenuButtons/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="Control/MenuContainer/VBoxContainer/MenuButtons/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="Control/MenuContainer/VBoxContainer/MenuButtons/ExitButton" to="." method="_on_exit_button_pressed"]
-[connection signal="pressed" from="Control/SubMenuContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Control/SubMenuContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="canceled" from="Control/ConfirmSave" to="." method="_on_confirmation_dialog_canceled"]
 [connection signal="confirmed" from="Control/ConfirmSave" to="." method="_on_confirm_save_confirmed"]
 [connection signal="canceled" from="Control/ConfirmRestart" to="." method="_on_confirmation_dialog_canceled"]

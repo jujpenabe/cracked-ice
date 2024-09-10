@@ -1,10 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://dp3rgqaehb3xu"]
+[gd_scene load_steps=9 format=3 uid="uid://dp3rgqaehb3xu"]
 
 [ext_resource type="Script" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/input/input_options_menu.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c1eqf1cse1hch" path="res://addons/maaacks_options_menus/base/assets/images/addition_symbol.png" id="2_dw35t"]
 [ext_resource type="Script" path="res://addons/maaacks_options_menus/base/scripts/capture_focus.gd" id="2_wft4x"]
 [ext_resource type="Texture2D" uid="uid://bteq3ica74h30" path="res://addons/maaacks_options_menus/base/assets/images/subtraction_symbol.png" id="3_lngdd"]
 [ext_resource type="Script" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/input/key_assignment_dialog.gd" id="3_wsh2h"]
+[ext_resource type="Theme" uid="uid://ci35kolmc4dd6" path="res://CrackedIce/UI/themes/ConfirmationDialog.tres" id="5_dq2fk"]
+[ext_resource type="FontFile" uid="uid://c6ucy4buw7xvx" path="res://CrackedIce/UI/Fonts/BrokenGlass.woff2" id="6_xuygd"]
+
+[sub_resource type="Theme" id="Theme_ibso3"]
+default_font = ExtResource("6_xuygd")
+default_font_size = 20
 
 [node name="Controls" type="MarginContainer"]
 anchors_preset = 15
@@ -32,6 +38,7 @@ size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="VBoxContainer/InputMappingContainer"]
 layout_mode = 2
+theme = ExtResource("5_dq2fk")
 text = "Actions & Inputs"
 horizontal_alignment = 1
 
@@ -39,14 +46,17 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+theme = SubResource("Theme_ibso3")
+enable_recursive_folding = false
 hide_root = true
+scroll_horizontal_enabled = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/InputMappingContainer"]
 layout_mode = 2
-alignment = 1
 
 [node name="ResetButton" type="Button" parent="VBoxContainer/InputMappingContainer/HBoxContainer"]
 layout_mode = 2
+theme = ExtResource("5_dq2fk")
 text = "Reset"
 
 [node name="KeyAssignmentDialog" type="ConfirmationDialog" parent="."]
@@ -68,6 +78,7 @@ offset_right = -8.0
 offset_bottom = -49.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
 [node name="InputLabel" type="Label" parent="KeyAssignmentDialog/VBoxContainer"]
 unique_name_in_owner = true
@@ -107,6 +118,7 @@ title = "Already Assigned"
 size = Vector2i(398, 100)
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+size = Vector2i(486, 100)
 dialog_text = "Are you sure you want to reset controls back to the defaults?"
 
 [connection signal="button_clicked" from="VBoxContainer/InputMappingContainer/Tree" to="." method="_on_tree_button_clicked"]
