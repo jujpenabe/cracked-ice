@@ -20,7 +20,7 @@ func _ready():
 	InGameMenuController.scene_tree = get_tree()
 	pause_timer = Timer.new()
 	add_child(pause_timer)
-	pause_timer.wait_time = 0.2
+	pause_timer.wait_time = 0.1
 	pause_timer.one_shot = true
 	pause_timer.timeout.connect(_on_pause_timer_timeout)
 
