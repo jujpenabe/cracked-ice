@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckmkj14yhi72w"]
+
+[ext_resource type="Script" path="res://CrackedIce/Menus/OptionsMenu/GameOptionsMenu.gd" id="1_q10ff"]
+[ext_resource type="Theme" uid="uid://ci35kolmc4dd6" path="res://CrackedIce/UI/themes/ConfirmationDialog.tres" id="2_moqwp"]
+[ext_resource type="Script" path="res://addons/maaacks_options_menus/base/scripts/capture_focus.gd" id="3_6n526"]
+
+[node name="Game" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_bottom = 24
+script = ExtResource("1_q10ff")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_moqwp")
+alignment = 1
+script = ExtResource("3_6n526")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="OptionLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+text = "Reset Game"
+vertical_alignment = 1
+
+[node name="ResetButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(0.8, 0.8, 0.8, 1)
+layout_mode = 2
+text = "RESET"
+flat = true
+
+[node name="ConfirmResetDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+size = Vector2i(420, 263)
+unresizable = true
+borderless = true
+popup_window = true
+theme = ExtResource("2_moqwp")
+dialog_text = "Are you sure you want to reset the Game?"
+dialog_autowrap = true
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="canceled" from="ConfirmResetDialog" to="." method="_on_confirmation_dialog_canceled"]
+[connection signal="confirmed" from="ConfirmResetDialog" to="." method="_on_confirmation_dialog_confirmed"]

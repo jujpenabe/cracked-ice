@@ -21,3 +21,8 @@ func _unhandled_input(event):
 		else:
 			$TabContainer.current_tab = $TabContainer.current_tab-1
 		guard_timer.start()
+
+func _on_visibility_changed() -> void:
+	if visible:
+		%TabContainer.get_tab_bar().grab_focus()
+	

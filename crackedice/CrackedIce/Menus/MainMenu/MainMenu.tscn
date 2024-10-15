@@ -1,6 +1,7 @@
-[gd_scene load_steps=38 format=3 uid="uid://b76fcyiisui0w"]
+[gd_scene load_steps=40 format=3 uid="uid://b76fcyiisui0w"]
 
 [ext_resource type="Script" path="res://CrackedIce/Menus/MainMenu/MainMenu.gd" id="1_4p54k"]
+[ext_resource type="Theme" uid="uid://ci35kolmc4dd6" path="res://CrackedIce/UI/themes/ConfirmationDialog.tres" id="1_oss6i"]
 [ext_resource type="PackedScene" uid="uid://hmx6o472ropw" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/master_options_menu_with_tabs.tscn" id="2_8pvg0"]
 [ext_resource type="AudioStream" uid="uid://dgxemelrejynd" path="res://Audio/Music/CrackediceMainMenu.ogg" id="2_cc2lm"]
 [ext_resource type="PackedScene" uid="uid://d2k6pr8elkwsv" path="res://CrackedIce/Menus/CreditsMenu/Credits.tscn" id="3_mpu2o"]
@@ -66,6 +67,8 @@ action = &"ui_cancel"
 [sub_resource type="Shortcut" id="Shortcut_r8sas"]
 events = [SubResource("InputEventAction_t8yqg")]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hten2"]
+
 [sub_resource type="InputEventKey" id="InputEventKey_acp7n"]
 device = -1
 keycode = 4194305
@@ -96,6 +99,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_oss6i")
 script = ExtResource("1_4p54k")
 game_scene_path = "res://CrackedIce/Maps/Main/LedNi'ja.tscn"
 options_packed_scene = ExtResource("2_8pvg0")
@@ -167,12 +171,13 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -96.0
-offset_top = -33.0
-offset_right = -8.0
-offset_bottom = -7.0
+offset_left = -142.0
+offset_top = -52.0
+offset_right = -75.0
+offset_bottom = -8.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_colors/font_color = Color(0.44, 0.44, 0.44, 0.803922)
 text = "v0.3"
 horizontal_alignment = 2
 
@@ -328,11 +333,16 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 62.0
+offset_left = 60.0
+offset_top = -38.0
+offset_right = 147.0
+offset_bottom = 14.0
 grow_vertical = 0
+theme = ExtResource("1_oss6i")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hten2")
 shortcut = SubResource("Shortcut_nyj11")
 text = "Back"
+flat = true
 
 [node name="ForegroundThanksForPlaying" type="TextureRect" parent="."]
 unique_name_in_owner = true

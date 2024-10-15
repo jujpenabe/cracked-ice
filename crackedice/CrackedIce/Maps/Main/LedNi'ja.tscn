@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dd0rubbt6wcm3" path="res://CrackedIce/UI/ProgressBar/damagebar.tscn" id="11_veoik"]
 [ext_resource type="PackedScene" uid="uid://5lctwpfh4nc4" path="res://CrackedIce/UI/ProgressBar/rpmbar.tscn" id="12_um7jh"]
 [ext_resource type="Shader" path="res://CrackedIce/UI/FX/psx_camera/psx_camera_shader.gdshader" id="13_a324n"]
-[ext_resource type="PackedScene" uid="uid://v6mmlt5udyls" path="res://CrackedIce/UI/Screens/WreckedCarScreen.tscn" id="13_dwib2"]
+[ext_resource type="PackedScene" uid="uid://v6mmlt5udyls" path="res://CrackedIce/Menus/FailureMenu/WreckedCarScreen.tscn" id="13_dwib2"]
 [ext_resource type="FontFile" uid="uid://bnyvva6ll54kk" path="res://CrackedIce/UI/Fonts/SHATTERB.TTF" id="14_jh38w"]
 [ext_resource type="PackedScene" uid="uid://ufcyde5o8pq3" path="res://CrackedIce/UI/ProgressBar/heatbar.tscn" id="14_qimxu"]
 [ext_resource type="Texture2D" uid="uid://b6mslh5qmwpf6" path="res://CrackedIce/UI/Labels/snowflake_blue.png" id="14_tfebk"]
@@ -365,13 +365,6 @@ visible = false
 
 [node name="Heater" parent="." instance=ExtResource("27_nxxk1")]
 transform = Transform3D(0.952628, 0, 0.55, 0, 1.1, 0, -0.55, 0, 0.952628, 61.592, 55.5, -550.972)
-
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(-0.683238, 0.464011, -0.563808, 0, 0.772133, 0.635461, 0.730195, 0.434171, -0.527551, 49.2784, 60.5581, -565.935)
-light_energy = 10.0
-spot_range = 20.0
-spot_attenuation = 0.0
-spot_angle = 30.0
 
 [connection signal="area_entered" from="LedNi\'ja/IcePlane/Area3D" to="LedNi\'ja/IcePlane" method="_on_area_3d_area_entered"]
 [connection signal="area_exited" from="LedNi\'ja/IcePlane/Area3D" to="LedNi\'ja/IcePlane" method="_on_area_3d_area_exited"]

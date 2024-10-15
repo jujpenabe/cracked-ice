@@ -103,6 +103,18 @@ func load(path: String = "saved_game"):
 	else:
 		print("No game saved at: " + load_path)
 
+func delete(path: String = "saved_game"):
+	var load_path = "user://" + path + ".scn"
+	if FileAccess.file_exists(load_path):
+		var error = DirAccess.remove_absolute(load_path)
+		if error == OK:
+			print("Game deleted from: " + load_path)
+		else:
+			print("Error deleting game: " + str(error))
+	else:
+		print("No game saved at: " + load_path)
+		
+
 func commit():
 	_reverter.commit()
 

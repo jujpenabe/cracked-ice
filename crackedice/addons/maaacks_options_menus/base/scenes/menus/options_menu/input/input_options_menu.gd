@@ -244,3 +244,9 @@ func _on_confirmation_dialog_confirmed():
 	AppSettings.reset_to_default_inputs()
 	_build_assigned_input_events()
 	_build_ui_tree()
+
+func _input(event):
+	# if "ui_left" is pressed inside the %Tree (item is collapsed), focus the %ResetButton
+	if event.is_action_pressed("ui_left") && %Tree.get_selected() != null && %Tree.get_selected().is_collapsed():
+		%ResetButton.grab_focus()
+		print("ui_left pressed")

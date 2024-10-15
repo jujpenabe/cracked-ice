@@ -53,7 +53,7 @@ func _process(_delta):
 	if Input.is_physical_key_pressed(KEY_G):
 		EventBus.car_hit_damage.emit(5)
 
-	if Input.is_action_just_pressed("Restart"):
+	if Input.is_action_just_pressed("Restart") && InGameMenuController.current_menu == null:
 		if is_alive:
 			reset_timer.start()
 			EventBus.screen_fade_changed.emit(1, reset_timer.wait_time)

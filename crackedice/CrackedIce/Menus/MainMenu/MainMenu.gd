@@ -27,6 +27,7 @@ func play_game():
 	var load_path = "user://saved_game.scn"
 	if FileAccess.file_exists(load_path):
 		SceneLoader.load_scene(load_path)
+		print("Game loaded from: " + load_path)
 	else:
 		print("No game saved at: " + load_path + " - Starting new game.")
 		SceneLoader.load_scene(game_scene_path)
@@ -95,12 +96,14 @@ func _setup_credits():
 		%CreditsContainer.call_deferred("add_child", credits_scene)
 
 func _ready():
-	%PlayButton.grab_focus()
 	_setup_for_web()
-	_setup_version_name()
 	_setup_options()
+	_setup_version_name()
 	_setup_credits()
 	_setup_play()
+	# wait 0.44 second and focus
+	await get_tree().create_timer(0.44).timeout
+	%PlayButton.grab_focus()
 
 func _on_play_button_pressed():
 	play_game()

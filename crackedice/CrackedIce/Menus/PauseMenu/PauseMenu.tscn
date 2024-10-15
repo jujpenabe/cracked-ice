@@ -70,29 +70,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/MenuContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/MenuContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("4_5m0n1")
-theme_override_constants/margin_left = 44
-
-[node name="Title" type="Label" parent="Control/MenuContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
-theme_override_font_sizes/font_size = 44
-text = "Pause Menu"
-
-[node name="MenuButtons" type="VBoxContainer" parent="Control/MenuContainer/VBoxContainer"]
+[node name="MenuButtons" type="VBoxContainer" parent="Control/MenuContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 3
+size_flags_vertical = 6
 theme_override_constants/separation = 0
 alignment = 1
 script = ExtResource("4_aqu0x")
 
-[node name="ResumeButton" type="Button" parent="Control/MenuContainer/VBoxContainer/MenuButtons"]
+[node name="Title" type="Label" parent="Control/MenuContainer/MenuButtons"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("4_5m0n1")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 44
+text = "Pause Menu"
+
+[node name="ResumeButton" type="Button" parent="Control/MenuContainer/MenuButtons"]
 unique_name_in_owner = true
 modulate = Color(0.8, 0.8, 0.8, 1)
 custom_minimum_size = Vector2(128, 40)
@@ -100,80 +94,62 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../ExitButton")
 focus_neighbor_bottom = NodePath("../SaveButton")
 theme = ExtResource("4_5m0n1")
-theme_override_colors/font_focus_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.803922)
 theme_override_constants/outline_size = 4
 theme_override_styles/focus = SubResource("StyleBoxEmpty_bm757")
 text = "Resume"
 flat = true
 expand_icon = true
 
-[node name="SaveButton" type="Button" parent="Control/MenuContainer/VBoxContainer/MenuButtons"]
+[node name="SaveButton" type="Button" parent="Control/MenuContainer/MenuButtons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 theme = ExtResource("4_5m0n1")
-theme_override_colors/font_focus_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.803922)
 theme_override_constants/outline_size = 4
 theme_override_styles/focus = SubResource("StyleBoxEmpty_t8vin")
 text = "Save"
 flat = true
 expand_icon = true
 
-[node name="RestartButton" type="Button" parent="Control/MenuContainer/VBoxContainer/MenuButtons"]
+[node name="RestartButton" type="Button" parent="Control/MenuContainer/MenuButtons"]
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 theme = ExtResource("4_5m0n1")
-theme_override_colors/font_focus_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.803922)
 theme_override_constants/outline_size = 4
 theme_override_styles/focus = SubResource("StyleBoxEmpty_4raxu")
 text = "Restart"
 flat = true
 expand_icon = true
 
-[node name="OptionsButton" type="Button" parent="Control/MenuContainer/VBoxContainer/MenuButtons"]
+[node name="OptionsButton" type="Button" parent="Control/MenuContainer/MenuButtons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 theme = ExtResource("4_5m0n1")
-theme_override_colors/font_focus_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.803922)
 theme_override_constants/outline_size = 4
 theme_override_styles/focus = SubResource("StyleBoxEmpty_01x3a")
 text = "Options"
 flat = true
 expand_icon = true
 
-[node name="MainMenuButton" type="Button" parent="Control/MenuContainer/VBoxContainer/MenuButtons"]
+[node name="MainMenuButton" type="Button" parent="Control/MenuContainer/MenuButtons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 theme = ExtResource("4_5m0n1")
-theme_override_colors/font_focus_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.803922)
 theme_override_constants/outline_size = 4
 theme_override_styles/focus = SubResource("StyleBoxEmpty_k4s3k")
 text = "Main Menu"
 flat = true
 expand_icon = true
 
-[node name="ExitButton" type="Button" parent="Control/MenuContainer/VBoxContainer/MenuButtons"]
+[node name="ExitButton" type="Button" parent="Control/MenuContainer/MenuButtons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 focus_neighbor_top = NodePath("../MainMenuButton")
 focus_neighbor_bottom = NodePath("../ResumeButton")
 theme = ExtResource("4_5m0n1")
-theme_override_colors/font_focus_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.803922)
 theme_override_constants/outline_size = 4
 theme_override_styles/focus = SubResource("StyleBoxEmpty_us5l0")
 text = "Quit Game"
@@ -256,12 +232,12 @@ cancel_button_text = "NO!"
 [node name="UISoundController" type="Node" parent="."]
 script = ExtResource("3_rmgkx")
 
-[connection signal="pressed" from="Control/MenuContainer/VBoxContainer/MenuButtons/ResumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="Control/MenuContainer/VBoxContainer/MenuButtons/SaveButton" to="." method="_on_save_button_pressed"]
-[connection signal="pressed" from="Control/MenuContainer/VBoxContainer/MenuButtons/RestartButton" to="." method="_on_restart_button_pressed"]
-[connection signal="pressed" from="Control/MenuContainer/VBoxContainer/MenuButtons/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="Control/MenuContainer/VBoxContainer/MenuButtons/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
-[connection signal="pressed" from="Control/MenuContainer/VBoxContainer/MenuButtons/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="Control/MenuContainer/MenuButtons/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Control/MenuContainer/MenuButtons/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="Control/MenuContainer/MenuButtons/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="Control/MenuContainer/MenuButtons/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="Control/MenuContainer/MenuButtons/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="Control/MenuContainer/MenuButtons/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="Control/SubMenuContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="canceled" from="Control/ConfirmSave" to="." method="_on_confirmation_dialog_canceled"]
 [connection signal="confirmed" from="Control/ConfirmSave" to="." method="_on_confirm_save_confirmed"]

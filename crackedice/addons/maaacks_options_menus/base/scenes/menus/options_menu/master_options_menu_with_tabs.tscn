@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://hmx6o472ropw"]
+[gd_scene load_steps=8 format=3 uid="uid://hmx6o472ropw"]
 
 [ext_resource type="PackedScene" uid="uid://bvwl11s2p0hd" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/master_options_menu.tscn" id="1_uaidt"]
 [ext_resource type="PackedScene" uid="uid://dp3rgqaehb3xu" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/input/input_options_menu.tscn" id="2_15wl6"]
 [ext_resource type="PackedScene" uid="uid://c8vnncjwqcpab" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/audio/audio_options_menu.tscn" id="3_qg4me"]
 [ext_resource type="PackedScene" uid="uid://b2numvphf2kau" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/video/video_options_menu.tscn" id="4_1t848"]
+[ext_resource type="PackedScene" uid="uid://ckmkj14yhi72w" path="res://CrackedIce/Menus/OptionsMenu/GameOptionsMenu.tscn" id="5_we1vh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2xc0d"]
 bg_color = Color(0, 0, 0, 0.803922)
@@ -29,14 +30,27 @@ clip_tabs = false
 
 [node name="Audio" parent="TabContainer" index="1" instance=ExtResource("3_qg4me")]
 layout_mode = 2
+focus_neighbor_left = NodePath("../Controls")
+focus_neighbor_right = NodePath("../Video")
 metadata/_tab_index = 0
 
 [node name="Video" parent="TabContainer" index="2" instance=ExtResource("4_1t848")]
 visible = false
 layout_mode = 2
+focus_neighbor_left = NodePath("../Audio")
+focus_neighbor_right = NodePath("../Controls")
 metadata/_tab_index = 1
 
 [node name="Controls" parent="TabContainer" index="3" instance=ExtResource("2_15wl6")]
 visible = false
 layout_mode = 2
+focus_neighbor_left = NodePath("../Video")
+focus_neighbor_right = NodePath("../Audio")
 metadata/_tab_index = 2
+
+[node name="Game" parent="TabContainer" index="4" instance=ExtResource("5_we1vh")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

@@ -2,8 +2,9 @@ extends CanvasLayer
 
 @export_file("*.tscn") var main_menu_scene : String
 
-func _unhandled_input(event):
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
+		print("pressed")
 		if $ConfirmExit.visible:
 			$ConfirmExit.hide()
 		elif $ConfirmMainMenu.visible:

@@ -1,16 +1,25 @@
-[gd_scene load_steps=11 format=3 uid="uid://v6mmlt5udyls"]
+[gd_scene load_steps=15 format=3 uid="uid://v6mmlt5udyls"]
 
 [ext_resource type="Script" path="res://CrackedIce/Menus/FailureMenu/WreckedCarScreen.gd" id="1_i0cck"]
 [ext_resource type="LabelSettings" uid="uid://7l126bbn6hcr" path="res://CrackedIce/UI/Fonts/CriticalAnounce.tres" id="2_w1qak"]
 [ext_resource type="Texture2D" uid="uid://bl63gd5bvr1jx" path="res://CrackedIce/UI/FX/CrackingScreen.webp" id="2_wl81y"]
-[ext_resource type="Script" path="res://addons/maaacks_game_template/base/scripts/ui_sound_controller.gd" id="3_bo64x"]
+[ext_resource type="Script" path="res://addons/maaacks_game_template/base/scripts/UISoundController.gd" id="3_bo64x"]
 [ext_resource type="Script" path="res://CrackedIce/UI/Labels/DieDialog.gd" id="3_peq0f"]
+[ext_resource type="Theme" uid="uid://ci35kolmc4dd6" path="res://CrackedIce/UI/themes/ConfirmationDialog.tres" id="5_hp160"]
 
-[sub_resource type="InputEventAction" id="InputEventAction_sik1l"]
-action = &"Restart"
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c2o3r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2r8ev"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_fso3y"]
+device = -1
+keycode = 82
+unicode = 114
 
 [sub_resource type="Shortcut" id="Shortcut_fl0sg"]
-events = [SubResource("InputEventAction_sik1l")]
+events = [SubResource("InputEventKey_fso3y")]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rfgad"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_1iwb5"]
 device = -1
@@ -24,7 +33,7 @@ keycode = 4194305
 [sub_resource type="Shortcut" id="Shortcut_oieol"]
 events = [SubResource("InputEventKey_1iwb5"), SubResource("InputEventKey_1tbtf")]
 
-[node name="WreckedCarScreen2" type="CanvasLayer"]
+[node name="WreckedCarScreen" type="CanvasLayer"]
 script = ExtResource("1_i0cck")
 main_menu_scene = "res://CrackedIce/Menus/MainMenu/MainMenu.tscn"
 
@@ -76,7 +85,6 @@ script = ExtResource("3_peq0f")
 
 [node name="OptionsPanel" type="Panel" parent="Control"]
 unique_name_in_owner = true
-visible = false
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(480, 40)
 layout_mode = 1
@@ -86,61 +94,106 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RestartButton" type="Button" parent="Control/OptionsPanel"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 20)
-layout_mode = 2
-offset_left = 8.0
-offset_top = 352.0
-offset_right = 168.0
-offset_bottom = 392.0
-focus_neighbor_left = NodePath("../MainMenuButton")
-focus_neighbor_right = NodePath("../MainMenuButton")
-focus_neighbor_bottom = NodePath("../MainMenuButton")
-focus_previous = NodePath("../MainMenuButton")
-shortcut = SubResource("Shortcut_fl0sg")
-text = "Restart"
-
 [node name="MainMenuButton" type="Button" parent="Control/OptionsPanel"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(160, 20)
-layout_mode = 2
-offset_left = 8.0
-offset_top = 392.0
-offset_right = 168.0
-offset_bottom = 432.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -178.0
+offset_top = -52.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_neighbor_left = NodePath("../RestartButton")
 focus_neighbor_top = NodePath("../RestartButton")
-focus_neighbor_bottom = NodePath("../ExitButton")
+focus_previous = NodePath("../RestartButton")
+theme = ExtResource("5_hp160")
+theme_override_colors/font_focus_color = Color(0.901961, 0.901961, 0.901961, 1)
+theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.803922)
+theme_override_constants/outline_size = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_c2o3r")
 text = "Main Menu"
+flat = true
+
+[node name="RestartButton" type="Button" parent="Control/OptionsPanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 20)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -52.0
+offset_right = 80.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_neighbor_left = NodePath("../ExitButton")
+focus_neighbor_right = NodePath("../MainMenuButton")
+theme = ExtResource("5_hp160")
+theme_override_colors/font_focus_color = Color(0.901961, 0.901961, 0.901961, 1)
+theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.803922)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 60
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2r8ev")
+shortcut = SubResource("Shortcut_fl0sg")
+text = "Restart"
+flat = true
+icon_alignment = 1
+expand_icon = true
 
 [node name="ExitButton" type="Button" parent="Control/OptionsPanel"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(160, 20)
-layout_mode = 2
-offset_left = 8.0
-offset_top = 432.0
-offset_right = 168.0
-offset_bottom = 472.0
-focus_neighbor_left = NodePath("../MainMenuButton")
-focus_neighbor_top = NodePath("../MainMenuButton")
-focus_neighbor_right = NodePath("../MainMenuButton")
-focus_previous = NodePath("../MainMenuButton")
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -52.0
+offset_right = 164.0
+grow_vertical = 0
+focus_neighbor_top = NodePath("../RestartButton")
+focus_neighbor_right = NodePath("../RestartButton")
+focus_previous = NodePath("../RestartButton")
+theme = ExtResource("5_hp160")
+theme_override_colors/font_focus_color = Color(0.901961, 0.901961, 0.901961, 1)
+theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.803922)
+theme_override_constants/outline_size = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rfgad")
 shortcut = SubResource("Shortcut_oieol")
 text = "Exit Game"
+flat = true
 
 [node name="ConfirmMainMenu" type="ConfirmationDialog" parent="."]
 initial_position = 2
+size = Vector2i(405, 122)
+unresizable = true
+borderless = true
+popup_window = true
+theme = ExtResource("5_hp160")
 dialog_text = "Go back to main menu?"
 
 [node name="ConfirmExit" type="ConfirmationDialog" parent="."]
 initial_position = 2
+size = Vector2i(257, 122)
+unresizable = true
+borderless = true
+popup_window = true
+theme = ExtResource("5_hp160")
 dialog_text = "Quit the game?"
 
 [node name="UISoundController" type="Node" parent="."]
 script = ExtResource("3_bo64x")
 
-[connection signal="pressed" from="Control/OptionsPanel/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="Control/OptionsPanel/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="Control/OptionsPanel/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="Control/OptionsPanel/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="confirmed" from="ConfirmMainMenu" to="." method="_on_confirm_main_menu_confirmed"]
 [connection signal="confirmed" from="ConfirmExit" to="." method="_on_confirm_exit_confirmed"]
