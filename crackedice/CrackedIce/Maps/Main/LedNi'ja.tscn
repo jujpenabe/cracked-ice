@@ -127,7 +127,6 @@ func _process(delta):
 line_spacing = 0.0
 font = ExtResource("15_4e5xo")
 font_size = 25
-font_color = Color(0, 0, 0, 1)
 shadow_size = 4
 shadow_color = Color(0.425, 0.85, 0.85, 0.172549)
 
@@ -234,6 +233,7 @@ process_mode = 1
 layer = 2
 
 [node name="BackgroundTextureRect2" parent="PlayerController/Hud" instance=ExtResource("15_72yoj")]
+modulate = Color(0.9, 0.9, 0.9, 0)
 z_index = 4
 
 [node name="BackgroundTextureRect" parent="PlayerController/Hud" instance=ExtResource("8_vul67")]
@@ -278,9 +278,9 @@ vertical_alignment = 1
 
 [node name="DamageBar" parent="PlayerController/Hud" instance=ExtResource("11_veoik")]
 unique_name_in_owner = true
-offset_left = 240.0
-offset_top = -30.0
-offset_right = 400.0
+offset_top = -110.0
+offset_right = -10.0
+offset_bottom = -10.0
 
 [node name="RpmBar" parent="PlayerController/Hud" instance=ExtResource("12_um7jh")]
 modulate = Color(1, 1, 1, 0.784314)
@@ -296,14 +296,24 @@ bbcode_enabled = true
 text = "Time"
 script = SubResource("GDScript_y0cgq")
 
-[node name="ProgressBar" parent="PlayerController/Hud" instance=ExtResource("14_qimxu")]
-offset_left = 610.0
-offset_top = -10.0
-offset_right = 690.0
-offset_bottom = 10.0
+[node name="HeatBarL" parent="PlayerController/Hud" instance=ExtResource("14_qimxu")]
+offset_top = -59.0
+offset_bottom = 21.0
+rotation = 0.785398
+fill_mode = 2
+
+[node name="HeatBarR" parent="PlayerController/Hud" instance=ExtResource("14_qimxu")]
+offset_left = -56.0
+offset_top = -2.0
+offset_right = 24.0
+offset_bottom = 78.0
+rotation = -0.785398
+size_flags_horizontal = 6
+fill_mode = 2
 
 [node name="AmbientTemperature" type="TextureRect" parent="PlayerController/Hud"]
-modulate = Color(1, 1, 1, 0.784314)
+self_modulate = Color(0.44, 0.44, 0.44, 1)
+z_index = 1
 anchors_preset = -1
 anchor_top = 0.004
 anchor_bottom = 0.004
@@ -316,7 +326,8 @@ texture = ExtResource("20_pe315")
 expand_mode = 5
 
 [node name="Frost" type="TextureRect" parent="PlayerController/Hud/AmbientTemperature"]
-self_modulate = Color(1, 1, 1, 0.215686)
+self_modulate = Color(0.112, 0.2, 0.163333, 0.411765)
+z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -328,6 +339,7 @@ texture = ExtResource("14_tfebk")
 expand_mode = 5
 
 [node name="CurrentAmbientTemp" type="Label" parent="PlayerController/Hud/AmbientTemperature"]
+z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -345,6 +357,7 @@ script = ExtResource("16_renhl")
 
 [node name="CurrentAmbientTemp2" type="Label" parent="PlayerController/Hud/AmbientTemperature/CurrentAmbientTemp"]
 visible = false
+z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -360,7 +373,7 @@ label_settings = SubResource("LabelSettings_xnwfa")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="WreckedCarScreen2" parent="PlayerController" instance=ExtResource("13_dwib2")]
+[node name="WreckedCarScreen" parent="PlayerController" instance=ExtResource("13_dwib2")]
 visible = false
 
 [node name="Heater" parent="." instance=ExtResource("27_nxxk1")]

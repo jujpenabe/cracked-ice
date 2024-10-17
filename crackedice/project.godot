@@ -30,7 +30,7 @@ DiscordRPCLoader="*res://addons/discord-rpc-gd/nodes/discord_autoload.gd"
 EventBus="*res://CrackedIce/Globals/event_bus.gd"
 LevelManager="*res://CrackedIce/Globals/LevelManager.gd"
 SceneLoader="*res://addons/maaacks_game_template/base/scenes/Autoloads/SceneLoader.tscn"
-AppConfig="*res://addons/maaacks_options_menus/base/scenes/autoloads/app_config.tscn"
+AppConfig="*res://addons/maaacks_game_template/base/scenes/Autoloads/AppConfig.tscn"
 ProjectMusicController="*res://addons/maaacks_game_template/extras/scenes/Autoloads/ProjectMusicController.tscn"
 
 [compression]

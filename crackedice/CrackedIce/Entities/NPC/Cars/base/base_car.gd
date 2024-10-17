@@ -225,7 +225,6 @@ func _physics_process(delta):
 			apply_force(transform.basis.x * mass * randi_range(-2, 4) * -steer_target, -transform.basis.z )
 
 	else:
-
 		full_throttle_amount = 1.0
 		throttle_factor = 1.0
 		engine_force = 0
@@ -278,6 +277,9 @@ func _physics_process(delta):
 		$WheelFrontRight.wheel_friction_slip=0.9 * slip_bonus
 		$WheelRearRight.wheel_friction_slip=0.3 * slip_bonus
 		$WheelRearLeft.wheel_friction_slip=0.3 * slip_bonus
+	
+	if Input.is_action_just_released("Throttle") || Input.is_action_just_released("Full Throttle"):
+		EventBus.throtle_out.emit()
 
 	steering = move_toward(steering, steer_target, steer_speed * 25 / (25 + speed))
 

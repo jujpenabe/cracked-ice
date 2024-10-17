@@ -13,11 +13,8 @@ var _reverter
 var initial_temp : float = -50
 # Called when the node enters the scene tree for the first time.
 func _ready():
-
 	add_heat_bonus("ambient", initial_temp)
-	_reverter = CReverter.new()
-	_reverter.history.max_size = 5
-	_reverter.connect_save_load(get_instance_id(), _save, _load)
+	_setup_reverter()
 	# Ambient temperature + heat bonuses
 
 func restart_level():
@@ -55,6 +52,15 @@ func get_total_heat_bonus() -> float:
 		_total_heat = total
 		_changed = false
 	return _total_heat
+
+func _setup_reverter():
+	if _reverter == null:
+		_reverter = CReverter.new()
+		print("reverter created")
+	else :
+		print("reverter already exists")
+	_reverter.history.max_size = 5
+	_reverter.connect_save_load(get_instance_id(), _save, _load)
 
 func _save() -> Dictionary:
 	var scene = get_tree().current_scene

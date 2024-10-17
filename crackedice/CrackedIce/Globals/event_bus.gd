@@ -14,6 +14,9 @@ signal heat_zone_removed()
 signal slip_bonus_changed(new_slip_bonus: float)
 signal throtle_bonus_changed(new_throtle_bonus: float)
 signal throtle_in()
+signal throtle_out()
+signal combat_started()
+signal out_of_combat()
 
 # Vehicle request events
 signal max_rpm_requested

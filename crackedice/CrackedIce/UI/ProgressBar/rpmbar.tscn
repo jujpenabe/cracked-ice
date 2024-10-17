@@ -38,14 +38,14 @@ grow_vertical = 0
 value = 28.0
 rounded = true
 fill_mode = 4
+radial_initial_angle = 135.0
+radial_fill_degrees = 315.0
 nine_patch_stretch = true
 texture_under = ExtResource("1_heesj")
 texture_over = ExtResource("2_8t0fj")
 texture_progress = ExtResource("3_xegta")
 tint_under = Color(0.2, 0.2, 0.2, 1)
 tint_over = Color(0.8, 0.8, 0.8, 1)
-radial_initial_angle = 135.0
-radial_fill_degrees = 315.0
 script = ExtResource("1_fdcxg")
 
 [node name="RPM" type="Label" parent="."]

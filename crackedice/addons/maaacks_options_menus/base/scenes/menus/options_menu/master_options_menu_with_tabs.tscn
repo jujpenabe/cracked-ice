@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://hmx6o472ropw"]
+[gd_scene load_steps=9 format=3 uid="uid://hmx6o472ropw"]
 
 [ext_resource type="PackedScene" uid="uid://bvwl11s2p0hd" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/master_options_menu.tscn" id="1_uaidt"]
+[ext_resource type="Theme" uid="uid://ci35kolmc4dd6" path="res://CrackedIce/UI/themes/ConfirmationDialog.tres" id="2_8aylp"]
 [ext_resource type="PackedScene" uid="uid://dp3rgqaehb3xu" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/input/input_options_menu.tscn" id="2_15wl6"]
 [ext_resource type="PackedScene" uid="uid://c8vnncjwqcpab" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/audio/audio_options_menu.tscn" id="3_qg4me"]
 [ext_resource type="PackedScene" uid="uid://b2numvphf2kau" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/video/video_options_menu.tscn" id="4_1t848"]
@@ -18,6 +19,7 @@ border_blend = true
 anti_aliasing = false
 
 [node name="MasterOptionsMenu" instance=ExtResource("1_uaidt")]
+theme = ExtResource("2_8aylp")
 
 [node name="TabContainer" parent="." index="0"]
 unique_name_in_owner = true
@@ -25,10 +27,11 @@ theme_override_colors/font_selected_color = Color(0.04, 0.04, 0.04, 1)
 theme_override_styles/panel = SubResource("StyleBoxFlat_2xc0d")
 theme_override_styles/tab_selected = SubResource("StyleBoxFlat_dx5fv")
 tab_alignment = 0
-current_tab = 0
+current_tab = 2
 clip_tabs = false
 
 [node name="Audio" parent="TabContainer" index="1" instance=ExtResource("3_qg4me")]
+visible = false
 layout_mode = 2
 focus_neighbor_left = NodePath("../Controls")
 focus_neighbor_right = NodePath("../Video")
@@ -42,7 +45,6 @@ focus_neighbor_right = NodePath("../Controls")
 metadata/_tab_index = 1
 
 [node name="Controls" parent="TabContainer" index="3" instance=ExtResource("2_15wl6")]
-visible = false
 layout_mode = 2
 focus_neighbor_left = NodePath("../Video")
 focus_neighbor_right = NodePath("../Audio")

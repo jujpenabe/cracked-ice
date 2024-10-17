@@ -64,6 +64,13 @@ func _on_confirm_exit_confirmed():
 	get_tree().quit()
 
 func _restart():
-	SceneLoader.reload_current_scene()
-	LevelManager.restart_level()
-	InGameMenuController.close_menu()
+	# InGameMenuController.close_menu()
+	# var load_path = "user://saved_game.scn" # TODO: Restart from last mission
+	# if FileAccess.file_exists(load_path):
+	# 	SceneLoader.load_scene(load_path)
+	# 	print("Game loaded from: " + load_path)
+	# else:
+	# 	print("No game saved at: " + load_path + " - Returning to main menu.")
+	# 	SceneLoader.load_scene(main_menu_scene) 
+	LevelManager.load()
+	# LevelManager.restart_level()

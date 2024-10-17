@@ -1,20 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://dd0rubbt6wcm3"]
+[gd_scene load_steps=7 format=3 uid="uid://dd0rubbt6wcm3"]
 
 [ext_resource type="Script" path="res://CrackedIce/UI/ProgressBar/damagebar.gd" id="1_cswa7"]
-[ext_resource type="FontFile" uid="uid://c6ucy4buw7xvx" path="res://CrackedIce/UI/Fonts/BrokenGlass.woff2" id="2_y8ax2"]
+[ext_resource type="Texture2D" uid="uid://csa66yynlep7" path="res://CrackedIce/UI/Labels/car_accident.png" id="2_tnl6t"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3gl8w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wmuy"]
-bg_color = Color(0.4, 0.0666667, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_umiwn"]
-line_spacing = 0.0
-font = ExtResource("2_y8ax2")
-font_size = 30
-font_color = Color(1, 1, 1, 0.607843)
-outline_size = 4
-outline_color = Color(0.1, 0.1, 0.1, 0.392157)
+bg_color = Color(0.8, 0.133333, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fma4b"]
 bg_color = Color(0, 0, 0, 1)
@@ -30,26 +22,21 @@ bg_color = Color(0.75, 0.6875, 0.5625, 1)
 
 [node name="DamageBar" type="ProgressBar"]
 z_index = 1
-anchors_preset = 2
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -20.0
-offset_right = 160.0
+offset_left = -30.0
+offset_top = -105.0
+grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/background = SubResource("StyleBoxEmpty_3gl8w")
 theme_override_styles/fill = SubResource("StyleBoxFlat_0wmuy")
-step = 1.0
+step = 10.0
+fill_mode = 3
 show_percentage = false
 script = ExtResource("1_cswa7")
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-offset_right = 160.0
-offset_bottom = 23.0
-text = "DAMAGE"
-label_settings = SubResource("LabelSettings_umiwn")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="HitBar" type="ProgressBar" parent="."]
 z_index = -1
@@ -61,8 +48,22 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_fma4b")
 theme_override_styles/fill = SubResource("StyleBoxFlat_3bgte")
-step = 1.0
+step = 10.0
+fill_mode = 3
 show_percentage = false
+
+[node name="CarAccident" type="TextureRect" parent="HitBar"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 16.0
+grow_horizontal = 2
+texture = ExtResource("2_tnl6t")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="Timer" type="Timer" parent="."]
 process_callback = 0

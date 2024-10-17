@@ -9,12 +9,15 @@ extends Node3D
 
 var is_alive = true
 var reset_timer : Timer
+var load_timer : Timer
 var double_tap_timer : Timer
 var autosave_timer : Timer
+var out_of_combat_timer : Timer
 var terrain_bonus = 1
 
 var cp_pos : Vector3
 var prev_transform : Transform3D
+
 
 
 func _ready():
@@ -22,6 +25,7 @@ func _ready():
 	EventBus.car_destroyed.connect(_destroyed)
 	EventBus.damagebar_setup.emit(100)
 
+	_autosave()
 	autosave_timer = Timer.new()
 	add_child(autosave_timer)
 	autosave_timer.wait_time = 2
@@ -35,17 +39,30 @@ func _ready():
 	reset_timer.one_shot = true
 	reset_timer.timeout.connect(_reset)
 
+	load_timer = Timer.new()
+	add_child(load_timer)
+	load_timer.wait_time = 0.2
+	load_timer.one_shot = true
+	load_timer.timeout.connect(LevelManager.load_oldest)
+
 	double_tap_timer = Timer.new()
 	add_child(double_tap_timer)
 	double_tap_timer.wait_time = 0.5
 	double_tap_timer.one_shot = true
+
+	out_of_combat_timer = Timer.new()
+	add_child(out_of_combat_timer)
+	out_of_combat_timer.wait_time = 4.4
+	out_of_combat_timer.one_shot = true
+	out_of_combat_timer.timeout.connect(_on_out_of_combat_timer_timeout)
+	out_of_combat_timer.start()
+	EventBus.car_hit_damage.connect(out_of_combat_timer.start)
 
 	#cp_pos = vehicle.global_position
 	#reverter = CReverter.new()
 	#reverter.history.max_size = 5
 	#reverter.connect_save_load(get_instance_id(), _save_func, _load_func)
 	#reverter.commit()
-	EventBus.screen_fade_changed.emit(0, 0.2)
 
 func _process(_delta):
 
@@ -59,13 +76,13 @@ func _process(_delta):
 			EventBus.screen_fade_changed.emit(1, reset_timer.wait_time)
 			# double tap to restart
 			if !double_tap_timer.is_stopped():
-				EventBus.screen_fade_changed.emit(1, 0)
-				LevelManager.load_oldest()
+				EventBus.screen_fade_changed.emit(0.9, load_timer.wait_time * 0.5)
+				load_timer.start()
 			else:
 				double_tap_timer.start()
 
 	# stop the timer if the action is released
-	if Input.is_action_just_released("Restart"):
+	if Input.is_action_just_released("Restart") && load_timer.is_stopped():
 		EventBus.screen_fade_changed.emit(0, 0.2)
 		reset_timer.stop()
 
@@ -86,3 +103,8 @@ func _autosave():
 
 func _reset():
 	LevelManager.load()
+
+
+func _on_out_of_combat_timer_timeout():
+	print("out of combat")
+	EventBus.out_of_combat.emit()
