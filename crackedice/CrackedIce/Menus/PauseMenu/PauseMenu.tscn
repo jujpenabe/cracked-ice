@@ -158,6 +158,7 @@ expand_icon = true
 
 [node name="SubMenuContainer" type="MarginContainer" parent="Control"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(360, 360)
 layout_mode = 1
 anchors_preset = 15

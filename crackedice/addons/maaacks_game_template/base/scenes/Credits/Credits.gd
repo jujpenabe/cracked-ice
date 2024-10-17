@@ -49,6 +49,7 @@ func _update_text_from_file():
 	text = text.right(-text.find("\n")) # Trims first line "ATTRIBUTION"
 	text = regex_replace_urls(text)
 	text = regex_replace_titles(text)
+	print(text)
 	$ScrollContainer/VBoxContainer/RichTextLabel.text = "[center]%s[/center]" % [text]
 
 func set_file_path(file_path:String):

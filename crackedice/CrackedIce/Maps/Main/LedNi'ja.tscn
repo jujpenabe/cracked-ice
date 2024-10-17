@@ -378,6 +378,7 @@ visible = false
 
 [node name="Heater" parent="." instance=ExtResource("27_nxxk1")]
 transform = Transform3D(0.952628, 0, 0.55, 0, 1.1, 0, -0.55, 0, 0.952628, 61.592, 55.5, -550.972)
+max_heat = 200
 
 [connection signal="area_entered" from="LedNi\'ja/IcePlane/Area3D" to="LedNi\'ja/IcePlane" method="_on_area_3d_area_entered"]
 [connection signal="area_exited" from="LedNi\'ja/IcePlane/Area3D" to="LedNi\'ja/IcePlane" method="_on_area_3d_area_exited"]

@@ -71,7 +71,7 @@ func _setup_for_web():
 
 func _setup_version_name():
 	AppLog.version_opened(version_name)
-	$"%VersionNameLabel".text = "v%s" % version_name
+	%VersionNameLabel.text = version_name
 
 func _setup_play():
 	if game_scene_path.is_empty():
@@ -185,3 +185,8 @@ func _build_stream_player(stream : AudioStream, stream_name : String = ""):
 		stream_player.name = stream_name + "AudioStreamPlayer"
 		add_child(stream_player)
 	return stream_player
+
+
+func _on_version_name_label_meta_clicked(meta:String) -> void:
+	if meta.begins_with("https://"):
+		var _err = OS.shell_open(meta)
