@@ -163,11 +163,8 @@ func _remove_input_event_from_action(input_event : InputEvent, action_name : Str
 func _build_assigned_input_events():
 	assigned_input_events.clear()
 	var action_names := _get_all_action_names(show_built_in_actions and catch_built_in_duplicate_inputs)
-	print("action_names: ", action_names)
 	for action_name in action_names:
-		print("action_name: ", action_name)
 		var input_events = InputMap.action_get_events(action_name)
-		print("input_events: ", input_events)
 		for input_event in input_events:
 			_assign_input_event(input_event, action_name)
 
@@ -249,4 +246,3 @@ func _input(event):
 	# if "ui_left" is pressed inside the %Tree (item is collapsed), focus the %ResetButton
 	if event.is_action_pressed("ui_left") && %Tree.get_selected() != null && %Tree.get_selected().is_collapsed():
 		%ResetButton.grab_focus()
-		print("ui_left pressed")

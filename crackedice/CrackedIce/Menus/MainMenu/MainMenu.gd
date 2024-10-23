@@ -9,7 +9,18 @@ extends Control
 @export var version_name : String = '0.0.0'
 
 @export var audio_bus : StringName = &"SFX"
+
+@export var intro : AudioStream
 @export var engine_start : AudioStream
+
+
+# export group sfx
+@export_group("UI SFX")
+@export var button_focused : AudioStream
+@export var button_pressed : AudioStream
+@export var options : AudioStream
+@export var credits : AudioStream
+@export var exit : AudioStream
 
 var options_scene
 var credits_scene
@@ -77,6 +88,9 @@ func _setup_play():
 	if game_scene_path.is_empty():
 		%PlayButton.hide()
 
+func _setup_main_theme():
+	if intro != null:
+		ProjectMusicController.play_stream(intro)
 func _setup_options():
 	if options_packed_scene == null:
 		%OptionsButton.hide()
@@ -101,24 +115,33 @@ func _ready():
 	_setup_version_name()
 	_setup_credits()
 	_setup_play()
+	_setup_main_theme()
 	# wait 0.44 second and focus
 	await get_tree().create_timer(0.44).timeout
 	%PlayButton.grab_focus()
 
 func _on_play_button_pressed():
+	ProjectMusicController.fade_out(4.4)
+	ProjectUISoundController.play_ui_sound(engine_start)
 	play_game()
 
 func _on_level_test_button_pressed():
 	play_test()
 
 func _on_options_button_pressed():
+	# play sfx
+	ProjectUISoundController.play_ui_sound(options)
 	_open_sub_menu(options_scene)
 
 func _on_credits_button_pressed():
+	ProjectUISoundController.play_ui_sound(credits)
 	_open_sub_menu(credits_scene)
 	credits_scene.reset()
 
 func _on_exit_button_pressed():
+	ProjectUISoundController.play_ui_sound(exit)
+	# wait 0.2 second and quit
+	await get_tree().create_timer(0.5).timeout
 	get_tree().quit()
 
 func _on_credits_end_reached():
@@ -146,7 +169,6 @@ func _on_play_button_button_down():
 func _on_play_button_button_up():
 	# Reset all focus textures
 	reset_focused_button_textures()
-	ProjectUISoundController.play_ui_sound(engine_start)
 
 func _on_options_button_button_down():
 	options_button_focused_texture = %OptionsButton.get_texture_focused()
@@ -176,17 +198,11 @@ func _on_exit_button_button_up():
 	# Reset all focus textures
 	reset_focused_button_textures()
 
-func _build_stream_player(stream : AudioStream, stream_name : String = ""):
-	var stream_player : AudioStreamPlayer
-	if stream != null:
-		stream_player = AudioStreamPlayer.new()
-		stream_player.stream = stream
-		stream_player.bus = audio_bus
-		stream_player.name = stream_name + "AudioStreamPlayer"
-		add_child(stream_player)
-	return stream_player
-
 
 func _on_version_name_label_meta_clicked(meta:String) -> void:
 	if meta.begins_with("https://"):
 		var _err = OS.shell_open(meta)
+
+func _on_button_focus_entered() -> void:
+	# play the hover sfx
+	ProjectUISoundController.play_ui_sound(button_focused)

@@ -49,3 +49,4 @@ func _destroy_heater():
 	# destroy the heater top if it exists
 	EventBus.heat_zone_removed.emit()
 	%HeaterTop.queue_free()
+

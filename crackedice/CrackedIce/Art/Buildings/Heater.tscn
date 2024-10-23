@@ -285,6 +285,11 @@ collision_mask = 7
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HeaterBase/HeaterBase"]
 shape = SubResource("ConcavePolygonShape3D_emhb2")
 
+[node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenEnabler3D" parent="HeaterBase"]
+transform = Transform3D(1.11111, 0, 0, 0, 2.27273, 0, 0, 0, 1.11111, 0, 0, 0)
+aabb = AABB(-5, -2, -5, 10, 20, 10)
+enable_node_path = NodePath("../..")
+
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 16
 
@@ -300,5 +305,7 @@ shape = SubResource("SphereShape3D_q6k44")
 [connection signal="destroyed" from="HeaterColumns/HeaterColumn3-rigid" to="." method="_on_heater_column_destroyed"]
 [connection signal="sleeping_state_changed" from="HeaterColumns/HeaterColumn3-rigid" to="HeaterColumns/HeaterColumn3-rigid" method="_on_sleeping_state_changed"]
 [connection signal="timeout" from="HeaterColumns/HeaterColumn3-rigid/Timer" to="HeaterColumns/HeaterColumn3-rigid" method="_on_timer_timeout"]
+[connection signal="screen_entered" from="HeaterBase/VisibleOnScreenEnabler3D" to="HeaterBase" method="_on_visible_on_screen_enabler_3d_screen_entered"]
+[connection signal="screen_exited" from="HeaterBase/VisibleOnScreenEnabler3D" to="HeaterBase" method="_on_visible_on_screen_enabler_3d_screen_exited"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

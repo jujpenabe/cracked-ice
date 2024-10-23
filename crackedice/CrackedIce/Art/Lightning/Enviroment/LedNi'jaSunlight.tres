@@ -11,7 +11,6 @@ sky_cover_modulate = Color(0.72, 0.792, 0.8, 0.803922)
 ground_bottom_color = Color(0.6, 0.6775, 0.75, 1)
 ground_horizon_color = Color(0.34, 0.377, 0.4, 1)
 ground_energy_multiplier = 2.0
-use_debanding = false
 
 [sub_resource type="Sky" id="Sky_25uui"]
 sky_material = SubResource("ProceduralSkyMaterial_dcypn")
@@ -35,9 +34,8 @@ glow_hdr_luminance_cap = 18.0
 fog_enabled = true
 fog_mode = 1
 fog_light_color = Color(0.72, 0.84, 0.9, 1)
-fog_light_energy = 2.0
 fog_sun_scatter = 1.0
-fog_density = 0.95
+fog_density = 1.0
 fog_depth_curve = 0.5
 fog_depth_begin = 2.0
 fog_depth_end = 1024.0
@@ -48,3 +46,7 @@ volumetric_fog_anisotropy = 0.25
 volumetric_fog_length = 8.0
 volumetric_fog_ambient_inject = 1.0
 volumetric_fog_sky_affect = 0.8
+adjustment_enabled = true
+adjustment_brightness = 0.9
+adjustment_contrast = 0.9
+adjustment_saturation = 0.8

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dysiyiy1pqhmm"
+path="res://.godot/imported/Zero Down.mp3-46b95fe71021c6afa4fcf4b39ff5acb1.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/Radio/Nezrok/Zero Down.mp3"
+dest_files=["res://.godot/imported/Zero Down.mp3-46b95fe71021c6afa4fcf4b39ff5acb1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b76fcyiisui0w"]
+[gd_scene load_steps=44 format=3 uid="uid://b76fcyiisui0w"]
 
 [ext_resource type="Script" path="res://CrackedIce/Menus/MainMenu/MainMenu.gd" id="1_4p54k"]
 [ext_resource type="Theme" uid="uid://ci35kolmc4dd6" path="res://CrackedIce/UI/themes/ConfirmationDialog.tres" id="1_oss6i"]
@@ -8,9 +8,13 @@
 [ext_resource type="AudioStream" uid="uid://day1aqvt1k8kh" path="res://Audio/SFX/muscle_car_engine_start.mp3" id="4_a0kjh"]
 [ext_resource type="PackedScene" uid="uid://cv2f614m7kh0v" path="res://CrackedIce/UI/FX/2DSnowParticles.tscn" id="4_bvuea"]
 [ext_resource type="VideoStream" path="res://CrackedIce/Menus/MainMenu/main_menu_background_animation2.ogv" id="5_erniu"]
+[ext_resource type="AudioStream" uid="uid://dev5nmsva4f01" path="res://Audio/SFX/options_pressed.mp3" id="7_a2ts5"]
+[ext_resource type="AudioStream" uid="uid://cvaskkywvwyeh" path="res://Audio/SFX/main_menu_buton_focused.mp3" id="7_unb1v"]
 [ext_resource type="Texture2D" uid="uid://cq8ugsvnj5kye" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_transparent.webp" id="8_t5ev5"]
+[ext_resource type="AudioStream" uid="uid://c2nrscp2uvxqj" path="res://Audio/SFX/credits_button_pressed.mp3" id="9_gu61u"]
 [ext_resource type="Texture2D" uid="uid://cvcwckhxuufpn" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_play_normal.png" id="9_mc2a6"]
 [ext_resource type="Texture2D" uid="uid://ehk7nn4yjydh" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_play_focused.png" id="10_5pxq8"]
+[ext_resource type="AudioStream" uid="uid://cem0iayqhfjiq" path="res://Audio/SFX/exit_button_pressed.mp3" id="10_m0scr"]
 [ext_resource type="Texture2D" uid="uid://yqju22ehogny" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_play_smashed.png" id="10_xfgx3"]
 [ext_resource type="Texture2D" uid="uid://bxjrb5uvlqxx" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_options_normal.png" id="11_wnbqi"]
 [ext_resource type="Texture2D" uid="uid://d2wk2gqphkdnq" path="res://CrackedIce/Menus/MainMenu/main_menu_cover_options_focused.png" id="12_bptgm"]
@@ -105,7 +109,13 @@ game_scene_path = "res://CrackedIce/Maps/Main/LedNi'ja.tscn"
 options_packed_scene = ExtResource("2_8pvg0")
 credits_packed_scene = ExtResource("3_mpu2o")
 version_name = "[url=https://github.com/jujpenabe/cracked-ice]v0.3-alpha[/url]"
+audio_bus = &"Music"
+intro = ExtResource("2_cc2lm")
 engine_start = ExtResource("4_a0kjh")
+button_focused = ExtResource("7_unb1v")
+options = ExtResource("7_a2ts5")
+credits = ExtResource("9_gu61u")
+exit = ExtResource("10_m0scr")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
@@ -113,12 +123,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Camera3D"]
 environment = SubResource("Environment_bi3a4")
 camera_attributes = SubResource("CameraAttributesPractical_dy3wh")
-
-[node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="."]
-process_mode = 3
-stream = ExtResource("2_cc2lm")
-autoplay = true
-bus = &"Music"
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
 layout_mode = 0
@@ -386,14 +390,18 @@ script = ExtResource("13_bdt0k")
 [connection signal="pressed" from="MenuContainer/LevelTestButton" to="." method="_on_level_test_button_pressed"]
 [connection signal="button_down" from="MenuContainer/PlayButton" to="." method="_on_play_button_button_down"]
 [connection signal="button_up" from="MenuContainer/PlayButton" to="." method="_on_play_button_button_up"]
+[connection signal="focus_entered" from="MenuContainer/PlayButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="MenuContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="button_down" from="MenuContainer/OptionsButton" to="." method="_on_options_button_button_down"]
 [connection signal="button_up" from="MenuContainer/OptionsButton" to="." method="_on_options_button_button_up"]
+[connection signal="focus_entered" from="MenuContainer/OptionsButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="MenuContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="button_down" from="MenuContainer/CreditsButton" to="." method="_on_credits_button_button_down"]
 [connection signal="button_up" from="MenuContainer/CreditsButton" to="." method="_on_credits_button_button_up"]
+[connection signal="focus_entered" from="MenuContainer/CreditsButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="MenuContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="button_down" from="MenuContainer/ExitButton" to="." method="_on_exit_button_button_down"]
 [connection signal="button_up" from="MenuContainer/ExitButton" to="." method="_on_exit_button_button_up"]
+[connection signal="focus_entered" from="MenuContainer/ExitButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="MenuContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="FlowControlContainer/FlowControl/BackButton" to="." method="_on_back_button_pressed"]

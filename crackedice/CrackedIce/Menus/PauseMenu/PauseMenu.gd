@@ -71,6 +71,7 @@ func _on_options_button_pressed():
 	open_options_menu()
 
 func _on_main_menu_button_pressed():
+	ProjectMusicController.stop()
 	%ConfirmMainMenu.popup_centered()
 	popup_open = %ConfirmMainMenu
 

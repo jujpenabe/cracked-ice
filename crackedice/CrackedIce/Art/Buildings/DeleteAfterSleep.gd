@@ -8,7 +8,7 @@ func _ready():
 	set_physics_process(false)
 
 func _physics_process(delta):
-	if !sleeping:
+	if !sleeping: # Could be optimized when visible
 		if abs(angular_velocity.x + angular_velocity.y + angular_velocity.z) > 0.9:
 			destroyable = true
 			$Timer.stop()
