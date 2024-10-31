@@ -28,7 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://bm1g2qo76n7nm" path="res://CrackedIce/UI/Labels/GlobalFrost.webp" id="20_pe315"]
 [ext_resource type="PackedScene" uid="uid://c8v32xdxyi5jd" path="res://CrackedIce/Menus/PauseMenu/PauseMenu.tscn" id="25_dn3bh"]
 [ext_resource type="PackedScene" uid="uid://brfrtpqigq4eq" path="res://CrackedIce/Entities/Radio/Radio.tscn" id="27_8uvw7"]
-[ext_resource type="PackedScene" uid="uid://cgo7ptnp3tgne" path="res://CrackedIce/Art/Buildings/Heater.tscn" id="27_nxxk1"]
+[ext_resource type="PackedScene" uid="uid://cgo7ptnp3tgne" path="res://CrackedIce/Art/Buildings/Heater/Heater.tscn" id="27_nxxk1"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_4sv5j"]
 _surfaces = [{

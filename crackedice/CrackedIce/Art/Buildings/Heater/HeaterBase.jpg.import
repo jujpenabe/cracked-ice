@@ -2,21 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0hso21tmvgps"
-path.s3tc="res://.godot/imported/flame_01.png-578039d34a9ea6c8d8af8e6077b372a7.s3tc.ctex"
+uid="uid://bmty4p4gp401x"
+path="res://.godot/imported/HeaterBase.jpg-6d6d7f089d020d36211f22501c784064.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/kenney_particle_pack/flame_01.png"
-dest_files=["res://.godot/imported/flame_01.png-578039d34a9ea6c8d8af8e6077b372a7.s3tc.ctex"]
+source_file="res://CrackedIce/Art/Buildings/Heater/HeaterBase.jpg"
+dest_files=["res://.godot/imported/HeaterBase.jpg-6d6d7f089d020d36211f22501c784064.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

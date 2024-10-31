@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://bqjn2c0rm25qr"]
 
-[ext_resource type="Material" uid="uid://bt8qa3idicn8g" path="res://CrackedIce/Art/Buildings/heater_top.tres" id="1_jbybq"]
+[ext_resource type="Material" uid="uid://bt8qa3idicn8g" path="res://CrackedIce/Art/Buildings/Heater/heater_top.tres" id="1_jbybq"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_xyp5r"]
 _surfaces = [{

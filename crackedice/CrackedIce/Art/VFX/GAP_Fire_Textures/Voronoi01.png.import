@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmty4p4gp401x"
-path="res://.godot/imported/HeaterBase.jpg-d5f891ddbb2d6cc3c7d5103e3c1dbc8c.ctex"
+uid="uid://dug2f0sq61ivn"
+path="res://.godot/imported/Voronoi01.png-544db4213b21fa5d6e8360c53a6c9a8d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://CrackedIce/Art/Buildings/HeaterBase.jpg"
-dest_files=["res://.godot/imported/HeaterBase.jpg-d5f891ddbb2d6cc3c7d5103e3c1dbc8c.ctex"]
+source_file="res://CrackedIce/Art/VFX/GAP_Fire_Textures/Voronoi01.png"
+dest_files=["res://.godot/imported/Voronoi01.png-544db4213b21fa5d6e8360c53a6c9a8d.ctex"]
 
 [params]
 

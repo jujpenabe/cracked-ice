@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkjyo8wk56uii"
-path="res://.godot/imported/HeaterBaseEmit.jpg-583b00c8ecf7561c0666913f5f33d8c5.ctex"
+uid="uid://coo4e2jefej0o"
+path="res://.godot/imported/HeaterBaseMetallic.jpg-afb1a9c45769c8fb249520448ddd1446.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://CrackedIce/Art/Buildings/HeaterBaseEmit.jpg"
-dest_files=["res://.godot/imported/HeaterBaseEmit.jpg-583b00c8ecf7561c0666913f5f33d8c5.ctex"]
+source_file="res://CrackedIce/Art/Buildings/Heater/HeaterBaseMetallic.jpg"
+dest_files=["res://.godot/imported/HeaterBaseMetallic.jpg-afb1a9c45769c8fb249520448ddd1446.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=2

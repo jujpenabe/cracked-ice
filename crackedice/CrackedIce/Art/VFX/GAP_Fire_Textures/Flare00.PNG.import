@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dp71i24iob0dx"
-path="res://.godot/imported/HeaterTop.jpg-a69f9be19a49839bf71a5db4f5f8b8e8.ctex"
+uid="uid://itr1onqq54ar"
+path="res://.godot/imported/Flare00.PNG-dd7ce77889fc1b82635b913e3c2eb580.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://CrackedIce/Art/Buildings/HeaterTop.jpg"
-dest_files=["res://.godot/imported/HeaterTop.jpg-a69f9be19a49839bf71a5db4f5f8b8e8.ctex"]
+source_file="res://CrackedIce/Art/VFX/GAP_Fire_Textures/Flare00.PNG"
+dest_files=["res://.godot/imported/Flare00.PNG-dd7ce77889fc1b82635b913e3c2eb580.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=2

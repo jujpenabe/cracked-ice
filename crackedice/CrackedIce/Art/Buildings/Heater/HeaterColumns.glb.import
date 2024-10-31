@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cqda6hti2jgow"
-path="res://.godot/imported/HeaterColumns.glb-623eb652da71a81e43127c41ea7f320d.scn"
+path="res://.godot/imported/HeaterColumns.glb-820541ba6780fe3bb0245b35183e1e47.scn"
 
 [deps]
 
-source_file="res://CrackedIce/Art/Buildings/HeaterColumns.glb"
-dest_files=["res://.godot/imported/HeaterColumns.glb-623eb652da71a81e43127c41ea7f320d.scn"]
+source_file="res://CrackedIce/Art/Buildings/Heater/HeaterColumns.glb"
+dest_files=["res://.godot/imported/HeaterColumns.glb-820541ba6780fe3bb0245b35183e1e47.scn"]
 
 [params]
 

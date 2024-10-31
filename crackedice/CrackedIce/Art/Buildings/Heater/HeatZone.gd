@@ -28,6 +28,9 @@ func _destroy_heater():
 	%HeaterTop.set_collision_layer_value(3, true)
 	%HeaterBase.enabled = false
 
+	# hide fireflames
+	%FireFlames.visible = false
+
 	var alpha_mat: BaseMaterial3D = %HeaterTopMesh.get_active_material(0).duplicate()
 	var dark_mat: BaseMaterial3D = %HeaterBase.get_active_material(0).duplicate()
 	%HeaterTopMesh.set_surface_override_material(0, alpha_mat)

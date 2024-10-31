@@ -1,8 +1,8 @@
 [gd_scene load_steps=22 format=4 uid="uid://dr8yrb105e8sr"]
 
-[ext_resource type="Script" path="res://CrackedIce/Art/Buildings/HeatZone.gd" id="1_q0by1"]
-[ext_resource type="Material" uid="uid://bt8qa3idicn8g" path="res://CrackedIce/Art/Buildings/heater_top.tres" id="2_mytbe"]
-[ext_resource type="Material" uid="uid://w854hancgq7n" path="res://CrackedIce/Art/Buildings/heater_mid.tres" id="2_p0wlx"]
+[ext_resource type="Script" path="res://CrackedIce/Art/Buildings/Heater/HeatZone.gd" id="1_q0by1"]
+[ext_resource type="Material" uid="uid://bt8qa3idicn8g" path="res://CrackedIce/Art/Buildings/Heater/heater_top.tres" id="2_mytbe"]
+[ext_resource type="Material" uid="uid://w854hancgq7n" path="res://CrackedIce/Art/Buildings/Heater/heater_mid.tres" id="2_p0wlx"]
 [ext_resource type="Script" path="res://CrackedIce/Art/Buildings/DeleteAfterSleep.gd" id="3_x3yd4"]
 [ext_resource type="Material" uid="uid://c4w8spiqk8lvk" path="res://CrackedIce/Art/Buildings/iron_stick1.tres" id="4_057l3"]
 
