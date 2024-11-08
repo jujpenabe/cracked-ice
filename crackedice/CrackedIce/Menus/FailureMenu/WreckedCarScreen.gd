@@ -10,7 +10,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif $ConfirmMainMenu.visible:
 			$ConfirmMainMenu.hide()
 		get_viewport().set_input_as_handled()
-	# if physical key R is pressed 
+	# if physical key R is pressed
 	if event.is_action_pressed("Restart"):
 		if visible and !%OptionsPanel.visible:
 			_restart()
@@ -29,6 +29,8 @@ func _setup_main_menu():
 
 func _destroyed():
 	show()
+	# Fadeout music
+	ProjectMusicController.fade_out(4.4)
 	# tween modulate for two seconds the %BackgroundTextureRect
 	var tween = get_tree().create_tween()
 	tween.tween_property(%BackgroundTextureRect, "modulate", Color(1, 1, 1, 1), 6)
@@ -65,12 +67,11 @@ func _on_confirm_exit_confirmed():
 
 func _restart():
 	# InGameMenuController.close_menu()
-	# var load_path = "user://saved_game.scn" # TODO: Restart from last mission
-	# if FileAccess.file_exists(load_path):
-	# 	SceneLoader.load_scene(load_path)
-	# 	print("Game loaded from: " + load_path)
-	# else:
-	# 	print("No game saved at: " + load_path + " - Returning to main menu.")
-	# 	SceneLoader.load_scene(main_menu_scene) 
-	LevelManager.load()
-	# LevelManager.restart_level()
+	var load_path = "user://saved_game.scn" # TODO: Restart from last mission
+	if FileAccess.file_exists(load_path):
+		SceneLoader.load_scene(load_path)
+		print("Game loaded from: " + load_path)
+	else:
+		# unload current scene
+		# instance current scene from LevelManager
+		LevelManager.load_oldest()

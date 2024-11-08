@@ -26,7 +26,6 @@ config/windows_native_icon="res://Icons/CrackedIceAppIcon.ico"
 
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 ProjectUISoundController="*res://addons/maaacks_game_template/extras/scenes/Autoloads/ProjectUISoundController.tscn"
-DiscordRPCLoader="*res://addons/discord-rpc-gd/nodes/discord_autoload.gd"
 EventBus="*res://CrackedIce/Globals/event_bus.gd"
 LevelManager="*res://CrackedIce/Globals/LevelManager.gd"
 SceneLoader="*res://addons/maaacks_game_template/base/scenes/Autoloads/SceneLoader.tscn"
@@ -53,7 +52,7 @@ naming/scene_name_casing=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/QuickPluginManager/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/discord-rpc-gd/plugin.cfg", "res://addons/freecam_3D/plugin.cfg", "res://addons/godot_conventions_cheat_sheet/plugin.cfg", "res://addons/maaacks_game_template/plugin.cfg", "res://addons/maaacks_options_menus/plugin.cfg", "res://addons/plugin_reloader/plugin.cfg")
+enabled=PackedStringArray("res://addons/QuickPluginManager/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/freecam_3D/plugin.cfg", "res://addons/godot_conventions_cheat_sheet/plugin.cfg", "res://addons/maaacks_game_template/plugin.cfg", "res://addons/maaacks_options_menus/plugin.cfg", "res://addons/plugin_reloader/plugin.cfg")
 
 [file_customization]
 

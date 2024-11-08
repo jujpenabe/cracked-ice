@@ -1,5 +1,5 @@
 {
-    "godotTools.editorPath.godot4": "/home/jjpb/bin/repos/godot/bin/godot.linuxbsd.editor.x86_64.llvm",
+    "godotTools.editorPath.godot4": "/home/jjpb/.local/share/Steam/steamapps/common/Godot Engine/godot.x11.opt.tools.64",
     "vim.enableNeovim": true,
     "vim.neovimUseConfigFile": true,
     "vim.sneak": true,

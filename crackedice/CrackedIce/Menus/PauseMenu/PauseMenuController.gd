@@ -23,3 +23,4 @@ func _ready():
 
 func _on_pause_timer_timeout():
 	InGameMenuController.open_menu(pause_menu_packed, get_viewport())
+	Engine.time_scale = 0

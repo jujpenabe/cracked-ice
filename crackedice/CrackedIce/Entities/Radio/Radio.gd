@@ -6,7 +6,7 @@ var current_station_index: int = 0
 
 var tween : Tween
 
-var tmp_audio_stream_player : AudioStreamPlayer 
+var tmp_audio_stream_player : AudioStreamPlayer
 
 func _ready() -> void:
 	# turn on the radio

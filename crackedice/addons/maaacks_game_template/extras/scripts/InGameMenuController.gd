@@ -23,10 +23,11 @@ static func open_menu(menu_scene : PackedScene, viewport : Viewport, set_pause :
 	current_menu = menu_scene.instantiate()
 	scene_tree.current_scene.call_deferred("add_child", current_menu)
 	scene_tree.paused = set_pause
-	ProjectMusicController.stop()
+	#ProjectMusicController.stop()
 
 
 static func close_menu(delay : float = 0) -> void:
+	Engine.time_scale = 1
 	if scene_tree == null:
 		push_error("scene_tree is null")
 		return
@@ -37,4 +38,4 @@ static func close_menu(delay : float = 0) -> void:
 	await scene_tree.create_timer(delay).timeout
 	if is_instance_valid(saved_focus_control) and saved_focus_control.is_inside_tree():
 		saved_focus_control.grab_focus()
-	ProjectMusicController.play()
+	#ProjectMusicController.play()

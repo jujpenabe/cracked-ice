@@ -5,9 +5,9 @@ extends Node
 # Dictionary of bonuses
 var _heat_bonuses = {}
 var _total_heat: float = 0.0
-var _changed: bool = false
+var _heat_changed: bool = false
 
-var _reverter
+var _reverter: CReverter
 
 
 var initial_temp : float = -50
@@ -17,9 +17,11 @@ func _ready():
 	_setup_reverter()
 	# Ambient temperature + heat bonuses
 
-func restart_level():
-	_heat_bonuses.clear()
-	_ready()
+# TODO: Rework heat bonuses, where they should be applied?
+# func restart_level():
+# 	_heat_bonuses.clear()
+
+
 
 # func pause_level():
 # 	EventBus.game_paused.emit()
@@ -32,11 +34,11 @@ func restart_level():
 # 	EventBus.game_resumed.emit()
 
 func add_heat_bonus(bonus: String, amount: float):
-	_changed = true
+	_heat_changed = true
 	_heat_bonuses[bonus] = amount
 
 func remove_heat_bonus(bonus: String):
-	_changed = true
+	_heat_changed = true
 	_heat_bonuses.erase(bonus)
 
 func get_heat_bonus(bonus: String) -> float:
@@ -45,12 +47,12 @@ func get_heat_bonus(bonus: String) -> float:
 	return 0
 
 func get_total_heat_bonus() -> float:
-	if _changed:
+	if _heat_changed:
 		var total = 0
 		for bonus in _heat_bonuses:
 			total += _heat_bonuses[bonus]
 		_total_heat = total
-		_changed = false
+		_heat_changed = false
 	return _total_heat
 
 func _setup_reverter():

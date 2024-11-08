@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=4 uid="uid://cgo7ptnp3tgne"]
+[gd_scene load_steps=45 format=4 uid="uid://cgo7ptnp3tgne"]
 
 [ext_resource type="Script" path="res://CrackedIce/Art/Buildings/Heater/HeatZone.gd" id="1_27x7u"]
 [ext_resource type="Material" uid="uid://bt8qa3idicn8g" path="res://CrackedIce/Art/Buildings/Heater/heater_top.tres" id="2_o1hjh"]
@@ -7,9 +7,11 @@
 [ext_resource type="Material" uid="uid://w854hancgq7n" path="res://CrackedIce/Art/Buildings/Heater/heater_mid.tres" id="5_3o5ya"]
 [ext_resource type="Script" path="res://CrackedIce/Art/Buildings/y_rotate.gd" id="6_yojye"]
 [ext_resource type="Shader" uid="uid://dl5rrc0rwv2mn" path="res://CrackedIce/Art/Buildings/Heater/Fire.tres" id="7_copnh"]
+[ext_resource type="Script" path="res://CrackedIce/Art/Buildings/Heater/fire_flames.gd" id="7_p05ct"]
 [ext_resource type="Texture2D" uid="uid://dug2f0sq61ivn" path="res://CrackedIce/Art/VFX/GAP_Fire_Textures/Voronoi01.png" id="8_5yktw"]
 [ext_resource type="Texture2D" uid="uid://cpslha3q6fyid" path="res://CrackedIce/Art/VFX/GAP_Fire_Textures/Flame01.png" id="8_ss7l2"]
 [ext_resource type="Texture2D" uid="uid://bv5y4tq42cjua" path="res://CrackedIce/Art/VFX/GAP_Fire_Textures/Flame02.png" id="10_dfmrn"]
+[ext_resource type="Texture2D" uid="uid://dm4tsxvi4r24j" path="res://addons/kenney_particle_pack/smoke_01.png" id="11_4m7qj"]
 [ext_resource type="Shader" uid="uid://d1b4pv6pbe42h" path="res://CrackedIce/Art/Buildings/Heater/SimpleParticles.tres" id="11_fsum5"]
 [ext_resource type="Texture2D" uid="uid://dt7ojda20t4m0" path="res://addons/kenney_particle_pack/flare_01.png" id="12_qdgbs"]
 
@@ -190,8 +192,8 @@ data = PackedVector3Array(-2.65031, 0, -1.77088, -3.15546, -0.1125, -3.15546, -2
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u508e"]
 render_priority = 1
 shader = ExtResource("7_copnh")
-shader_parameter/DissolveTiling = Vector2(0.25, 0.2)
-shader_parameter/DissolveSpeed = Vector2(0, 0.2)
+shader_parameter/DissolveTiling = Vector2(0.4, 0.2)
+shader_parameter/DissolveSpeed = Vector2(0.1, 0.4)
 shader_parameter/DissolveAmount = 0.8
 shader_parameter/Main = ExtResource("8_ss7l2")
 shader_parameter/DissolveTexture = ExtResource("8_5yktw")
@@ -203,17 +205,20 @@ size = Vector2(1, 2)
 render_priority = 1
 shader = ExtResource("7_copnh")
 shader_parameter/DissolveTiling = Vector2(0.25, 0.2)
-shader_parameter/DissolveSpeed = Vector2(0, 0.3)
-shader_parameter/DissolveAmount = 0.8
+shader_parameter/DissolveSpeed = Vector2(0, 0.2)
+shader_parameter/DissolveAmount = 1.0
 shader_parameter/Main = ExtResource("10_dfmrn")
 shader_parameter/DissolveTexture = ExtResource("8_5yktw")
 
-[sub_resource type="QuadMesh" id="QuadMesh_svyco"]
-size = Vector2(1, 1.2)
+[sub_resource type="QuadMesh" id="QuadMesh_xdt4b"]
+size = Vector2(0.5, 1.2)
 
 [sub_resource type="Curve" id="Curve_o1kbw"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.198093, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 12.5317, 0, 0, Vector2(0.198093, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.2488, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="QuadMesh" id="QuadMesh_1aemo"]
+size = Vector2(1, 1.2)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3amps"]
 render_priority = 1
@@ -221,8 +226,11 @@ shader = ExtResource("7_copnh")
 shader_parameter/DissolveTiling = Vector2(0.25, 0.1)
 shader_parameter/DissolveSpeed = Vector2(0.2, 0.2)
 shader_parameter/DissolveAmount = 0.44
-shader_parameter/Main = ExtResource("10_dfmrn")
+shader_parameter/Main = ExtResource("11_4m7qj")
 shader_parameter/DissolveTexture = ExtResource("8_5yktw")
+
+[sub_resource type="QuadMesh" id="QuadMesh_svyco"]
+size = Vector2(1, 1.2)
 
 [sub_resource type="Gradient" id="Gradient_s30t6"]
 offsets = PackedFloat32Array(0, 0.187643, 0.647597, 1)
@@ -236,9 +244,10 @@ shader_parameter/Main = ExtResource("12_qdgbs")
 [sub_resource type="QuadMesh" id="QuadMesh_s1ugc"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_q6k44"]
-radius = 35.0
+radius = 32.0
 
 [node name="Heater" type="Node3D"]
+process_mode = 1
 script = ExtResource("1_27x7u")
 
 [node name="HeaterTop" type="RigidBody3D" parent="."]
@@ -347,28 +356,34 @@ enable_node_path = NodePath("../..")
 [node name="FireFlames" type="Node3D" parent="HeaterBase"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+script = ExtResource("7_p05ct")
 
 [node name="Fire" type="CPUParticles3D" parent="HeaterBase/FireFlames"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.81818, 0)
 material_override = SubResource("ShaderMaterial_u508e")
+lod_bias = 0.2
 amount = 1
-fixed_fps = 30
+fixed_fps = 2
+fract_delta = false
 visibility_aabb = AABB(-4, -4, -4, 8, 8, 8)
 mesh = SubResource("QuadMesh_durxf")
+spread = 180.0
 gravity = Vector3(0, 0, 0)
-scale_amount_min = 5.0
+scale_amount_min = 4.0
 scale_amount_max = 5.0
 color = Color(4, 0.8, 0.1, 0.8)
 
 [node name="Flames" type="CPUParticles3D" parent="HeaterBase/FireFlames"]
 material_override = SubResource("ShaderMaterial_1redo")
 cast_shadow = 0
-amount = 64
-lifetime = 2.0
-preprocess = 2.0
+lod_bias = 0.2
+amount = 16
+lifetime = 1.25
+preprocess = 1.25
 explosiveness = 0.25
 randomness = 0.05
-mesh = SubResource("QuadMesh_svyco")
+fract_delta = false
+mesh = SubResource("QuadMesh_xdt4b")
 emission_shape = 1
 emission_sphere_radius = 3.0
 direction = Vector3(0, 1, 0)
@@ -376,22 +391,117 @@ spread = 15.0
 gravity = Vector3(0, 9, 0)
 initial_velocity_max = 5.0
 damping_max = 0.2
-angle_min = -720.0
-angle_max = 720.0
-scale_amount_min = 2.5
-scale_amount_max = 3.0
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_min = 10.0
+scale_amount_max = 12.0
 scale_amount_curve = SubResource("Curve_o1kbw")
 color = Color(4, 0.8, 0, 0.8)
+
+[node name="TopFlames" type="CPUParticles3D" parent="HeaterBase/FireFlames"]
+transform = Transform3D(-0.284978, 0.932976, -0.21987, 0.701838, 0.0468676, -0.710793, -0.652849, -0.356873, -0.668154, 4.44444, 36.3636, 0)
+material_override = SubResource("ShaderMaterial_1redo")
+cast_shadow = 0
+lod_bias = 0.2
+lifetime = 4.4
+explosiveness = 0.9
+randomness = 0.1
+lifetime_randomness = 0.2
+fixed_fps = 15
+fract_delta = false
+mesh = SubResource("QuadMesh_1aemo")
+direction = Vector3(0, 1, 0)
+spread = 10.0
+flatness = 1.0
+gravity = Vector3(0, 2, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+angular_velocity_min = -200.0
+angular_velocity_max = 200.0
+linear_accel_min = -3.0
+linear_accel_max = -1.0
+damping_max = 0.5
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_o1kbw")
+color = Color(3, 0.9, 0, 0.8)
+
+[node name="TopFlames2" type="CPUParticles3D" parent="HeaterBase/FireFlames"]
+transform = Transform3D(0.707873, -0.157427, 0.688573, 0.701838, 0.0468676, -0.710793, 0.0796263, 0.986418, 0.143664, -2.22223, 36.3636, 4.44444)
+material_override = SubResource("ShaderMaterial_1redo")
+cast_shadow = 0
+lod_bias = 0.2
+amount = 12
+lifetime = 4.0
+explosiveness = 0.8
+randomness = 0.05
+lifetime_randomness = 0.2
+fixed_fps = 15
+fract_delta = false
+mesh = SubResource("QuadMesh_1aemo")
+direction = Vector3(0, 1, 0)
+spread = 10.0
+flatness = 1.0
+gravity = Vector3(0, 2, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+angular_velocity_min = -200.0
+angular_velocity_max = 200.0
+linear_accel_min = -3.0
+linear_accel_max = -1.0
+damping_max = 0.5
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_o1kbw")
+color = Color(3, 0.9, 0, 0.8)
+
+[node name="TopFlames3" type="CPUParticles3D" parent="HeaterBase/FireFlames"]
+transform = Transform3D(-0.422895, -0.775549, -0.468703, 0.701838, 0.0468676, -0.710793, 0.573223, -0.629545, 0.52449, -2.22223, 36.3636, -4.44444)
+material_override = SubResource("ShaderMaterial_1redo")
+cast_shadow = 0
+lod_bias = 0.2
+amount = 12
+lifetime = 6.9
+explosiveness = 1.0
+randomness = 0.2
+lifetime_randomness = 0.2
+fixed_fps = 15
+fract_delta = false
+mesh = SubResource("QuadMesh_1aemo")
+direction = Vector3(0, 1, 0)
+spread = 10.0
+flatness = 1.0
+gravity = Vector3(0, 2, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+angular_velocity_min = -200.0
+angular_velocity_max = 200.0
+linear_accel_min = -3.0
+linear_accel_max = -1.0
+damping_max = 0.5
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_o1kbw")
+color = Color(3, 0.9, 0, 0.8)
 
 [node name="Smoke" type="CPUParticles3D" parent="HeaterBase/FireFlames"]
 sorting_offset = -11.0
 material_override = SubResource("ShaderMaterial_3amps")
-amount = 64
-lifetime = 8.0
-preprocess = 8.0
+lod_bias = 0.2
+amount = 16
+lifetime = 2.5
+preprocess = 2.5
 speed_scale = 0.8
 explosiveness = 0.2
 randomness = 0.2
+fixed_fps = 15
+fract_delta = false
 mesh = SubResource("QuadMesh_svyco")
 emission_shape = 1
 emission_sphere_radius = 4.0
@@ -401,7 +511,8 @@ damping_min = 0.5
 damping_max = 1.0
 angle_min = -360.0
 angle_max = 360.0
-scale_amount_max = 2.0
+scale_amount_min = 20.0
+scale_amount_max = 25.0
 scale_amount_curve = SubResource("Curve_o1kbw")
 color = Color(0, 0, 0, 0.6)
 color_ramp = SubResource("Gradient_s30t6")
@@ -409,18 +520,27 @@ color_ramp = SubResource("Gradient_s30t6")
 [node name="FloatingParticles" type="CPUParticles3D" parent="HeaterBase/FireFlames"]
 sorting_offset = 1.0
 material_override = SubResource("ShaderMaterial_sr3bl")
-amount = 40
+lod_bias = 0.001
+amount = 16
 lifetime = 2.0
 explosiveness = 0.2
 randomness = 0.2
+fixed_fps = 15
+fract_delta = false
 mesh = SubResource("QuadMesh_s1ugc")
 emission_shape = 1
 emission_sphere_radius = 4.4
 gravity = Vector3(0, 5, 0)
 damping_min = 0.2
 damping_max = 0.5
-scale_amount_min = 0.2
+scale_amount_max = 2.0
 color = Color(4, 0.8, 0, 0.8)
+
+[node name="BaseLight" type="OmniLight3D" parent="HeaterBase/FireFlames"]
+light_color = Color(1, 0.533333, 0.2, 1)
+light_energy = 64.0
+light_size = 10.0
+omni_range = 32.0
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 16

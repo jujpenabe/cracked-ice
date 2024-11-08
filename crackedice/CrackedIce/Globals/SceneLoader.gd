@@ -67,6 +67,7 @@ func _check_loading_screen() -> bool:
 	return true
 
 func reload_current_scene() -> void:
+	# print the name of the current scene
 	get_tree().reload_current_scene()
 
 func load_scene(scene_path : String, in_background : bool = false) -> void:

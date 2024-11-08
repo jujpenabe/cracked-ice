@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://8sl5gmdd6o6w"]
+
+[ext_resource type="Script" path="res://CrackedIce/Art/Cars/camera/CameraFollow.gd" id="1_wiw5r"]
+
+[node name="Camera3D" type="Camera3D"]
+top_level = true
+doppler_tracking = 2
+current = true
+script = ExtResource("1_wiw5r")

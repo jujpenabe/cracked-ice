@@ -1,7 +1,7 @@
 [gd_scene load_steps=40 format=4 uid="uid://dpdiwf4xpmo4h"]
 
 [ext_resource type="PackedScene" uid="uid://po1b2fmndqn1" path="res://CrackedIce/Art/Lightning/Enviroment/LedNi'jaEnvironment.tscn" id="1_jdeb5"]
-[ext_resource type="PackedScene" uid="uid://8sl5gmdd6o6w" path="res://cars/camera/camera_3d.tscn" id="2_f30ug"]
+[ext_resource type="PackedScene" uid="uid://8sl5gmdd6o6w" path="res://CrackedIce/Art/Cars/camera/camera_3d.tscn" id="2_f30ug"]
 [ext_resource type="AudioStream" uid="uid://bf2gw5y0nslln" path="res://Audio/AMB/Test/AX_GeneralAMB_Test1.ogg" id="2_fnjlq"]
 [ext_resource type="PackedScene" uid="uid://cvuokl6pvc3k" path="res://CrackedIce/Entities/Player/PlayerController.tscn" id="3_7sj46"]
 [ext_resource type="Material" uid="uid://o2c3hgltivyn" path="res://CrackedIce/MaterialLibrary/Nature/Metal/large_rough_iron.tres" id="3_8rihx"]
@@ -385,54 +385,67 @@ max_heat = 200
 
 [node name="Heater2" parent="." instance=ExtResource("27_nxxk1")]
 transform = Transform3D(0.952628, 0, 0.55, 0, 1.1, 0, -0.55, 0, 0.952628, -133.981, 62.5, -550.972)
+visible = false
 max_heat = 200
 
 [node name="Heater3" parent="." instance=ExtResource("27_nxxk1")]
 transform = Transform3D(0.952628, 0, 0.55, 0, 1.1, 0, -0.55, 0, 0.952628, -131.981, 80.5, -258.972)
+visible = false
 max_heat = 200
 
 [node name="Heater4" parent="." instance=ExtResource("27_nxxk1")]
 transform = Transform3D(0.952628, 0, 0.55, 0, 1.1, 0, -0.55, 0, 0.952628, 47.019, 78.3, -158.372)
+visible = false
 max_heat = 200
 
 [node name="Heater5" parent="." instance=ExtResource("27_nxxk1")]
 transform = Transform3D(0.952628, 0, 0.55, 0, 1.1, 0, -0.55, 0, 0.952628, 222.019, 48.4, -341.372)
+visible = false
 max_heat = 200
 
 [node name="Heater6" parent="." instance=ExtResource("27_nxxk1")]
 transform = Transform3D(0.952628, 0, 0.55, 0, 1.1, 0, -0.55, 0, 0.952628, 220.019, 51.4, -4.47198)
+visible = false
 max_heat = 200
 
 [node name="Heater7" parent="." instance=ExtResource("27_nxxk1")]
 transform = Transform3D(0.952628, 0, 0.55, 0, 1.1, 0, -0.55, 0, 0.952628, 477.019, 52.3, -14.472)
+visible = false
 max_heat = 200
 
 [node name="Heater8" parent="." instance=ExtResource("27_nxxk1")]
 transform = Transform3D(0.952628, 0, 0.55, 0, 1.1, 0, -0.55, 0, 0.952628, 740.319, 53.1, 8.02802)
+visible = false
 max_heat = 200
 
 [node name="Heater9" parent="." instance=ExtResource("27_nxxk1")]
 transform = Transform3D(0.952628, 0, 0.55, 0, 1.1, 0, -0.55, 0, 0.952628, 474.319, 50.2, 317.028)
+visible = false
 max_heat = 200
 
 [node name="Heater10" parent="." instance=ExtResource("27_nxxk1")]
 transform = Transform3D(0.952628, 0, 0.55, 0, 1.1, 0, -0.55, 0, 0.952628, 57.319, 71, 522.028)
+visible = false
 max_heat = 200
 
 [node name="Heater11" parent="." instance=ExtResource("27_nxxk1")]
 transform = Transform3D(0.952628, 0, 0.55, 0, 1.1, 0, -0.55, 0, 0.952628, -143.681, 77, 505.028)
+visible = false
 max_heat = 200
 
 [node name="Heater12" parent="." instance=ExtResource("27_nxxk1")]
 transform = Transform3D(0.952628, 0, 0.55, 0, 1.1, 0, -0.55, 0, 0.952628, -132.181, 84.6, 234.728)
+visible = false
 max_heat = 200
 
 [node name="Heater13" parent="." instance=ExtResource("27_nxxk1")]
 transform = Transform3D(0.952628, 0, 0.55, 0, 1.1, 0, -0.55, 0, 0.952628, 56.819, 83.5, 123.728)
+visible = false
 max_heat = 200
 
 [node name="Heater14" parent="." instance=ExtResource("27_nxxk1")]
 transform = Transform3D(1.73205, 0, 1, 0, 2, 0, -1, 0, 1.73205, -144.181, 97.7, -22.272)
+visible = false
 max_heat = 200
 
 [connection signal="area_entered" from="LedNi\'ja/IcePlane/Area3D" to="LedNi\'ja/IcePlane" method="_on_area_3d_area_entered"]

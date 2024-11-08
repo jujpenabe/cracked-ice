@@ -8,8 +8,8 @@ extends Node3D
 @export var engine_sound : AudioStreamPlayer3D
 
 var is_alive = true
-var reset_timer : Timer
-var load_timer : Timer
+var load_saved_timer : Timer
+var load_oldest_reverter_timer : Timer
 var double_tap_timer : Timer
 var autosave_timer : Timer
 var out_of_combat_timer : Timer
@@ -33,17 +33,17 @@ func _ready():
 	autosave_timer.timeout.connect(_autosave)
 	autosave_timer.start()
 
-	reset_timer = Timer.new()
-	add_child(reset_timer)
-	reset_timer.wait_time = 1
-	reset_timer.one_shot = true
-	reset_timer.timeout.connect(_reset)
+	load_saved_timer = Timer.new()
+	add_child(load_saved_timer)
+	load_saved_timer.wait_time = 1
+	load_saved_timer.one_shot = true
+	load_saved_timer.timeout.connect(LevelManager.load)
 
-	load_timer = Timer.new()
-	add_child(load_timer)
-	load_timer.wait_time = 0.2
-	load_timer.one_shot = true
-	load_timer.timeout.connect(LevelManager.load_oldest)
+	load_oldest_reverter_timer = Timer.new()
+	add_child(load_oldest_reverter_timer)
+	load_oldest_reverter_timer.wait_time = 0.2
+	load_oldest_reverter_timer.one_shot = true
+	load_oldest_reverter_timer.timeout.connect(LevelManager.load_oldest)
 
 	double_tap_timer = Timer.new()
 	add_child(double_tap_timer)
@@ -72,19 +72,19 @@ func _process(_delta):
 
 	if Input.is_action_just_pressed("Restart") && InGameMenuController.current_menu == null:
 		if is_alive:
-			reset_timer.start()
-			EventBus.screen_fade_changed.emit(1, reset_timer.wait_time)
+			load_saved_timer.start()
+			EventBus.screen_fade_changed.emit(1, load_saved_timer.wait_time)
 			# double tap to restart
 			if !double_tap_timer.is_stopped():
-				EventBus.screen_fade_changed.emit(0.9, load_timer.wait_time * 0.5)
-				load_timer.start()
+				EventBus.screen_fade_changed.emit(0.9, load_oldest_reverter_timer.wait_time * 0.5)
+				load_oldest_reverter_timer.start()
 			else:
 				double_tap_timer.start()
 
 	# stop the timer if the action is released
-	if Input.is_action_just_released("Restart") && load_timer.is_stopped():
+	if Input.is_action_just_released("Restart") && load_oldest_reverter_timer.is_stopped():
 		EventBus.screen_fade_changed.emit(0, 0.2)
-		reset_timer.stop()
+		load_saved_timer.stop()
 
 func _destroyed():
 	hud.hide()
@@ -100,10 +100,6 @@ func _autosave():
 		LevelManager.commit()
 		print("autosave")
 		prev_transform = vehicle.global_transform
-
-func _reset():
-	LevelManager.load()
-
 
 func _on_out_of_combat_timer_timeout():
 	print("out of combat")

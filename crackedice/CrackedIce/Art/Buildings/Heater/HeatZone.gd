@@ -7,7 +7,7 @@ extends Node3D
 
 var destroyed := false
 
-func _on_area_3d_body_entered(body:Node3D):
+func _on_area_3d_body_entered(body:Node3D): 	# TODO: assign heat if function heat exists in body
 	if columns >= min_cols:
 		EventBus.heat_zone_assigned.emit(max_heat, global_transform.origin)
 

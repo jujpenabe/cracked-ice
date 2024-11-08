@@ -1,0 +1,119 @@
+[gd_scene load_steps=12 format=3 uid="uid://ks7kwrh601eo"]
+
+[ext_resource type="Script" path="res://addons/gevp/scripts/vehicle.gd" id="2_gbgy6"]
+[ext_resource type="Script" path="res://addons/gevp/scripts/wheel.gd" id="3_vypvv"]
+[ext_resource type="PackedScene" uid="uid://benmjny2guowm" path="res://CrackedIce/Art/Cars/Models/Doge/Wheel.glb" id="4_4gec5"]
+[ext_resource type="PackedScene" uid="uid://8sl5gmdd6o6w" path="res://CrackedIce/Art/Cars/camera/camera_3d.tscn" id="4_6u7nc"]
+[ext_resource type="PackedScene" uid="uid://bty2rpvw2dh0h" path="res://CrackedIce/Art/Cars/Models/Doge/doge-body.glb" id="5_uhnuk"]
+
+[sub_resource type="Curve" id="Curve_tsbum"]
+_data = [Vector2(0, 0.496115), 0.0, 1.50453, 0, 0, Vector2(0.748676, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.745838), -1.78815, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mm2gk"]
+size = Vector3(1.9717, 1, 2.08592)
+
+[sub_resource type="LabelSettings" id="LabelSettings_yc8e5"]
+font_size = 32
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n7qdn"]
+radius = 0.291194
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xaafv"]
+size = Vector3(0.542114, 1.7092, 1.53265)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7kmqy"]
+radius = 0.363529
+
+[node name="car" type="RigidBody3D" node_paths=PackedStringArray("front_left_wheel", "front_right_wheel", "rear_left_wheel", "rear_right_wheel")]
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.1, 0)
+script = ExtResource("2_gbgy6")
+front_left_wheel = NodePath("WheelFrontLeft")
+front_right_wheel = NodePath("WheelFrontRight")
+rear_left_wheel = NodePath("WheelRearLeft")
+rear_right_wheel = NodePath("WheelRearRight")
+torque_curve = SubResource("Curve_tsbum")
+
+[node name="WheelFrontRight" type="RayCast3D" parent="." node_paths=PackedStringArray("wheel_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.997421, 0.340338, -1.50006)
+script = ExtResource("3_vypvv")
+wheel_node = NodePath("FrontRightWheel")
+
+[node name="FrontRightWheel" parent="WheelFrontRight" instance=ExtResource("4_4gec5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.142656, 0, 0)
+
+[node name="WheelFrontLeft" type="RayCast3D" parent="." node_paths=PackedStringArray("wheel_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02668, 0.340338, -1.50006)
+script = ExtResource("3_vypvv")
+wheel_node = NodePath("FrontLeftWheel")
+
+[node name="FrontLeftWheel" parent="WheelFrontLeft" instance=ExtResource("4_4gec5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0775136, 0, 0)
+
+[node name="WheelRearRight" type="RayCast3D" parent="." node_paths=PackedStringArray("wheel_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.997421, 0.286814, 1.26411)
+script = ExtResource("3_vypvv")
+wheel_node = NodePath("RearRightWheel")
+
+[node name="RearRightWheel" parent="WheelRearRight" instance=ExtResource("4_4gec5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.142656, 0, 0)
+
+[node name="WheelRearLeft" type="RayCast3D" parent="." node_paths=PackedStringArray("wheel_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02668, 0.286814, 1.26411)
+script = ExtResource("3_vypvv")
+wheel_node = NodePath("RearLeftWheel")
+
+[node name="RearLeftWheel" parent="WheelRearLeft" instance=ExtResource("4_4gec5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0775136, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0026385, 0.827398, 0.719927)
+visible = false
+shape = SubResource("BoxShape3D_mm2gk")
+
+[node name="look" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2149, 0)
+
+[node name="Camera3D" parent="look" instance=ExtResource("4_6u7nc")]
+transform = Transform3D(1, 0, 0, 0, 0.974347, 0.225053, 0, -0.225053, 0.974347, 0, 1.97324, 6.19962)
+speed = 10.0
+
+[node name="Hud" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="speed" type="Label" parent="Hud"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 50
+
+[node name="Label" type="Label" parent="Hud"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Arow keys to drive
+Space to drift and break
+"
+label_settings = SubResource("LabelSettings_yc8e5")
+
+[node name="doge-body" parent="." instance=ExtResource("5_uhnuk")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.590649, -2.08042)
+shape = SubResource("CapsuleShape3D_n7qdn")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000778168, 0.603737, -1.11035)
+shape = SubResource("BoxShape3D_xaafv")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000778168, 0.653567, 1.99781)
+shape = SubResource("CapsuleShape3D_7kmqy")
